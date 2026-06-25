@@ -64,7 +64,7 @@ export function ServiceDetail({ slug }: { slug: string }) {
               <Reveal
                 key={point.title}
                 delay={i * 0.06}
-                className="rounded-[var(--radius-card)] border border-line bg-paper p-7"
+                className="rounded-card border border-line bg-paper p-7"
               >
                 <span className="font-mono text-label text-accent">
                   {String(i + 1).padStart(2, "0")}
@@ -83,7 +83,7 @@ export function ServiceDetail({ slug }: { slug: string }) {
           <div className="flex flex-wrap items-center justify-between gap-6">
             <h2 className="text-heading text-ink">Explore other services</h2>
           </div>
-          <ul className="mt-8 grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line sm:grid-cols-3">
+          <ul className="mt-8 grid gap-px overflow-hidden rounded-card border border-line bg-line sm:grid-cols-3">
             {others.map((p) => (
               <li key={p.slug} className="bg-paper">
                 <div className="flex h-full flex-col p-6">

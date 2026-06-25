@@ -21,7 +21,7 @@ export function ProcessTeaser() {
           </ArrowLink>
         </div>
 
-        <ol className="mt-12 grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-12 grid gap-px overflow-hidden rounded-card border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
           {processSteps.map((step, i) => (
             <li key={step.id} className="bg-paper">
               <Reveal delay={i * 0.06} className="flex h-full flex-col p-7">

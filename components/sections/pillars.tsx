@@ -24,7 +24,7 @@ export function PillarCard({ pillar }: { pillar: Pillar }) {
     <Link
       href={pillar.href}
       className={cn(
-        "group flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-paper p-6 sm:p-7",
+        "group flex h-full flex-col rounded-card border border-line bg-paper p-6 sm:p-7",
         "transition-colors duration-200 hover:border-ink/20 hover:bg-mist/60",
       )}
     >
