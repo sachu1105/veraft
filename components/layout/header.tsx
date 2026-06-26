@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu } from "lucide-react";
 import { primaryNav, site } from "@/lib/site";
 import { cn } from "@/lib/cn";
@@ -14,20 +14,40 @@ import { MobileMenu } from "./mobile-menu";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  // Keep latest menu state readable inside the scroll handler without
+  // re-subscribing the listener.
+  const menuOpenRef = useRef(menuOpen);
   useEffect(() => {
+    menuOpenRef.current = menuOpen;
+  }, [menuOpen]);
+
+  useEffect(() => {
+    let lastY = window.scrollY;
     let ticking = false;
     const onScroll = () => {
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(() => {
-        setScrolled(window.scrollY > 8);
+        const y = window.scrollY;
+        setScrolled(y > 8);
+        const delta = y - lastY;
+        // Reveal near the top or when the menu is open; hide on a meaningful
+        // downward scroll, reveal on upward scroll.
+        if (y < 96 || menuOpenRef.current) {
+          setHidden(false);
+        } else if (delta > 6) {
+          setHidden(true);
+        } else if (delta < -6) {
+          setHidden(false);
+        }
+        lastY = y;
         ticking = false;
       });
     };
-    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -35,7 +55,8 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-300",
+        "sticky top-0 z-40 transition-[transform,background-color,border-color,backdrop-filter] duration-300 ease-out-quint",
+        hidden ? "-translate-y-full" : "translate-y-0",
         scrolled
           ? "border-b border-line bg-paper/80 backdrop-blur-md"
           : "border-b border-transparent bg-paper/0",
