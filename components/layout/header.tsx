@@ -49,7 +49,7 @@ export function Header() {
             scrolled ? "h-16" : "h-20",
           )}
         >
-          <Logo />
+          <Logo priority />
 
           <nav aria-label="Primary" className="hidden md:block">
             <ul className="flex items-center gap-1">
