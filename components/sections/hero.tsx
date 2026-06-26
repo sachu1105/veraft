@@ -22,7 +22,7 @@ const item = {
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden border-b border-line">
       {/* A single, faint accent glow — the only flourish in the hero. */}
       <div
         aria-hidden
