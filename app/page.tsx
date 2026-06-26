@@ -1,5 +1,5 @@
 import { Hero } from "@/components/sections/hero";
-import { PositioningStrip } from "@/components/sections/positioning-strip";
+import { LogoMarquee } from "@/components/sections/logo-marquee";
 import { Pillars } from "@/components/sections/pillars";
 import { Outcomes } from "@/components/sections/outcomes";
 import { ProcessTeaser } from "@/components/sections/process-teaser";
@@ -9,7 +9,7 @@ export default function HomePage() {
   return (
     <main id="main">
       <Hero />
-      <PositioningStrip />
+      <LogoMarquee />
       <Pillars intro="We build modern software and AI solutions across four areas — often combined into one system." />
       <Outcomes />
       <ProcessTeaser />
