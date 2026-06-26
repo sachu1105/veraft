@@ -54,14 +54,14 @@ export default function OpengraphImage() {
           style={{
             display: "flex",
             color: "#fff",
-            fontSize: 78,
+            fontSize: 68,
             fontWeight: 600,
-            lineHeight: 1.05,
+            lineHeight: 1.07,
             letterSpacing: "-0.03em",
-            maxWidth: 980,
+            maxWidth: 1000,
           }}
         >
-          Software that works alongside your team.
+          Build intelligent software that grows your business.
         </div>
 
         {/* Footer line */}
