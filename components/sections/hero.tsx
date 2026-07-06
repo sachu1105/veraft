@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/container";
 import { ButtonLink } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { ColumnFrame } from "@/components/ui/column-frame";
+import { HeroParticles } from "@/components/three/hero-particles";
 
 /**
  * Static, Stripe-style text hero: a large headline in ink followed by a
@@ -17,6 +18,7 @@ export function Hero() {
         className="pointer-events-none absolute -right-40 -top-40 hidden size-[40rem] rounded-full bg-accent/5 blur-3xl lg:block"
       />
       <ColumnFrame />
+      <HeroParticles />
       <Container className="relative py-20 sm:py-24">
         <div className="max-w-4xl">
           <Eyebrow>AI-first software studio</Eyebrow>

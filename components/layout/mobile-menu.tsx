@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { X, ArrowUpRight } from "lucide-react";
 import { primaryNav } from "@/lib/site";
@@ -21,6 +22,10 @@ export function MobileMenu({
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
 
+  // Portal target only exists on the client.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   // Escape to close + lock body scroll while open.
   useEffect(() => {
     if (!open) return;
@@ -37,7 +42,12 @@ export function MobileMenu({
     };
   }, [open, onClose]);
 
-  return (
+  if (!mounted) return null;
+
+  // Portaled to <body>: the header animates with `transform`/`backdrop-filter`,
+  // which would otherwise become the containing block for this fixed overlay
+  // and clip it to the header's box.
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
@@ -105,6 +115,7 @@ export function MobileMenu({
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }

@@ -1,8 +1,12 @@
-import type { ElementType, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { ColumnFrame } from "./column-frame";
 
 type Tone = "paper" | "mist" | "ink";
+// Constrained to HTML tags on purpose: an open `ElementType` here would
+// intersect with the three.js elements R3F merges into JSX, collapsing the
+// children type to `never`.
+type SectionTag = "section" | "div" | "article" | "aside";
 
 const toneClass: Record<Tone, string> = {
   paper: "bg-paper text-ink",
@@ -24,7 +28,7 @@ export function Section({
   children: ReactNode;
   tone?: Tone;
   className?: string;
-  as?: ElementType;
+  as?: SectionTag;
   id?: string;
 }) {
   return (
