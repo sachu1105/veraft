@@ -10,7 +10,7 @@ export const site = {
   tagline: "AI-first software studio",
   description:
     "Veraft designs and builds custom web applications, business platforms, and AI systems that automate repetitive work and improve how customers experience your business.",
-  email: "hello@veraft.com",
+  email: "veraftio@gmail.com",
   // TODO: replace with the real registered location.
   location: "Remote-first · India",
 } as const;
