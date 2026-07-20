@@ -25,6 +25,7 @@ export function AnimatedList<T>({
   renderItem,
   interval = 2400,
   maxVisible = 4,
+  paused = false,
   className,
 }: {
   items: T[];
@@ -38,6 +39,8 @@ export function AnimatedList<T>({
   interval?: number;
   /** How many cards are shown at once. */
   maxVisible?: number;
+  /** When true, cycling stops and the current stack holds. */
+  paused?: boolean;
   className?: string;
 }) {
   const reduce = useReducedMotion();
@@ -53,7 +56,7 @@ export function AnimatedList<T>({
   );
 
   useEffect(() => {
-    if (reduce || items.length === 0) return;
+    if (reduce || paused || items.length === 0) return;
     const id = setInterval(() => {
       setStack((prev) => {
         const next = items[cursorRef.current % items.length];
@@ -65,7 +68,7 @@ export function AnimatedList<T>({
       });
     }, interval);
     return () => clearInterval(id);
-  }, [items, interval, maxVisible, reduce]);
+  }, [items, interval, maxVisible, reduce, paused]);
 
   return (
     <div className={className}>
