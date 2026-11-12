@@ -33,7 +33,7 @@ export function DiyComparison() {
           </p>
         </div>
 
-        <div className="mt-12 overflow-x-auto rounded-xl border border-line">
+        <div className="relative mt-12 overflow-x-auto rounded-xl border border-line">
           <table className="w-full min-w-[640px] border-collapse text-left text-body-sm">
             <caption className="sr-only">
               Building with AI tools yourself compared with building with Veraft

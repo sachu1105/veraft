@@ -92,7 +92,7 @@ export default function PricingPage() {
               Hourly agency vs. token-based.
             </h2>
           </div>
-          <div className="mt-12 overflow-x-auto rounded-xl border border-line">
+          <div className="relative mt-12 overflow-x-auto rounded-xl border border-line">
             <table className="w-full min-w-[560px] border-collapse text-left text-body-sm">
               <caption className="sr-only">Hourly agency billing compared with Veraft token-based billing</caption>
               <thead>
