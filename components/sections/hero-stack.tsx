@@ -316,7 +316,7 @@ export function HeroStack({ className }: { className?: string }) {
           {...faces.secure}
           rightContent={
             <g>
-              <ShieldCheck x={20} y={8} size={18} strokeWidth={1.75} className="text-accent" />
+              <ShieldCheck x={20} y={8} size={18} strokeWidth={1.75} className="text-accent-fg" />
               <FaceLabel x={46} y={21} className="fill-ink">
                 Security · Tests
               </FaceLabel>
@@ -338,11 +338,11 @@ export function HeroStack({ className }: { className?: string }) {
           }
           rightContent={
             <image
-              href="/images/veraft-logo-trimmed.png"
-              x={35}
-              y={25}
-              width={160}
-              height={49.5}
+              href="/images/veraft-wordmark.png"
+              x={30}
+              y={29}
+              width={170}
+              height={42.1}
               filter="url(#vs-white)"
               preserveAspectRatio="xMidYMid meet"
             />

@@ -44,7 +44,7 @@ function FeatureCell({
           <ul className="mt-5 flex flex-col gap-2">
             {points.map((p) => (
               <li key={p} className="flex items-start gap-2.5 text-body-sm text-ink">
-                <Check size={16} strokeWidth={2} className="mt-[3px] shrink-0 text-accent" aria-hidden />
+                <Check size={16} strokeWidth={2} className="mt-[3px] shrink-0 text-accent-fg" aria-hidden />
                 {p}
               </li>
             ))}
@@ -55,7 +55,7 @@ function FeatureCell({
           className="mt-7 inline-flex items-center gap-1.5 rounded-md border border-line bg-paper px-3.5 py-2 text-body-sm text-ink shadow-[0_1px_2px_rgb(var(--c-ink)/0.05)] transition-colors hover:border-ink/25 hover:bg-mist"
         >
           {cta}
-          <ArrowUpRight size={15} strokeWidth={1.75} className="text-accent" aria-hidden />
+          <ArrowUpRight size={15} strokeWidth={1.75} className="text-accent-fg" aria-hidden />
         </Link>
       </div>
       <div aria-hidden className="relative mt-12 flex flex-1 flex-col justify-end">
@@ -74,7 +74,7 @@ function ReviewVisual() {
     <div className="ml-6 rounded-tl-xl border-l border-t border-line bg-paper shadow-[0_-20px_60px_-30px_rgb(var(--c-accent)/0.35)] sm:ml-10 lg:ml-12">
       <div className="flex items-center justify-between gap-4 border-b border-line px-5 py-3.5">
         <span className="flex min-w-0 items-center gap-2.5 text-body-sm text-ink">
-          <GitPullRequest size={16} strokeWidth={1.75} className="shrink-0 text-accent" />
+          <GitPullRequest size={16} strokeWidth={1.75} className="shrink-0 text-accent-fg" />
           <span className="truncate">#42 Booking availability engine</span>
         </span>
         <span className="shrink-0 rounded-full bg-accent px-2.5 py-1 font-mono text-[0.6875rem] text-on-accent">
@@ -83,15 +83,15 @@ function ReviewVisual() {
       </div>
       <div className="px-5 py-4 font-mono text-[0.75rem] leading-[1.9]">
         <p className="text-muted">deepseek opened · claude reviewed · +412 −38</p>
-        <p className="mt-2 text-accent">+ export async function getSlots(day, staffId) {"{"}</p>
-        <p className="text-accent">+   const tz = clinic.timezone;</p>
+        <p className="mt-2 text-accent-fg">+ export async function getSlots(day, staffId) {"{"}</p>
+        <p className="text-accent-fg">+   const tz = clinic.timezone;</p>
         <p className="text-muted line-through decoration-muted/40">-   const tz = &quot;UTC&quot;; // TODO</p>
-        <p className="text-accent">+   return freeSlots(day, staffId, tz);</p>
+        <p className="text-accent-fg">+   return freeSlots(day, staffId, tz);</p>
         <div className="mt-3 flex items-start gap-2 rounded-lg border border-line bg-mist px-3 py-2.5 font-sans text-[0.8125rem] leading-snug text-ink">
-          <MessageSquare size={14} strokeWidth={1.75} className="mt-0.5 shrink-0 text-accent" />
+          <MessageSquare size={14} strokeWidth={1.75} className="mt-0.5 shrink-0 text-accent-fg" />
           <span>
             <span className="font-semibold">engineer:</span>{" "}use the clinic&apos;s timezone, not
-            UTC — DST will bite. <span className="text-accent">✓ resolved</span>
+            UTC — DST will bite. <span className="text-accent-fg">✓ resolved</span>
           </span>
         </div>
       </div>
@@ -123,7 +123,7 @@ function DeployVisual() {
               {pipeline.map((p) => (
                 <li key={p.step} className="flex items-center justify-between gap-3">
                   <span className="flex items-center gap-2 text-ink">
-                    <Check size={14} strokeWidth={2.25} className="text-accent" />
+                    <Check size={14} strokeWidth={2.25} className="text-accent-fg" />
                     {p.step}
                   </span>
                   <span className="text-muted">{p.time}</span>
@@ -132,7 +132,7 @@ function DeployVisual() {
             </ul>
             <div className="mt-4 flex items-center justify-between rounded-lg border border-accent/25 bg-accent/5 px-3 py-2 font-mono text-[0.75rem]">
               <span className="text-ink">app.yourclinic.com</span>
-              <span className="text-accent">deployed</span>
+              <span className="text-accent-fg">deployed</span>
             </div>
           </div>
         </div>
@@ -159,7 +159,7 @@ function QualityVisual() {
           <li key={c.label}>
             <div className="flex items-center justify-between text-body-sm">
               <span className="text-ink">{c.label}</span>
-              <span className="font-mono text-label text-accent">{c.value}</span>
+              <span className="font-mono text-label text-accent-fg">{c.value}</span>
             </div>
             <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-mist">
               <div className="h-full rounded-full bg-accent" style={{ width: `${c.pct}%` }} />
@@ -189,7 +189,7 @@ function ScreensVisual() {
         >
           <div className="flex items-center border-b border-line">
             <span className="flex items-center gap-2.5 border-r border-line px-5 py-3.5 text-body text-ink">
-              <Icon size={18} strokeWidth={1.75} className="text-accent" />
+              <Icon size={18} strokeWidth={1.75} className="text-accent-fg" />
               {file}
             </span>
           </div>

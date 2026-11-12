@@ -25,7 +25,7 @@ export function PricingTeaser() {
           <ol className="mt-8 flex flex-col gap-5">
             {pricingSteps.map((s, i) => (
               <li key={s.title} className="flex gap-4">
-                <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-md border border-line bg-paper font-mono text-label text-accent">
+                <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-md border border-line bg-paper font-mono text-label text-accent-fg">
                   {i + 1}
                 </span>
                 <div>

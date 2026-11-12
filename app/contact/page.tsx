@@ -40,7 +40,7 @@ export default function ContactPage() {
                 <ol className="mt-5 flex flex-col">
                   {nextSteps.map((step, i) => (
                     <li key={step} className="flex gap-4 border-t border-line py-4 last:border-b">
-                      <span className="font-mono text-label text-accent">
+                      <span className="font-mono text-label text-accent-fg">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <span className="text-body-sm text-ink">{step}</span>
@@ -55,7 +55,7 @@ export default function ContactPage() {
                 </h2>
                 <a
                   href={`mailto:${site.email}`}
-                  className="mt-4 inline-flex items-center gap-1.5 break-all text-heading text-ink transition-colors hover:text-accent"
+                  className="mt-4 inline-flex items-center gap-1.5 break-all text-heading text-ink transition-colors hover:text-accent-fg"
                 >
                   {site.email}
                   <ArrowUpRight size={20} strokeWidth={1.5} aria-hidden />

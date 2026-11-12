@@ -46,7 +46,7 @@ export function DiyComparison() {
                 <th scope="col" className="px-5 py-4 font-medium text-ink sm:px-6">
                   DIY with AI tools
                 </th>
-                <th scope="col" className="border-l border-accent/20 bg-accent/5 px-5 py-4 font-medium text-accent sm:px-6">
+                <th scope="col" className="border-l border-accent/20 bg-accent/5 px-5 py-4 font-medium text-accent-fg sm:px-6">
                   With Veraft
                 </th>
               </tr>
@@ -69,7 +69,7 @@ export function DiyComparison() {
                     </td>
                     <td className="border-l border-accent/20 bg-accent/5 px-5 py-4 sm:px-6">
                       <span className="flex items-center gap-2.5 text-ink">
-                        <Check size={16} strokeWidth={2.25} aria-hidden className="shrink-0 text-accent" />
+                        <Check size={16} strokeWidth={2.25} aria-hidden className="shrink-0 text-accent-fg" />
                         <span className="sr-only">Yes: </span>
                         {row.veraft}
                       </span>

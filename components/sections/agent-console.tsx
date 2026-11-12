@@ -11,7 +11,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const who: Record<ConsoleLine["by"], { label: string; className: string }> = {
   cmd: { label: "›", className: "text-muted" },
   sys: { label: "▸", className: "text-muted" },
-  claude: { label: "claude", className: "text-accent" },
+  claude: { label: "claude", className: "text-accent-fg" },
   chatgpt: { label: "chatgpt", className: "text-ink" },
   deepseek: { label: "deepseek", className: "text-accent-2" },
   gemini: { label: "gemini", className: "text-muted" },
@@ -67,7 +67,7 @@ export function AgentConsole() {
         <div className="flex items-center justify-between border-b border-line bg-mist/60">
           <div className="flex">
             <span className="flex items-center gap-2 border-r border-line bg-paper px-4 py-3 font-mono text-label text-ink">
-              <Terminal size={14} strokeWidth={1.75} className="text-accent" aria-hidden />
+              <Terminal size={14} strokeWidth={1.75} className="text-accent-fg" aria-hidden />
               {tab.id}.log
             </span>
             <span className="hidden items-center gap-2 border-r border-line px-4 py-3 font-mono text-label text-muted sm:flex">
@@ -101,7 +101,7 @@ export function AgentConsole() {
                   >
                     {line.by === "cmd" ? (
                       <>
-                        <span className="text-accent">veraft</span>
+                        <span className="text-accent-fg">veraft</span>
                         <span className="text-ink">{line.text}</span>
                       </>
                     ) : (
@@ -116,7 +116,7 @@ export function AgentConsole() {
                           )}
                         >
                           {line.by === "engineer" && (
-                            <Check size={14} strokeWidth={2.25} className="text-accent" aria-hidden />
+                            <Check size={14} strokeWidth={2.25} className="text-accent-fg" aria-hidden />
                           )}
                           {line.text}
                         </span>

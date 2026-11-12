@@ -103,14 +103,14 @@ export function ContactForm() {
   if (status === "success") {
     return (
       <div className="rounded-xl border border-line bg-paper p-8 sm:p-10" role="status">
-        <span className="flex size-11 items-center justify-center rounded-md bg-accent/10 text-accent">
+        <span className="flex size-11 items-center justify-center rounded-md bg-accent/10 text-accent-fg">
           <Check size={22} strokeWidth={1.75} aria-hidden />
         </span>
         <h2 className="mt-5 text-heading text-ink">Request received — thank you.</h2>
         <p className="mt-2.5 max-w-md text-body text-muted">
           We&apos;ll reply within one business day to confirm a time. If it&apos;s
           urgent, email{" "}
-          <a href={`mailto:${site.email}`} className="text-accent underline-offset-2 hover:underline">
+          <a href={`mailto:${site.email}`} className="text-accent-fg underline-offset-2 hover:underline">
             {site.email}
           </a>
           .
@@ -300,7 +300,7 @@ function Chip({
         onClick={checked ? onChange : undefined}
         className="peer sr-only"
       />
-      <span className="inline-flex items-center rounded-md border border-line bg-paper px-3.5 py-2 text-body-sm text-ink transition-colors duration-150 hover:border-ink/25 peer-checked:border-accent peer-checked:bg-accent/5 peer-checked:text-accent peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent">
+      <span className="inline-flex items-center rounded-md border border-line bg-paper px-3.5 py-2 text-body-sm text-ink transition-colors duration-150 hover:border-ink/25 peer-checked:border-accent peer-checked:bg-accent/5 peer-checked:text-accent-fg peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent">
         {value}
       </span>
     </label>
@@ -332,7 +332,7 @@ function ChipGroup({
     >
       <legend className="mb-2.5 block font-mono text-label uppercase tracking-[0.1em] text-muted">
         {legend}
-        {required && <span className="ml-1 text-accent">*</span>}
+        {required && <span className="ml-1 text-accent-fg">*</span>}
       </legend>
       <div className="flex flex-wrap gap-2" id={`field-${name}`} tabIndex={-1}>
         {options.map((opt) => (
@@ -367,7 +367,7 @@ function FieldLabel({
       className="mb-2 block font-mono text-label uppercase tracking-[0.1em] text-muted"
     >
       {label}
-      {required && <span className="ml-1 text-accent">*</span>}
+      {required && <span className="ml-1 text-accent-fg">*</span>}
       {optional && <span className="ml-1 normal-case text-muted">(optional)</span>}
     </label>
   );

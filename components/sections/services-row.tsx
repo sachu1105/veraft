@@ -38,7 +38,7 @@ export function ServicesRow({
                 className="group flex h-full flex-col p-6 transition-colors duration-200 hover:bg-mist/70 sm:p-8"
               >
                 <div className="flex items-center justify-between">
-                  <span className="flex size-11 items-center justify-center rounded-md border border-line bg-paper text-ink transition-colors group-hover:border-accent/40 group-hover:text-accent">
+                  <span className="flex size-11 items-center justify-center rounded-md border border-line bg-paper text-ink transition-colors group-hover:border-accent/40 group-hover:text-accent-fg">
                     <Icon size={20} strokeWidth={1.5} aria-hidden />
                   </span>
                   <span className="font-mono text-label text-muted">
@@ -47,7 +47,7 @@ export function ServicesRow({
                 </div>
                 <h3 className="mt-6 text-heading text-ink">{p.title}</h3>
                 <p className="mt-2.5 text-body-sm text-muted">{p.summary}</p>
-                <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-body-sm font-medium text-accent">
+                <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-body-sm font-medium text-accent-fg">
                   Explore
                   <ArrowRight
                     size={16}

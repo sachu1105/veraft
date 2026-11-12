@@ -41,13 +41,13 @@ export function Faq({
         <div className="border-t border-line">
           {items.map((f) => (
             <details key={f.q} className="group border-b border-line">
-              <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-5 text-body text-ink transition-colors hover:text-accent [&::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-5 text-body text-ink transition-colors hover:text-accent-fg [&::-webkit-details-marker]:hidden">
                 {f.q}
                 <Plus
                   size={18}
                   strokeWidth={1.75}
                   aria-hidden
-                  className="mt-1 shrink-0 text-accent transition-transform duration-200 group-open:rotate-45"
+                  className="mt-1 shrink-0 text-accent-fg transition-transform duration-200 group-open:rotate-45"
                 />
               </summary>
               <p className="max-w-2xl pb-6 text-body-sm text-muted">{f.a}</p>

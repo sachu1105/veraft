@@ -92,7 +92,7 @@ export function ServiceDetail({ slug }: { slug: string }) {
           <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-3">
             {detail.approach.map((point, i) => (
               <Reveal key={point.title} delay={i * 0.06} className="bg-paper p-7">
-                <span className="font-mono text-label text-accent">
+                <span className="font-mono text-label text-accent-fg">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="mt-4 text-heading text-ink">{point.title}</h3>

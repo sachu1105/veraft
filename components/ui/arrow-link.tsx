@@ -22,7 +22,7 @@ export function ArrowLink({
       href={href}
       className={cn(
         "group inline-flex items-center gap-1.5 text-body-sm font-medium",
-        onDark ? "text-accent-2" : "text-accent",
+        onDark ? "text-accent-2" : "text-accent-fg",
         className,
       )}
     >

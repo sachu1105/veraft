@@ -35,7 +35,7 @@ export function EndToEnd() {
                 <Check
                   size={17}
                   strokeWidth={2}
-                  className="mt-[3px] shrink-0 text-accent"
+                  className="mt-[3px] shrink-0 text-accent-fg"
                   aria-hidden
                 />
                 {p}

@@ -2,12 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 
-// Trimmed from the supplied public/images/veraft-logo.png (transparent PNG,
-// pure-black wordmark). Intrinsic size of the trimmed asset:
-const LOGO = {
-  src: "/images/veraft-logo-trimmed.png",
-  width: 1296,
-  height: 401,
+// Derived from the supplied public/images/veraft-logo.png (transparent PNG,
+// pure-black wordmark) with the "V" scaled so its top aligns with the "f"
+// ascender — a balanced wordmark. Intrinsic size of the asset:
+export const LOGO = {
+  src: "/images/veraft-wordmark.png",
+  width: 1223,
+  height: 303,
 };
 
 /**
@@ -38,7 +39,7 @@ export function Logo({
         height={LOGO.height}
         alt="Veraft"
         priority={priority}
-        className={cn("h-7 w-auto dark:invert", onDark && "invert")}
+        className={cn("h-6 w-auto dark:invert", onDark && "invert")}
       />
     </Link>
   );

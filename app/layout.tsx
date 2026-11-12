@@ -52,7 +52,7 @@ const organizationJsonLd = {
   url: site.url,
   description: site.description,
   email: site.email,
-  logo: `${site.url}/images/veraft-logo-trimmed.png`,
+  logo: `${site.url}/images/veraft-wordmark.png`,
   areaServed: "Worldwide",
   knowsAbout: [
     "Software development",

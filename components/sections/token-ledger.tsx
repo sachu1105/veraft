@@ -24,7 +24,7 @@ export function TokenLedger({ className }: { className?: string }) {
     >
       <div className="flex items-center justify-between gap-4 border-b border-line bg-mist/60 px-5 py-3.5">
         <span className="flex items-center gap-2 font-mono text-label text-ink">
-          <Coins size={14} strokeWidth={1.75} className="text-accent" aria-hidden />
+          <Coins size={14} strokeWidth={1.75} className="text-accent-fg" aria-hidden />
           estimate · {project}
         </span>
         <span className="font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-muted">

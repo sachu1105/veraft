@@ -27,6 +27,7 @@ const config: Config = {
         muted: color("muted"),
         "muted-dark": color("muted-dark"),
         accent: color("accent"),
+        "accent-fg": color("accent-fg"),
         "accent-press": color("accent-press"),
         "accent-2": color("accent-2"),
         danger: color("danger"),

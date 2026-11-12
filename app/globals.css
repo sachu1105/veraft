@@ -20,7 +20,8 @@
   --c-line-dark: 35 38 47; /* hairline borders on dark */
   --c-muted: 107 114 128; /* secondary text on light */
   --c-muted-dark: 154 161 173; /* secondary text on dark */
-  --c-accent: 0 31 254; /* company blue — surgical use only */
+  --c-accent: 0 31 254; /* company blue #001FFE — fills; identical in both themes */
+  --c-accent-fg: 0 31 254; /* blue used as TEXT (links, labels) — lifted in dark */
   --c-accent-press: 0 23 194; /* hover / active darken */
   --c-accent-2: 61 107 255; /* signature element glow ONLY */
   --c-danger: 192 52 29; /* form validation errors only */
@@ -45,6 +46,7 @@
   --color-line-dark: rgb(var(--c-line-dark));
   --color-muted: rgb(var(--c-muted));
   --color-accent: rgb(var(--c-accent));
+  --color-accent-fg: rgb(var(--c-accent-fg));
   --color-accent-2: rgb(var(--c-accent-2));
 
   /* Motion easings (also mirrored in tailwind.config.ts) */
@@ -54,8 +56,9 @@
 
 /* Dark theme — chosen manually via the header toggle (data-theme on <html>),
    never from the OS preference. Only the channels change; the solid
-   --color-* vars above derive from them automatically. The accent is lifted
-   slightly so blue text stays legible on the dark surface. */
+   --color-* vars above derive from them automatically. Accent FILLS keep the
+   exact brand blue (#001FFE); only accent TEXT is lifted so it stays legible
+   on the dark surface. */
 :root[data-theme="dark"] {
   --c-ink: 236 237 241;
   --c-ink-soft: 200 203 211;
@@ -65,9 +68,7 @@
   --c-line-dark: 36 39 48;
   --c-muted: 150 157 171;
   --c-muted-dark: 150 157 171;
-  --c-accent: 74 104 255;
-  --c-accent-press: 52 84 255;
-  --c-accent-2: 128 150 255;
+  --c-accent-fg: 92 122 255; /* #5C7AFF — 5.3:1 on the dark surface */
   --c-danger: 248 113 94;
 
   color-scheme: dark;
@@ -102,7 +103,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-accent-fg);
     outline-offset: 2px;
     border-radius: 3px;
   }
@@ -145,8 +146,8 @@
 
   /* The brand wordmark rendered as a solid fill (any token color) via mask. */
   .wordmark-mask {
-    -webkit-mask: url("/images/veraft-logo-trimmed.png") center / contain no-repeat;
-    mask: url("/images/veraft-logo-trimmed.png") center / contain no-repeat;
+    -webkit-mask: url("/images/veraft-wordmark.png") center / contain no-repeat;
+    mask: url("/images/veraft-wordmark.png") center / contain no-repeat;
   }
 
   /* CTA "aurora" band: deep brand blue with bright edges, a dark pocket

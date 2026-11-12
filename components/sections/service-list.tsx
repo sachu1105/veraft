@@ -17,7 +17,7 @@ export function OfferingList({
     <ul className={className}>
       {items.map((item) => (
         <li key={item} className="flex items-start gap-3 py-2.5">
-          <Check size={18} strokeWidth={1.75} aria-hidden className="mt-0.5 shrink-0 text-accent" />
+          <Check size={18} strokeWidth={1.75} aria-hidden className="mt-0.5 shrink-0 text-accent-fg" />
           <span className="text-body-sm text-ink">{item}</span>
         </li>
       ))}
@@ -37,7 +37,7 @@ export function ServiceList() {
               <div className="lg:max-w-sm">
                 <div className="flex items-center gap-3">
                   {Icon && (
-                    <span className="flex size-10 items-center justify-center rounded-md border border-line text-accent">
+                    <span className="flex size-10 items-center justify-center rounded-md border border-line text-accent-fg">
                       <Icon size={19} strokeWidth={1.5} aria-hidden />
                     </span>
                   )}

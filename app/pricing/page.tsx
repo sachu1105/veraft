@@ -45,7 +45,7 @@ export default function PricingPage() {
               <ol className="mt-10 flex flex-col">
                 {pricingSteps.map((s, i) => (
                   <li key={s.title} className="flex gap-5 border-t border-line py-6 last:border-b">
-                    <span className="font-mono text-display-md leading-none text-accent">
+                    <span className="font-mono text-display-md leading-none text-accent-fg">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div>
@@ -74,7 +74,7 @@ export default function PricingPage() {
             {pricingIncludes.map((item, i) => (
               <li key={item} className="bg-paper">
                 <Reveal delay={i * 0.04} className="flex h-full items-start gap-3 p-6">
-                  <Check size={18} strokeWidth={2} className="mt-0.5 shrink-0 text-accent" aria-hidden />
+                  <Check size={18} strokeWidth={2} className="mt-0.5 shrink-0 text-accent-fg" aria-hidden />
                   <span className="text-body-sm text-ink">{item}</span>
                 </Reveal>
               </li>
@@ -101,7 +101,7 @@ export default function PricingPage() {
                     &nbsp;
                   </th>
                   <th scope="col" className="px-6 py-4 font-medium text-ink">Typical hourly agency</th>
-                  <th scope="col" className="border-l border-accent/20 bg-accent/5 px-6 py-4 font-medium text-accent">
+                  <th scope="col" className="border-l border-accent/20 bg-accent/5 px-6 py-4 font-medium text-accent-fg">
                     Veraft
                   </th>
                 </tr>

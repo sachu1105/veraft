@@ -33,7 +33,7 @@ export default function ApproachPage() {
             { title: "What engineers do", icon: UserCheck, items: agentVsEngineer.engineers },
           ].map((col) => (
             <div key={col.title} className="px-6 py-16 sm:px-10 sm:py-20 lg:px-12">
-              <span className="flex size-11 items-center justify-center rounded-md border border-line text-accent">
+              <span className="flex size-11 items-center justify-center rounded-md border border-line text-accent-fg">
                 <col.icon size={20} strokeWidth={1.5} aria-hidden />
               </span>
               <h2 className="mt-6 text-display-md text-ink">{col.title}</h2>
@@ -62,7 +62,7 @@ export default function ApproachPage() {
             {processSteps.map((step, i) => (
               <li key={step.id} className="bg-paper">
                 <Reveal delay={i * 0.05} className="flex h-full flex-col p-6">
-                  <span className="font-mono text-label text-accent">
+                  <span className="font-mono text-label text-accent-fg">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-4 text-heading text-ink">{step.title}</h3>

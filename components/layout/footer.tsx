@@ -20,7 +20,7 @@ export function Footer() {
         <div className="grid gap-12 px-6 pb-12 pt-20 sm:px-10 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:px-12">
           <div className="max-w-sm">
             <Logo />
-            <p className="mt-6 text-heading font-medium text-accent">
+            <p className="mt-6 text-heading font-medium text-accent-fg">
               Software built brick by brick with AI agents — from first brief
               to production.
             </p>
@@ -49,7 +49,7 @@ export function Footer() {
           <FooterColumn title="Get in touch">
             <a
               href={`mailto:${site.email}`}
-              className="inline-flex items-center gap-1.5 text-body-sm text-ink transition-colors hover:text-accent"
+              className="inline-flex items-center gap-1.5 text-body-sm text-ink transition-colors hover:text-accent-fg"
             >
               {site.email}
               <ArrowUpRight size={15} strokeWidth={1.5} aria-hidden />
@@ -78,7 +78,7 @@ export function Footer() {
 
         {/* Oversized wordmark, with a little breathing room below it. */}
         <div aria-hidden className="px-6 pb-8 sm:px-10 sm:pb-10 lg:px-12 lg:pb-12">
-          <div className="wordmark-mask aspect-[1296/401] w-full bg-accent" />
+          <div className="wordmark-mask aspect-[1223/303] w-full bg-accent" />
         </div>
       </div>
     </footer>
