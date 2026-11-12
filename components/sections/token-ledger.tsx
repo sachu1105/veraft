@@ -18,7 +18,7 @@ export function TokenLedger({ className }: { className?: string }) {
   return (
     <figure
       className={cn(
-        "overflow-hidden rounded-xl border border-line bg-paper shadow-[0_24px_60px_-30px_rgb(var(--c-accent)/0.35)]",
+        "overflow-hidden rounded-xl border border-line bg-paper",
         className,
       )}
     >

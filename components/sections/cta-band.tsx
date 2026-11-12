@@ -1,7 +1,7 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { Section } from "@/components/ui/section";
-import { site } from "@/lib/site";
+import { CopyEmail } from "@/components/ui/copy-email";
 
 const btn =
   "inline-flex h-[3.25rem] items-center justify-center gap-2 rounded-md px-7 text-body font-medium leading-none " +
@@ -47,13 +47,12 @@ export function CtaBand({
               Book a call
               <ArrowRight size={18} strokeWidth={1.75} aria-hidden />
             </Link>
-            <a
-              href={`mailto:${site.email}`}
+            <CopyEmail
               className={`${btn} border border-on-accent/30 bg-on-accent/10 text-on-accent backdrop-blur-sm hover:border-on-accent/50 hover:bg-on-accent/20`}
             >
               Email us
               <ArrowUpRight size={17} strokeWidth={1.75} aria-hidden />
-            </a>
+            </CopyEmail>
           </div>
         </div>
       </div>

@@ -59,7 +59,7 @@ function FeatureCell({
 
 function ReviewVisual() {
   return (
-    <div className="ml-6 rounded-tl-xl border-l border-t border-line bg-paper shadow-[0_-20px_60px_-30px_rgb(var(--c-accent)/0.35)] sm:ml-10 lg:ml-12">
+    <div className="ml-6 rounded-tl-xl border-l border-t border-line bg-paper sm:ml-10 lg:ml-12">
       <div className="flex items-center justify-between gap-4 border-b border-line px-5 py-3.5">
         <span className="flex min-w-0 items-center gap-2.5 text-body-sm text-ink">
           <GitPullRequest size={16} strokeWidth={1.75} className="shrink-0 text-accent-fg" />
@@ -138,7 +138,7 @@ const checks = [
 
 function QualityVisual() {
   return (
-    <div className="ml-6 rounded-tl-xl border-l border-t border-line bg-paper px-5 pb-8 pt-5 shadow-[0_-20px_60px_-30px_rgb(var(--c-accent)/0.35)] sm:ml-10 lg:ml-12">
+    <div className="ml-6 rounded-tl-xl border-l border-t border-line bg-paper px-5 pb-8 pt-5 sm:ml-10 lg:ml-12">
       <p className="font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-muted">
         Milestone 3 · quality gate
       </p>

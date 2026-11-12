@@ -78,7 +78,7 @@ export function Footer() {
 
         {/* Oversized wordmark, with a little breathing room below it. */}
         <div aria-hidden className="px-6 pb-8 sm:px-10 sm:pb-10 lg:px-12 lg:pb-12">
-          <div className="wordmark-mask aspect-[1223/303] w-full bg-accent" />
+          <div className="wordmark-mask aspect-[1223/303] mx-auto w-full bg-accent lg:w-[70%]" />
         </div>
       </div>
     </footer>

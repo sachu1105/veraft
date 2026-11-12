@@ -62,7 +62,7 @@ export function AgentConsole() {
         id={`${baseId}-panel`}
         role="tabpanel"
         aria-labelledby={`${baseId}-tab-${tab.id}`}
-        className="mt-5 overflow-hidden rounded-xl border border-line bg-paper shadow-[0_24px_60px_-30px_rgb(var(--c-accent)/0.35)]"
+        className="mt-5 overflow-hidden rounded-xl border border-line bg-paper"
       >
         <div className="flex items-center justify-between border-b border-line bg-mist/60">
           <div className="flex">
