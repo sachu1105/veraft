@@ -8,6 +8,8 @@ import type { Config } from "tailwindcss";
 const color = (name: string) => `rgb(var(--c-${name}) / <alpha-value>)`;
 
 const config: Config = {
+  // Dark mode is a manual choice (header toggle), never the OS setting.
+  darkMode: ["selector", '[data-theme="dark"]'],
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -28,6 +30,15 @@ const config: Config = {
         "accent-press": color("accent-press"),
         "accent-2": color("accent-2"),
         danger: color("danger"),
+        "on-accent": color("on-accent"),
+        // Fixed (theme-independent) brand blues — used by the CTA aurora band.
+        brand: {
+          950: color("brand-950"),
+          900: color("brand-900"),
+          700: color("brand-700"),
+          500: color("brand-500"),
+          200: color("brand-200"),
+        },
       },
       fontFamily: {
         sans: ["var(--font-geist-sans)", "ui-sans-serif", "system-ui", "sans-serif"],

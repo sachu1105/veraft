@@ -1,9 +1,9 @@
 import { Check } from "lucide-react";
 import { pillars } from "@/lib/site";
-import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { ArrowLink } from "@/components/ui/arrow-link";
 import { Reveal } from "@/components/motion/reveal";
+import { pillarIcons } from "@/components/sections/services-row";
 
 /** Offering checklist — reused on the services overview and detail pages. */
 export function OfferingList({
@@ -17,12 +17,7 @@ export function OfferingList({
     <ul className={className}>
       {items.map((item) => (
         <li key={item} className="flex items-start gap-3 py-2.5">
-          <Check
-            size={18}
-            strokeWidth={1.75}
-            aria-hidden
-            className="mt-0.5 shrink-0 text-accent"
-          />
+          <Check size={18} strokeWidth={1.75} aria-hidden className="mt-0.5 shrink-0 text-accent" />
           <span className="text-body-sm text-ink">{item}</span>
         </li>
       ))}
@@ -30,26 +25,27 @@ export function OfferingList({
   );
 }
 
-/** The four pillars expanded with full offerings, each linking to detail. */
+/** The four pillars expanded with full offerings — one framed block each. */
 export function ServiceList() {
   return (
-    <Section tone="paper">
-      <Container>
-        <div className="divide-y divide-line">
-          {pillars.map((pillar, i) => (
-            <Reveal
-              key={pillar.slug}
-              delay={i * 0.04}
-              className="grid gap-8 py-12 first:pt-0 last:pb-0 lg:grid-cols-[1fr_1.25fr] lg:gap-16"
-            >
+    <>
+      {pillars.map((pillar, i) => {
+        const Icon = pillarIcons[pillar.slug];
+        return (
+          <Section key={pillar.slug} aria-labelledby={pillar.slug}>
+            <Reveal className="grid gap-8 px-6 sm:px-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16 lg:px-12">
               <div className="lg:max-w-sm">
-                <span className="font-mono text-label text-accent">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h2
-                  id={pillar.slug}
-                  className="mt-4 scroll-mt-28 text-display-md text-ink"
-                >
+                <div className="flex items-center gap-3">
+                  {Icon && (
+                    <span className="flex size-10 items-center justify-center rounded-md border border-line text-accent">
+                      <Icon size={19} strokeWidth={1.5} aria-hidden />
+                    </span>
+                  )}
+                  <span className="font-mono text-label text-muted">
+                    {String(i + 1).padStart(2, "0")} / {String(pillars.length).padStart(2, "0")}
+                  </span>
+                </div>
+                <h2 id={pillar.slug} className="mt-6 scroll-mt-28 text-display-md text-ink">
                   {pillar.title}
                 </h2>
                 <p className="mt-4 text-body text-muted">{pillar.summary}</p>
@@ -58,14 +54,20 @@ export function ServiceList() {
                 </ArrowLink>
               </div>
 
-              <OfferingList
-                items={pillar.offerings}
-                className="grid gap-x-8 sm:grid-cols-2"
-              />
+              <div className="rounded-xl border border-line bg-mist/40 p-6 sm:p-8">
+                <p className="font-mono text-label uppercase tracking-[0.12em] text-muted">
+                  What we build
+                </p>
+                <OfferingList items={pillar.offerings} className="mt-3 grid gap-x-8 sm:grid-cols-2" />
+                <p className="mt-5 border-t border-line pt-5 text-body-sm text-ink">
+                  <span className="text-muted">For example: </span>
+                  {pillar.lead}
+                </p>
+              </div>
             </Reveal>
-          ))}
-        </div>
-      </Container>
-    </Section>
+          </Section>
+        );
+      })}
+    </>
   );
 }

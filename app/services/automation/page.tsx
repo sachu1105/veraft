@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { ServiceDetail } from "@/components/sections/service-detail";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Automation",
+export const metadata: Metadata = pageMetadata({
+  title: "Integrations & workflow automation",
   description:
-    "Workflow and business process automation, API integration, AI agents, and email automation that runs reliably in the background.",
-};
+    "Connect payments, email, CRMs, ERPs and third-party APIs, and automate repetitive workflows — reliable, idempotent and monitored.",
+  path: "/services/automation",
+});
 
 export default function Page() {
   return <ServiceDetail slug="automation" />;

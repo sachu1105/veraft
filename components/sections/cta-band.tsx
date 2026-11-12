@@ -1,42 +1,62 @@
-import { ArrowRight } from "lucide-react";
-import { Container } from "@/components/ui/container";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { Section } from "@/components/ui/section";
-import { ButtonLink } from "@/components/ui/button";
-import { Reveal } from "@/components/motion/reveal";
+import { site } from "@/lib/site";
+
+const btn =
+  "inline-flex h-[3.25rem] items-center justify-center gap-2 rounded-md px-7 text-body font-medium leading-none " +
+  "transition duration-150 ease-out-quint active:scale-[0.98] " +
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-accent";
 
 /**
- * Dark CTA band — one of the two intentional dark sections. The accent
- * button reads loud against the ink surface.
+ * Closing call to action: a vivid "aurora" band in brand blues (light rays,
+ * bottom bloom, film grain — see `.cta-aurora` in globals.css). Identical in
+ * light and dark themes, so its colours are fixed brand tokens.
  */
 export function CtaBand({
-  title = "Let's build something intelligent.",
-  body = "Tell us about the work you'd like to automate or the product you want to build. We'll come back with a clear, honest plan.",
+  title = (
+    <>
+      Lay the first brick.
+      <br />
+      What will you ship?
+    </>
+  ),
+  body = "Tell us what you want to build. We'll come back with a clear plan, a token estimate and a cap — before anything starts.",
 }: {
-  title?: string;
+  title?: React.ReactNode;
   body?: string;
 }) {
   return (
-    <Section tone="ink">
-      <Container>
-        <Reveal className="mx-auto flex max-w-2xl flex-col items-center text-center">
-          <h2 className="text-display-md text-paper">{title}</h2>
-          <p className="mt-5 max-w-xl text-body-lg text-muted-dark">{body}</p>
-          <div className="mt-9 flex flex-wrap justify-center gap-3">
-            <ButtonLink href="/contact" size="lg">
-              Start a project
-              <ArrowRight size={18} strokeWidth={1.75} aria-hidden />
-            </ButtonLink>
-            <ButtonLink
-              href="/services"
-              size="lg"
-              variant="secondary"
-              className="border-line-dark bg-transparent text-paper hover:border-paper/40 hover:bg-paper/5"
+    <Section padding="none" aria-labelledby="cta-heading">
+      <div className="cta-aurora px-6 py-24 text-center sm:py-28 lg:py-36">
+        <div className="relative mx-auto flex max-w-3xl flex-col items-center">
+          <h2
+            id="cta-heading"
+            className="text-display-lg text-on-accent [text-shadow:0_2px_24px_rgb(var(--c-brand-950)/0.6)]"
+          >
+            {title}
+          </h2>
+          <p className="mt-6 max-w-xl text-body-lg text-on-accent/85 [text-shadow:0_1px_12px_rgb(var(--c-brand-950)/0.6)]">
+            {body}
+          </p>
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <Link
+              href="/contact"
+              className={`${btn} bg-on-accent text-brand-900 shadow-[0_10px_40px_-10px_rgb(var(--c-brand-950)/0.8)] hover:bg-brand-200`}
             >
-              Explore services
-            </ButtonLink>
+              Book a call
+              <ArrowRight size={18} strokeWidth={1.75} aria-hidden />
+            </Link>
+            <a
+              href={`mailto:${site.email}`}
+              className={`${btn} border border-on-accent/30 bg-on-accent/10 text-on-accent backdrop-blur-sm hover:border-on-accent/50 hover:bg-on-accent/20`}
+            >
+              Email us
+              <ArrowUpRight size={17} strokeWidth={1.75} aria-hidden />
+            </a>
           </div>
-        </Reveal>
-      </Container>
+        </div>
+      </div>
     </Section>
   );
 }

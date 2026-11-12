@@ -1,7 +1,7 @@
 # Veraft
 
 Marketing website for Veraft — an AI-first software studio. Built with Next.js (App Router),
-TypeScript, Tailwind CSS v4, Motion, and Lenis.
+TypeScript, Tailwind CSS v3.4, Motion, and Lenis.
 
 ## Getting started
 
@@ -32,9 +32,13 @@ through the intercepting proxy:
 export NODE_OPTIONS=--use-system-ca   # trusts the Windows certificate store
 ```
 
+## Environment variables
+
+Copy `.env.example` to `.env.local`. Without `RESEND_API_KEY`, booking requests are logged to the server console instead of emailed.
+
 ## Structure
 
-- `app/` — App Router routes, `globals.css` (design tokens via Tailwind `@theme`).
+- `app/` — App Router routes, `globals.css` (design tokens as CSS variables).
 - `components/ui/` — primitives (Button, Container, Section, Eyebrow, …).
 - `components/sections/` — composed page sections.
 - `components/layout/` — Header, Footer, mobile menu, logo.

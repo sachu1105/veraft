@@ -1,15 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { X, ArrowUpRight } from "lucide-react";
 import { primaryNav } from "@/lib/site";
 import { ButtonLink } from "@/components/ui/button";
 import { Logo } from "./logo";
+import { ThemeToggle } from "./theme-toggle";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+const noopSubscribe = () => () => {};
 
 export function MobileMenu({
   open,
@@ -23,8 +25,11 @@ export function MobileMenu({
   const panelRef = useRef<HTMLDivElement>(null);
 
   // Portal target only exists on the client.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const mounted = useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false,
+  );
 
   // Escape to close + lock body scroll while open.
   useEffect(() => {
@@ -75,7 +80,7 @@ export function MobileMenu({
             }}
             transition={{ duration: 0.35, ease: EASE }}
           >
-            <div className="flex h-20 items-center justify-between px-6">
+            <div className="flex h-16 items-center justify-between border-b border-line px-6">
               <Logo onClick={onClose} />
               <button
                 type="button"
@@ -101,8 +106,14 @@ export function MobileMenu({
             </nav>
 
             <div className="mt-auto flex flex-col gap-4 px-6 pb-10">
+              <div className="flex items-center justify-between border-t border-line pt-6">
+                <span className="font-mono text-label uppercase tracking-[0.1em] text-muted">
+                  Theme
+                </span>
+                <ThemeToggle />
+              </div>
               <ButtonLink href="/contact" size="lg" onClick={onClose}>
-                Start a project
+                Book a call
               </ButtonLink>
               <a
                 href={`mailto:${contactEmail}`}

@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { fontSans, fontMono } from "@/lib/fonts";
 import { cn } from "@/lib/cn";
-import { site, social } from "@/lib/site";
+import { pillars, site, social } from "@/lib/site";
 import { MotionProvider } from "@/components/motion/motion-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { JsonLd } from "@/components/seo/json-ld";
+import { THEME_COLORS, themeInitScript } from "@/lib/theme";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -16,37 +18,74 @@ export const metadata: Metadata = {
   description: site.description,
   applicationName: site.name,
   keywords: [
-    "AI software studio",
-    "custom software development",
-    "AI solutions",
-    "workflow automation",
-    "web development",
+    "AI software development company",
+    "AI agent development",
+    "affordable software development",
+    "MVP development",
+    "SaaS development",
+    "build and deploy web apps",
+    "AI integration services",
+    "token-based pricing",
+    "Claude",
+    "ChatGPT",
+    "DeepSeek",
   ],
-  openGraph: {
-    type: "website",
-    siteName: site.name,
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
-    url: site.url,
-    locale: "en_US",
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  formatDetection: { email: false, telephone: false, address: false },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
-  twitter: {
-    card: "summary_large_image",
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
-  },
-  robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  themeColor: THEME_COLORS.light,
 };
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": `${site.url}/#organization`,
   name: site.name,
   url: site.url,
   description: site.description,
   email: site.email,
-  logo: `${site.url}/icon.svg`,
-  sameAs: social.map((s) => s.href),
+  logo: `${site.url}/images/veraft-logo-trimmed.png`,
+  areaServed: "Worldwide",
+  knowsAbout: [
+    "Software development",
+    "AI agents",
+    "Large language models",
+    "Web applications",
+    "SaaS",
+    "Cloud deployment",
+  ],
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    email: site.email,
+    availableLanguage: ["English"],
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Services",
+    itemListElement: pillars.map((p) => ({
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: p.title, url: `${site.url}${p.href}` },
+    })),
+  },
+  ...(social.length ? { sameAs: social.map((s) => s.href) } : {}),
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${site.url}/#website`,
+  url: site.url,
+  name: site.name,
+  publisher: { "@id": `${site.url}/#organization` },
 };
 
 export default function RootLayout({
@@ -55,17 +94,21 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-theme="light"
+      // The init script may switch data-theme to "dark" before hydration.
+      suppressHydrationWarning
       className={cn(fontSans.variable, fontMono.variable, "h-full antialiased")}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="flex min-h-full flex-col bg-paper text-ink">
         {/* No-JS safety net: reveal anything Motion left hidden for its entrance. */}
         <noscript>
           <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
+        <JsonLd data={organizationJsonLd} />
+        <JsonLd data={websiteJsonLd} />
         <a
           href="#main"
           className="sr-only rounded-md bg-ink px-4 py-2 text-paper focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50"

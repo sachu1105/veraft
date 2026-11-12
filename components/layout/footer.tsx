@@ -1,30 +1,33 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { pillars, primaryNav, site, social } from "@/lib/site";
-import { Container } from "@/components/ui/container";
-import { ColumnFrame } from "@/components/ui/column-frame";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { pillars, site, social } from "@/lib/site";
+import { ButtonLink } from "@/components/ui/button";
 import { Logo } from "./logo";
 
 const companyLinks = [
-  ...primaryNav,
-  { label: "Work", href: "/work" },
-  { label: "Insights", href: "/insights" },
+  { label: "How we work", href: "/approach" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "About", href: "/about" },
+  { label: "Book a call", href: "/contact" },
 ];
 
 export function Footer() {
   const year = 2026;
 
   return (
-    <footer className="relative bg-ink-soft text-paper">
-      <ColumnFrame onDark />
-      <Container className="py-16 sm:py-20">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
-          <div className="max-w-xs">
-            <Logo onDark />
-            <p className="mt-5 text-body-sm text-muted-dark">
-              An AI-first software studio. We design and build software that
-              works quietly alongside your team.
+    <footer className="relative overflow-hidden bg-paper">
+      <div className="mx-auto w-full max-w-[1200px] min-[1264px]:border-x min-[1264px]:border-line">
+        <div className="grid gap-12 px-6 pb-12 pt-20 sm:px-10 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:px-12">
+          <div className="max-w-sm">
+            <Logo />
+            <p className="mt-6 text-heading font-medium text-accent">
+              Software built brick by brick with AI agents — from first brief
+              to production.
             </p>
+            <ButtonLink href="/contact" className="mt-7">
+              Book a call
+              <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
+            </ButtonLink>
           </div>
 
           <FooterColumn title="Services">
@@ -46,38 +49,38 @@ export function Footer() {
           <FooterColumn title="Get in touch">
             <a
               href={`mailto:${site.email}`}
-              className="inline-flex items-center gap-1.5 text-body-sm text-paper hover:text-accent-2"
+              className="inline-flex items-center gap-1.5 text-body-sm text-ink transition-colors hover:text-accent"
             >
               {site.email}
               <ArrowUpRight size={15} strokeWidth={1.5} aria-hidden />
             </a>
-            <span className="text-body-sm text-muted-dark">
-              {site.location}
-            </span>
-            <ul className="mt-2 flex gap-4">
-              {social.map((s) => (
-                <li key={s.label}>
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="font-mono text-label text-muted-dark transition-colors hover:text-paper"
-                  >
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <span className="text-body-sm text-muted">{site.location}</span>
+            {social.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noreferrer"
+                className="text-body-sm text-muted transition-colors hover:text-ink"
+              >
+                {s.label}
+              </a>
+            ))}
           </FooterColumn>
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-line-dark pt-8 text-label text-muted-dark sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-2 px-6 pb-10 text-label text-muted sm:flex-row sm:items-center sm:justify-between sm:px-10 lg:px-12">
           <p>
             © {year} {site.name}. All rights reserved.
           </p>
-          <p className="font-mono">Built to work alongside people.</p>
+          <p className="font-mono">Built brick by brick.</p>
         </div>
-      </Container>
+
+        {/* Oversized wordmark, with a little breathing room below it. */}
+        <div aria-hidden className="px-6 pb-8 sm:px-10 sm:pb-10 lg:px-12 lg:pb-12">
+          <div className="wordmark-mask aspect-[1296/401] w-full bg-accent" />
+        </div>
+      </div>
     </footer>
   );
 }
@@ -91,10 +94,8 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h2 className="font-mono text-label uppercase tracking-[0.12em] text-muted-dark">
-        {title}
-      </h2>
-      <div className="mt-5 flex flex-col gap-3">{children}</div>
+      <h2 className="text-body-sm font-medium text-ink">{title}</h2>
+      <div className="mt-5 flex flex-col gap-3.5">{children}</div>
     </div>
   );
 }
@@ -107,10 +108,7 @@ function FooterLink({
   children: React.ReactNode;
 }) {
   return (
-    <Link
-      href={href}
-      className="text-body-sm text-muted-dark transition-colors hover:text-paper"
-    >
+    <Link href={href} className="text-body-sm text-muted transition-colors hover:text-ink">
       {children}
     </Link>
   );

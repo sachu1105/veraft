@@ -38,7 +38,7 @@ export function Logo({
         height={LOGO.height}
         alt="Veraft"
         priority={priority}
-        className={cn("h-7 w-auto", onDark && "invert")}
+        className={cn("h-7 w-auto dark:invert", onDark && "invert")}
       />
     </Link>
   );

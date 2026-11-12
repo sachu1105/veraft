@@ -1,128 +1,423 @@
-/** Shared editorial content used across multiple routes. */
+/**
+ * Editorial content shared across routes. Copy lives here (not in
+ * components) so it can be edited in one place.
+ */
 
-export type ProcessStep = {
-  id: string;
-  title: string;
-  teaser: string;
-  detail: string;
+/* ------------------------------------------------------------------ */
+/* Agents                                                              */
+/* ------------------------------------------------------------------ */
+
+/** Models we work with. Text wordmarks only — no third-party logos. */
+export const models = [
+  {
+    name: "Claude",
+    maker: "Anthropic",
+    useFor: "Complex reasoning, large refactors and careful code review.",
+  },
+  {
+    name: "ChatGPT",
+    maker: "OpenAI",
+    useFor: "Broad product knowledge, UX copy, tooling and test generation.",
+  },
+  {
+    name: "DeepSeek",
+    maker: "DeepSeek",
+    useFor: "Cost-efficient code generation for high-volume, well-scoped tasks.",
+  },
+  {
+    name: "Gemini",
+    maker: "Google",
+    useFor: "Long-context reading of big codebases, specs and documents.",
+  },
+  {
+    name: "Open models",
+    maker: "Llama · Qwen · Mistral",
+    useFor: "Self-hosted work when your data has to stay in-house.",
+  },
+] as const;
+
+/* ------------------------------------------------------------------ */
+/* Agent console (home) — one tab per delivery stage                   */
+/* ------------------------------------------------------------------ */
+
+export type ConsoleLine = {
+  /** Who produced the line. `cmd` is the prompt line, `sys` a status line. */
+  by: "cmd" | "sys" | "claude" | "chatgpt" | "deepseek" | "gemini" | "engineer";
+  text: string;
 };
 
-/** The real working sequence — the one place numbered steps are warranted. */
-export const processSteps: ProcessStep[] = [
+export type ConsoleTab = { id: string; label: string; lines: ConsoleLine[] };
+
+export const consoleTabs: ConsoleTab[] = [
   {
-    id: "discover",
-    title: "Discover",
-    teaser: "Understand the work before touching software.",
-    detail:
-      "We start with how your team actually works today — the tools, the handoffs, the parts that quietly eat hours. We map where software helps and, just as importantly, where it shouldn't.",
+    id: "plan",
+    label: "Plan",
+    lines: [
+      { by: "cmd", text: 'plan --brief "booking app for clinics"' },
+      { by: "gemini", text: "read the brief, 3 docs and the Figma link" },
+      { by: "claude", text: "drafted 14 user stories · flagged 4 open questions" },
+      { by: "deepseek", text: "estimated 2.4M tokens across 6 milestones" },
+      { by: "engineer", text: "scope and token cap approved with the client" },
+    ],
   },
   {
     id: "design",
-    title: "Design",
-    teaser: "Shape the smallest thing that changes the day.",
+    label: "Design",
+    lines: [
+      { by: "cmd", text: "design --screens onboarding,booking,dashboard" },
+      { by: "claude", text: "3 layout directions from your brand kit" },
+      { by: "chatgpt", text: "microcopy for 22 states — empty, error, success" },
+      { by: "engineer", text: "direction B approved · responsive down to 360px" },
+    ],
+  },
+  {
+    id: "build",
+    label: "Build",
+    lines: [
+      { by: "cmd", text: "build --milestone 2" },
+      { by: "claude", text: "scaffolded Next.js + Postgres · auth + roles" },
+      { by: "deepseek", text: "implemented booking + availability engine" },
+      { by: "chatgpt", text: "wrote 86 unit tests alongside the code" },
+      { by: "engineer", text: "reviewed 12 pull requests · 3 changes requested" },
+    ],
+  },
+  {
+    id: "integrate",
+    label: "Integrate",
+    lines: [
+      { by: "cmd", text: "integrate stripe resend google-calendar" },
+      { by: "claude", text: "checkout + idempotent payment webhooks" },
+      { by: "deepseek", text: "two-way sync with Google Calendar" },
+      { by: "chatgpt", text: "transactional email templates via Resend" },
+      { by: "engineer", text: "verified end-to-end against sandbox accounts" },
+    ],
+  },
+  {
+    id: "secure",
+    label: "Secure",
+    lines: [
+      { by: "cmd", text: "audit --security" },
+      { by: "claude", text: "auth + session flows checked against OWASP Top 10" },
+      { by: "chatgpt", text: "dependency audit: 0 critical · 2 patched" },
+      { by: "engineer", text: "secrets moved to env vault · rate limits on /api" },
+    ],
+  },
+  {
+    id: "test",
+    label: "Test",
+    lines: [
+      { by: "cmd", text: "test --all" },
+      { by: "sys", text: "214 unit · 38 integration · 12 end-to-end — passing" },
+      { by: "claude", text: "fixed a flaky checkout test (webhook race)" },
+      { by: "engineer", text: "accessibility pass: keyboard + screen reader" },
+    ],
+  },
+  {
+    id: "deploy",
+    label: "Deploy",
+    lines: [
+      { by: "cmd", text: "deploy --env production" },
+      { by: "sys", text: "build ok · 4 migrations applied · release ok" },
+      { by: "sys", text: "live → app.yourclinic.com" },
+      { by: "engineer", text: "monitoring, alerts and daily backups configured" },
+    ],
+  },
+  {
+    id: "maintain",
+    label: "Maintain",
+    lines: [
+      { by: "cmd", text: "care --watch" },
+      { by: "sys", text: "uptime 99.9% · p95 response 210ms" },
+      { by: "claude", text: "triaged 3 errors · opened 1 fix PR" },
+      { by: "engineer", text: "patch shipped · 96k tokens used this month" },
+    ],
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Pricing                                                             */
+/* ------------------------------------------------------------------ */
+
+/** Illustrative estimate shown in the token ledger visual. */
+export const ledgerExample = {
+  project: "Clinic booking MVP",
+  cap: 3_000_000,
+  rows: [
+    { phase: "Plan & estimate", tokens: 180_000 },
+    { phase: "Design", tokens: 260_000 },
+    { phase: "Build", tokens: 1_150_000 },
+    { phase: "Integrations", tokens: 340_000 },
+    { phase: "Security & tests", tokens: 290_000 },
+    { phase: "Deploy", tokens: 90_000 },
+  ],
+} as const;
+
+export const pricingSteps = [
+  {
+    title: "Get an estimate",
+    body: "We split the work into milestones and estimate the tokens each one will burn. You see the number — and set a cap — before anything starts.",
+  },
+  {
+    title: "Watch the meter",
+    body: "Usage is tracked per milestone and shared with you as we go. If we're heading past your cap, we stop and ask first.",
+  },
+  {
+    title: "Pay for what's used",
+    body: "Invoices list the tokens burned per milestone. Estimate something we didn't need to spend? You don't pay for it.",
+  },
+] as const;
+
+export const pricingIncludes = [
+  "Engineer review on every pull request",
+  "Automated tests & security checks",
+  "Deployment to your own cloud and domain",
+  "Full ownership of code, repo and data",
+  "A working preview at every milestone",
+  "Handover docs your next developer can read",
+] as const;
+
+export const agencyComparison = [
+  { label: "What you pay for", agency: "Hours on a timesheet", veraft: "Tokens our agents burn" },
+  { label: "When you see the cost", agency: "On the monthly invoice", veraft: "Before we start, and live" },
+  { label: "If it runs over", agency: "Usually your problem", veraft: "We stop at your cap and ask" },
+  { label: "Speed", agency: "Limited by headcount", veraft: "Agents work in parallel" },
+] as const;
+
+/* ------------------------------------------------------------------ */
+/* "Why not build it yourself with AI?"                                 */
+/* ------------------------------------------------------------------ */
+
+export type Mark = "yes" | "partial" | "no";
+
+export const diyComparison: { label: string; diy: Mark; diyNote: string; veraft: string }[] = [
+  {
+    label: "A working demo",
+    diy: "yes",
+    diyNote: "Genuinely easy now",
+    veraft: "Day one",
+  },
+  {
+    label: "Architecture that holds up past the demo",
+    diy: "partial",
+    diyNote: "Depends on your experience",
+    veraft: "Designed in, reviewed by engineers",
+  },
+  {
+    label: "Auth, payments, email & third-party APIs",
+    diy: "partial",
+    diyNote: "Each one is a rabbit hole",
+    veraft: "Wired, tested, idempotent",
+  },
+  {
+    label: "Security review & automated tests",
+    diy: "no",
+    diyNote: "Usually skipped",
+    veraft: "On every milestone",
+  },
+  {
+    label: "Hosting, domains, CI/CD & monitoring",
+    diy: "no",
+    diyNote: "A second project",
+    veraft: "Set up and handed over",
+  },
+  {
+    label: "Someone to call when it breaks",
+    diy: "no",
+    diyNote: "It's you, at 2 a.m.",
+    veraft: "Optional care plan",
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Process, principles, stack                                          */
+/* ------------------------------------------------------------------ */
+
+export type ProcessStep = { id: string; title: string; teaser: string; detail: string };
+
+export const processSteps: ProcessStep[] = [
+  {
+    id: "brief",
+    title: "Brief",
+    teaser: "Tell us what you need.",
     detail:
-      "We design the interface and the system together, prototyping the flows that matter most so you can react to something real before we build it.",
+      "A short call. We ask the questions an agent can't: who it's for, what success looks like, and what must never break.",
+  },
+  {
+    id: "estimate",
+    title: "Estimate",
+    teaser: "A token estimate and a cap.",
+    detail:
+      "We break the work into milestones and estimate the tokens each one will burn. You see the number — and set the cap — before we start.",
   },
   {
     id: "build",
     title: "Build",
-    teaser: "Ship in working increments, not big reveals.",
+    teaser: "Agents build, engineers review.",
     detail:
-      "We build in short cycles with production-quality code from day one. You see progress every week and steer as it takes shape — no months-long black box.",
+      "Agents write code, tests and docs in parallel; an engineer reviews every pull request. You get a working preview at each milestone.",
   },
   {
-    id: "deploy",
-    title: "Deploy & iterate",
-    teaser: "Launch, measure, and keep improving.",
+    id: "ship",
+    title: "Ship",
+    teaser: "Secure, test, deploy.",
     detail:
-      "We deploy carefully, watch how it performs against the outcome we agreed on, and keep refining. Software that works alongside people is never quite finished.",
+      "Security checks, automated tests and an accessibility pass — then deployment to your cloud, your domain and your repo.",
+  },
+  {
+    id: "care",
+    title: "Care",
+    teaser: "Maintain and improve.",
+    detail:
+      "Optional ongoing care: updates, monitoring, fixes and new features — billed the same transparent way.",
   },
 ];
 
-/** Principles that guide every engagement. */
 export const principles = [
   {
-    title: "Augment, don't replace",
-    body: "We build software that takes the repetitive load off people so they can do the work only people can do — not software that quietly removes them.",
+    title: "Agents for speed, people for judgment",
+    body: "AI writes most of the code. Engineers decide what gets built, review every change and own the result.",
   },
   {
-    title: "Earn trust with accuracy",
-    body: "AI that makes things up is worse than no AI. We ground assistants in your data and design for honest 'I don't know' over confident guesses.",
+    title: "Transparent by default",
+    body: "You see the estimate, the live token meter and every pull request. No black boxes, no padded timesheets.",
   },
   {
-    title: "Ship small, ship often",
-    body: "Value in weeks, not quarters. Small releases keep risk low and let you change direction while it's still cheap.",
+    title: "Production or nothing",
+    body: "We don't hand over demos. Auth, error handling, tests and docs are part of every brick we lay.",
   },
   {
-    title: "Own what we build",
-    body: "Clean, documented, standard code on infrastructure you control. No lock-in to us — you can take it anywhere.",
+    title: "You own everything",
+    body: "Code, repo, cloud accounts and data stay yours. Walk away whenever you like — with all of it.",
+  },
+] as const;
+
+export const agentVsEngineer = {
+  agents: [
+    "Draft user stories, schemas and API contracts",
+    "Write application code, tests and documentation",
+    "Generate UI variations and microcopy",
+    "Run audits, triage errors and propose fixes",
+  ],
+  engineers: [
+    "Shape scope and architecture with you",
+    "Review and approve every pull request",
+    "Own security, data and deployment decisions",
+    "Stay accountable for what ships",
+  ],
+} as const;
+
+export const techStack = [
+  { group: "Product", items: ["Next.js", "React", "TypeScript", "React Native"] },
+  { group: "Backend", items: ["Node.js", "Python", "PostgreSQL", "Redis"] },
+  { group: "AI", items: ["Claude · GPT · DeepSeek", "RAG pipelines", "Vector search", "Evals"] },
+  { group: "Platform", items: ["AWS", "Vercel", "Docker", "GitHub Actions"] },
+] as const;
+
+/* ------------------------------------------------------------------ */
+/* FAQ                                                                  */
+/* ------------------------------------------------------------------ */
+
+export type Faq = { q: string; a: string };
+
+export const homeFaqs: Faq[] = [
+  {
+    q: "Why hire you if I can use ChatGPT or Claude myself?",
+    a: "For a prototype, you probably should. AI makes the first 80% easy; the last 20% — security, integrations, deployment, tests and everything that breaks at 2 a.m. — is where products succeed or stall. We run the same agents you can, plus the engineering judgment, review and infrastructure around them.",
+  },
+  {
+    q: "How does token-based pricing work?",
+    a: "Before we start, we estimate the tokens each milestone will burn and you set a cap. You see usage as we work, we stop and ask before crossing the cap, and you're invoiced for what was actually used.",
+  },
+  {
+    q: "Which AI models do you use?",
+    a: "Claude, ChatGPT, DeepSeek, Gemini and open models like Llama and Qwen — chosen per task for quality and cost. If your policy limits which providers can see your data, we work within it, including self-hosted models.",
+  },
+  {
+    q: "Is AI-written code safe to run in production?",
+    a: "Only with review — which is why an engineer reviews every pull request, and every milestone gets automated tests, a dependency audit and a security pass before it ships.",
+  },
+  {
+    q: "Who owns the code?",
+    a: "You do. The repository, cloud accounts, domains and data are yours from day one. No lock-in.",
+  },
+  {
+    q: "What can you build?",
+    a: "Web apps, SaaS products and MVPs, internal tools and dashboards, AI assistants and agents, integrations and automations — plus the hosting, CI/CD and monitoring to run them.",
+  },
+  {
+    q: "How fast can you ship?",
+    a: "It depends on scope, so the estimate comes with a timeline. Because agents work in parallel and you see a working preview at every milestone, most projects move noticeably faster than a traditional agency.",
   },
 ];
 
-/** Per-service detail copy, keyed by pillar slug. */
+export const pricingFaqs: Faq[] = [
+  {
+    q: "Why tokens instead of hours?",
+    a: "Tokens are what actually builds your product now. Billing for them keeps the price tied to the work, not to how many people are on a timesheet.",
+  },
+  {
+    q: "What if the project needs more tokens than estimated?",
+    a: "We stop before crossing your cap, explain why, and you decide whether to raise it, trim scope, or pause. Nothing is spent past the cap without your approval.",
+  },
+  {
+    q: "Is engineering review billed separately?",
+    a: "Every quote shows exactly what's included before you agree to anything. Engineer review, testing and deployment are part of every project — never surprise add-ons.",
+  },
+  {
+    q: "Do you offer ongoing maintenance?",
+    a: "Yes. A care plan covers monitoring, updates, fixes and small features, billed the same transparent way.",
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Per-service detail copy, keyed by pillar slug                       */
+/* ------------------------------------------------------------------ */
+
 export type ServiceDetail = {
   whoFor: string;
   approach: { title: string; body: string }[];
 };
 
 export const serviceDetails: Record<string, ServiceDetail> = {
+  "web-development": {
+    whoFor:
+      "For founders with an idea to validate and companies whose spreadsheet-and-email workflow has outgrown itself.",
+    approach: [
+      {
+        title: "Agents write, engineers own",
+        body: "AI agents generate the code and tests; an engineer reviews every pull request and owns the architecture.",
+      },
+      {
+        title: "Previews at every milestone",
+        body: "Click through a working build each milestone — react to something real, not a slide deck.",
+      },
+      {
+        title: "Fast, accessible, yours",
+        body: "Performance and accessibility from the first commit, on a standard stack you can hire for and run yourself.",
+      },
+    ],
+  },
   "ai-solutions": {
     whoFor:
-      "For teams drowning in repetitive questions — customer support, sales, and internal helpdesks.",
+      "For teams drowning in repetitive questions and documents — support, sales, ops and internal helpdesks.",
     approach: [
       {
         title: "Grounded in your data",
-        body: "We connect the assistant to your docs, tickets, and systems so answers are specific, current, and traceable.",
+        body: "We connect the assistant to your docs, tickets and systems, so answers are specific, current and traceable.",
       },
       {
-        title: "Honest by design",
-        body: "It defers to a person when it isn't sure — with the full thread and context already attached.",
+        title: "The right model per task",
+        body: "Claude, ChatGPT, DeepSeek, Gemini or a self-hosted model — chosen for quality, cost and your data policy.",
       },
       {
-        title: "Measured by resolution",
-        body: "We track deflection and accuracy against real conversations, not vanity chat volume.",
-      },
-    ],
-  },
-  "custom-software": {
-    whoFor:
-      "For teams outgrowing spreadsheets and bending themselves around rigid off-the-shelf tools.",
-    approach: [
-      {
-        title: "Modeled on your process",
-        body: "We map how work really flows, then build to fit it — instead of forcing your team to fit the software.",
-      },
-      {
-        title: "Built to last",
-        body: "A clean data model, a standard stack, and documentation that makes the next change easy.",
-      },
-      {
-        title: "Adopted, not just shipped",
-        body: "We design for the people who live in it every day, so it actually gets used.",
-      },
-    ],
-  },
-  "web-development": {
-    whoFor:
-      "For companies whose website or product needs to feel as considered as it is capable.",
-    approach: [
-      {
-        title: "Fast and accessible",
-        body: "Performance and accessibility are requirements from the first commit, not a final-week scramble.",
-      },
-      {
-        title: "Designed and built together",
-        body: "One team across design and engineering, so intent doesn't get lost in handoff.",
-      },
-      {
-        title: "Yours to run",
-        body: "Clean, standard code on infrastructure you own and control.",
+        title: "Measured, not guessed",
+        body: "We test against real conversations and track accuracy and hand-off rates, not vanity chat volume.",
       },
     ],
   },
   automation: {
     whoFor:
-      "For teams losing hours to manual, repetitive steps shuffled between disconnected tools.",
+      "For teams losing hours to manual steps shuffled between disconnected tools.",
     approach: [
       {
         title: "Map before we automate",
@@ -130,20 +425,30 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       },
       {
         title: "Reliable over clever",
-        body: "Observable, retry-safe workflows you can trust to run unattended, with alerts when something needs you.",
+        body: "Retry-safe, idempotent, observable workflows you can trust to run unattended, with alerts when they need you.",
       },
       {
-        title: "Connected to what you use",
-        body: "We integrate with your existing tools through their APIs — no rip-and-replace.",
+        title: "Works with what you use",
+        body: "We integrate through the APIs of the tools you already pay for — no rip-and-replace.",
+      },
+    ],
+  },
+  deployment: {
+    whoFor:
+      "For products that need a proper home — and for apps built elsewhere (or by AI) that need to get, and stay, live.",
+    approach: [
+      {
+        title: "Your cloud, your keys",
+        body: "We set everything up in accounts you own: hosting, database, domains, email and secrets.",
+      },
+      {
+        title: "Automated releases",
+        body: "CI/CD that runs tests on every change and deploys with a single merge — and rolls back just as easily.",
+      },
+      {
+        title: "Watched after launch",
+        body: "Monitoring, error tracking, backups and patches — so problems are caught before your customers notice.",
       },
     ],
   },
 };
-
-/** Tech we reach for (kept honest and high-level). */
-export const techStack = [
-  { group: "Product", items: ["Next.js", "React", "TypeScript", "React Native"] },
-  { group: "Backend", items: ["Node.js", "Python", "PostgreSQL", "Redis"] },
-  { group: "AI", items: ["LLM agents", "RAG pipelines", "Vector search", "Evals"] },
-  { group: "Platform", items: ["AWS", "Vercel", "Docker", "CI/CD"] },
-];

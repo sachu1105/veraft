@@ -1,53 +1,61 @@
 import { ArrowRight } from "lucide-react";
-import { Container } from "@/components/ui/container";
 import { ButtonLink } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { ColumnFrame } from "@/components/ui/column-frame";
-import { HeroNotifications } from "@/components/sections/hero-notifications";
+import { Section } from "@/components/ui/section";
+import { HeroStack } from "@/components/sections/hero-stack";
 
 /**
- * Stripe-style text hero: a large headline in ink followed by a larger muted
- * continuation and one primary CTA on the left; on wide screens, an ambient
- * feed of notification cards cycles on the right — the hero's one flourish.
+ * Home hero: the promise on the left, the isometric brick stack on the right.
+ * On wide screens the illustration is anchored to the bottom-right and its
+ * agent feed lines run underneath the copy, appearing from off-canvas.
  */
 export function Hero() {
   return (
-    <section className="relative flex min-h-[72vh] items-center overflow-hidden border-b border-line">
-      {/* A single, faint accent glow — sits behind the notification feed. */}
+    <Section padding="none" className="overflow-hidden" frameClassName="overflow-hidden">
+      {/* Blueprint floor behind the stack */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-40 -top-40 hidden size-[40rem] rounded-full bg-accent/5 blur-3xl lg:block"
+        className="bg-iso-grid mask-radial pointer-events-none absolute inset-y-0 right-0 hidden w-[72%] opacity-70 lg:block"
       />
-      <ColumnFrame />
-      <Container className="relative py-20 sm:py-24">
-        <div className="items-center gap-14 lg:grid lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="max-w-2xl">
-            <Eyebrow>AI-first software studio</Eyebrow>
 
-            <h1 className="mt-7 text-display-lg text-ink">
-              Build intelligent software that grows your business.
-            </h1>
+      <div className="relative lg:min-h-[740px]">
+        <div className="relative z-10 max-w-[700px] px-6 pt-16 sm:px-10 sm:pt-20 lg:px-12 lg:pb-32 lg:pt-28">
+          <Eyebrow>AI-native software studio</Eyebrow>
 
-            <p className="mt-6 text-[clamp(1.375rem,1rem+1.4vw,1.9rem)] font-medium leading-[1.4] tracking-[-0.01em] text-muted">
-              We design and build custom web applications, AI-powered business
-              systems, and automation solutions that help companies work smarter
-              and scale faster.
-            </p>
+          <h1 className="mt-7 text-[clamp(2.6rem,1.6rem+3.4vw,3.75rem)] leading-[1.04] tracking-[-0.035em] text-ink">
+            Your software,{" "}
+            <br className="hidden sm:block" />
+            built brick by brick{" "}
+            <br className="hidden sm:block" />
+            with AI&nbsp;agents.
+          </h1>
 
-            <div className="mt-10">
-              <ButtonLink href="/contact" size="lg">
-                Start a project
-                <ArrowRight size={18} strokeWidth={1.75} aria-hidden />
-              </ButtonLink>
-            </div>
+          <p className="mt-6 max-w-[34rem] text-body-lg text-muted">
+            From brief to production — design, code, integrations, security
+            and deployment. Claude, ChatGPT and DeepSeek do the heavy lifting;
+            engineers review every brick. You pay for the tokens we burn, not
+            the hours we bill.
+          </p>
+
+          <div className="mt-9 flex flex-wrap gap-3">
+            <ButtonLink href="/contact" size="lg">
+              Book a call
+              <ArrowRight size={18} strokeWidth={1.75} aria-hidden />
+            </ButtonLink>
+            <ButtonLink href="/pricing" size="lg" variant="secondary">
+              How pricing works
+            </ButtonLink>
           </div>
 
-          {/* Ambient service feed — right column, wide screens only. */}
-          <div className="hidden lg:block">
-            <HeroNotifications />
-          </div>
+          <p className="mt-8 font-mono text-label text-muted">
+            End-to-end&nbsp;· Engineer-reviewed&nbsp;· You own the code
+          </p>
         </div>
-      </Container>
-    </section>
+
+        <div className="mt-6 lg:absolute lg:bottom-0 lg:right-0 lg:mt-0 lg:w-[64%]">
+          <HeroStack className="mx-auto max-w-[620px] lg:max-w-none" />
+        </div>
+      </div>
+    </Section>
   );
 }

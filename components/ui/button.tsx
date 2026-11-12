@@ -6,14 +6,15 @@ type Variant = "primary" | "secondary" | "ghost";
 type Size = "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-pill font-medium leading-none " +
+  "inline-flex items-center justify-center gap-2 rounded-md font-medium leading-none " +
   "transition duration-150 ease-out-quint " +
   "active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
   // The one place the accent fills a surface.
-  primary: "bg-accent text-paper hover:bg-accent-press",
-  secondary: "border border-line bg-paper text-ink hover:border-ink/25 hover:bg-mist",
+  primary: "bg-accent text-on-accent hover:bg-accent-press",
+  secondary:
+    "border border-line bg-paper text-ink shadow-[0_1px_2px_rgb(var(--c-ink)/0.05)] hover:border-ink/25 hover:bg-mist",
   ghost: "text-ink hover:bg-mist",
 };
 

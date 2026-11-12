@@ -5,19 +5,19 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Reveal } from "@/components/motion/reveal";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About",
+export const metadata: Metadata = pageMetadata({
+  title: "About — a founder-led, AI-native software studio",
   description:
-    "Veraft helps organizations streamline operations, improve customer experiences, and unlock new opportunities through modern software and AI.",
-};
+    "Veraft is a founder-led studio making production-grade software affordable by putting AI agents to work and engineers in charge — from first brief to deployment.",
+  path: "/about",
+});
 
-// TODO: replace placeholder team with real people and photos.
+// TODO: replace with the founders' real names, roles and (optionally) photos.
 const team = [
-  { initials: "VF", name: "Founder", role: "Strategy & engineering" },
-  { initials: "AI", name: "AI Engineer", role: "Assistants & agents" },
-  { initials: "PD", name: "Product Designer", role: "Interface & systems" },
-  { initials: "FS", name: "Full-stack Engineer", role: "Platforms & APIs" },
+  { initials: "F1", name: "Co-founder", role: "Engineering & AI agents" },
+  { initials: "F2", name: "Co-founder", role: "Product, design & delivery" },
 ];
 
 export default function AboutPage() {
@@ -25,81 +25,77 @@ export default function AboutPage() {
     <main id="main">
       <PageHero
         eyebrow="About"
-        title="A small team building software that pulls its weight."
-        intro="Veraft is an AI-first software studio. We pair senior engineering with a designer's eye to ship software that earns its place in your day."
+        title="Two builders and a bench of AI agents."
+        intro="Veraft is a founder-led studio. We use AI agents to do in days what used to take a team months — and stay personally accountable for everything that ships."
       />
 
       {/* Mission */}
-      <Section tone="paper">
+      <Section>
         <Container>
-          <div className="grid gap-10 lg:grid-cols-[auto_1fr] lg:gap-16">
+          <div className="grid gap-10 lg:grid-cols-[200px_1fr] lg:gap-16">
             <Eyebrow>Mission</Eyebrow>
             <Reveal>
               <p className="max-w-3xl text-display-md text-ink">
-                Veraft helps organizations streamline operations, improve
-                customer experiences, and unlock new opportunities through
-                modern software and artificial intelligence.
+                Make production-grade software affordable for every business
+                with an idea — by putting AI agents to work and engineers in
+                charge.
               </p>
             </Reveal>
           </div>
         </Container>
       </Section>
 
-      {/* Founding story (placeholder) */}
+      {/* Story */}
       <Section tone="mist">
         <Container>
-          <div className="grid gap-10 lg:grid-cols-[auto_1fr] lg:gap-16">
-            <Eyebrow>Our story</Eyebrow>
-            {/* TODO: replace with the real founding story. */}
+          <div className="grid gap-10 lg:grid-cols-[200px_1fr] lg:gap-16">
+            <Eyebrow>Why we started</Eyebrow>
             <Reveal className="max-w-2xl space-y-5 text-body-lg text-muted">
               <p>
-                Veraft started from a simple frustration: most teams don&apos;t
-                need more software — they need the right software, built to fit
-                how they actually work.
+                AI made writing code dramatically cheaper. Yet most businesses
+                we spoke to still couldn&apos;t get a real product shipped. They
+                had a demo from a chatbot — but no auth, no payments, no tests,
+                no deployment, and no one to call when it broke.
               </p>
               <p>
-                We saw powerful AI arriving faster than most companies could put
-                it to honest use. So we set out to be the team that bridges that
-                gap — translating new capability into tools people trust and
-                reach for every day.
+                Agencies hadn&apos;t caught up either: same headcount, same
+                hourly rates, AI quietly pocketed as margin.
               </p>
               <p>
-                Today we design and build assistants, platforms, and automations
-                for teams who&apos;d rather spend their hours on the work that
-                matters.
+                So we built Veraft around a simple idea: let agents like Claude,
+                ChatGPT and DeepSeek do the heavy lifting, keep engineers
+                accountable for every decision, and charge for the tokens we
+                actually burn. One team, start to finish — brick by brick.
               </p>
             </Reveal>
           </div>
         </Container>
       </Section>
 
-      {/* Team (placeholder) */}
-      <Section tone="paper">
+      {/* Team */}
+      <Section>
         <Container>
           <div className="max-w-2xl">
             <Eyebrow>Team</Eyebrow>
-            <h2 className="mt-5 text-display-md text-ink">
-              The people behind the work.
-            </h2>
+            <h2 className="mt-5 text-display-md text-ink">The people accountable for your build.</h2>
             <p className="mt-5 text-body-lg text-muted">
-              A deliberately small, senior team — and growing.
+              You talk to the founders directly — from the first call to launch day.
             </p>
           </div>
-          <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2">
             {team.map((member, i) => (
-              <li key={member.role}>
-                <Reveal
-                  delay={i * 0.05}
-                  className="flex h-full flex-col rounded-card border border-line bg-paper p-6"
-                >
+              <li key={member.role} className="bg-paper">
+                <Reveal delay={i * 0.05} className="flex h-full items-center gap-5 p-7">
                   <span
                     aria-hidden
-                    className="flex size-12 items-center justify-center rounded-full bg-mist font-mono text-body-sm text-ink"
+                    className="flex size-14 shrink-0 items-center justify-center rounded-md bg-accent font-mono text-body-sm text-on-accent"
                   >
                     {member.initials}
                   </span>
-                  <h3 className="mt-5 text-heading text-ink">{member.name}</h3>
-                  <p className="mt-1 text-body-sm text-muted">{member.role}</p>
+                  <div>
+                    <h3 className="text-heading text-ink">{member.name}</h3>
+                    <p className="mt-1 text-body-sm text-muted">{member.role}</p>
+                  </div>
                 </Reveal>
               </li>
             ))}

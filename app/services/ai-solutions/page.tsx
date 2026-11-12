@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { ServiceDetail } from "@/components/sections/service-detail";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "AI Solutions",
+export const metadata: Metadata = pageMetadata({
+  title: "AI features, chatbots & agents",
   description:
-    "Chatbots, support assistants, knowledge-base AI, internal assistants, document search, and voice — grounded in your business data.",
-};
+    "Support agents, internal copilots, RAG knowledge search and document extraction — grounded in your data, using Claude, ChatGPT, DeepSeek, Gemini or self-hosted models.",
+  path: "/services/ai-solutions",
+});
 
 export default function Page() {
   return <ServiceDetail slug="ai-solutions" />;

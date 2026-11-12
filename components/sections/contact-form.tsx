@@ -3,35 +3,46 @@
 import { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import {
+  callSlots,
   contactSchema,
+  projectTypes,
+  timelines,
   toFieldErrors,
   type ContactInput,
   type FieldErrors,
 } from "@/lib/contact-schema";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
+import { site } from "@/lib/site";
 
 type Status = "idle" | "submitting" | "success" | "error";
+type Values = { [K in keyof ContactInput]-?: string };
 
-const empty: ContactInput = {
+const empty: Values = {
   name: "",
   email: "",
   company: "",
+  projectType: "",
+  timeline: "",
+  preferredDate: "",
+  preferredSlot: "",
+  timezone: "",
   message: "",
   website: "",
 };
 
 const inputBase =
-  "w-full rounded-lg border bg-paper px-4 py-3 text-body text-ink " +
-  "placeholder:text-muted/60 transition-colors duration-150";
+  "w-full rounded-md border bg-paper px-4 py-3 text-body text-ink " +
+  "placeholder:text-muted/60 transition-colors duration-150 focus:border-accent";
 
+/** "Book a call" form — posts to /api/contact, which emails us via Resend. */
 export function ContactForm() {
-  const [values, setValues] = useState<ContactInput>(empty);
+  const [values, setValues] = useState<Values>(empty);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [formError, setFormError] = useState<string | null>(null);
 
-  function update<K extends keyof ContactInput>(key: K, value: string) {
+  function update<K extends keyof Values>(key: K, value: string) {
     setValues((v) => ({ ...v, [key]: value }));
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   }
@@ -40,9 +51,15 @@ export function ContactForm() {
     e.preventDefault();
     setFormError(null);
 
-    const parsed = contactSchema.safeParse(values);
+    const parsed = contactSchema.safeParse({
+      ...values,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    });
     if (!parsed.success) {
-      setErrors(toFieldErrors(parsed.error));
+      const fieldErrors = toFieldErrors(parsed.error);
+      setErrors(fieldErrors);
+      const first = Object.keys(fieldErrors)[0];
+      if (first) document.getElementById(`field-${first}`)?.focus();
       return;
     }
 
@@ -71,7 +88,7 @@ export function ContactForm() {
     } catch {
       setStatus("error");
       setFormError(
-        "Something went wrong sending your message. Please try again, or email us directly.",
+        `Something went wrong sending your request. Please try again, or email us at ${site.email}.`,
       );
     }
   }
@@ -85,18 +102,21 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-card border border-line bg-paper p-8">
-        <span className="flex size-11 items-center justify-center rounded-full bg-accent/10 text-accent">
+      <div className="rounded-xl border border-line bg-paper p-8 sm:p-10" role="status">
+        <span className="flex size-11 items-center justify-center rounded-md bg-accent/10 text-accent">
           <Check size={22} strokeWidth={1.75} aria-hidden />
         </span>
-        <h2 className="mt-5 text-heading text-ink">Thanks — message received.</h2>
+        <h2 className="mt-5 text-heading text-ink">Request received — thank you.</h2>
         <p className="mt-2.5 max-w-md text-body text-muted">
-          We read every message and usually reply within one business day. If
-          it&apos;s urgent, email us directly and mention it&apos;s time
-          sensitive.
+          We&apos;ll reply within one business day to confirm a time. If it&apos;s
+          urgent, email{" "}
+          <a href={`mailto:${site.email}`} className="text-accent underline-offset-2 hover:underline">
+            {site.email}
+          </a>
+          .
         </p>
         <Button variant="secondary" className="mt-6" onClick={reset}>
-          Send another message
+          Send another request
         </Button>
       </div>
     );
@@ -108,12 +128,12 @@ export function ContactForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="rounded-card border border-line bg-paper p-6 sm:p-8"
+      className="relative rounded-xl border border-line bg-paper p-6 shadow-[0_24px_60px_-34px_rgb(var(--c-accent)/0.4)] sm:p-8"
     >
       {formError && (
         <p
           role="alert"
-          className="mb-6 rounded-lg border border-danger/30 bg-danger/5 px-4 py-3 text-body-sm text-danger"
+          className="mb-6 rounded-md border border-danger/30 bg-danger/5 px-4 py-3 text-body-sm text-danger"
         >
           {formError}
         </p>
@@ -149,17 +169,78 @@ export function ContactForm() {
           label="Company"
           optional
           error={errors.company}
-          value={values.company ?? ""}
+          value={values.company}
           onChange={(v) => update("company", v)}
           autoComplete="organization"
-          placeholder="Optional"
+          placeholder="Company or project name"
         />
       </div>
 
-      <div className="mt-5">
-        <FieldLabel htmlFor="message" label="Message" required />
+      <ChipGroup
+        name="projectType"
+        legend="What are we building?"
+        required
+        options={projectTypes}
+        value={values.projectType}
+        error={errors.projectType}
+        onChange={(v) => update("projectType", v)}
+      />
+
+      <ChipGroup
+        name="timeline"
+        legend="Timeline"
+        required
+        options={timelines}
+        value={values.timeline}
+        error={errors.timeline}
+        onChange={(v) => update("timeline", v)}
+      />
+
+      <fieldset className="mt-7">
+        <legend className="mb-2.5 block font-mono text-label uppercase tracking-[0.1em] text-muted">
+          Preferred call time <span className="ml-1 normal-case">(optional)</span>
+        </legend>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <label htmlFor="field-preferredDate" className="sr-only">
+            Preferred date
+          </label>
+          <input
+            id="field-preferredDate"
+            type="date"
+            value={values.preferredDate}
+            onFocus={(e) => {
+              e.currentTarget.min = new Date().toISOString().slice(0, 10);
+            }}
+            onChange={(e) => update("preferredDate", e.target.value)}
+            aria-invalid={!!errors.preferredDate}
+            className={cn(
+              inputBase,
+              "sm:w-auto",
+              errors.preferredDate ? "border-danger" : "border-line",
+            )}
+          />
+          <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Preferred time of day">
+            {callSlots.map((slot) => (
+              <Chip
+                key={slot}
+                name="preferredSlot"
+                value={slot}
+                checked={values.preferredSlot === slot}
+                onChange={() => update("preferredSlot", values.preferredSlot === slot ? "" : slot)}
+              />
+            ))}
+          </div>
+        </div>
+        {errors.preferredDate && (
+          <FieldError id="preferredDate-error">{errors.preferredDate}</FieldError>
+        )}
+        <p className="mt-2 text-label text-muted">We&apos;ll match your time zone automatically.</p>
+      </fieldset>
+
+      <div className="mt-7">
+        <FieldLabel htmlFor="field-message" label="Tell us about it" required />
         <textarea
-          id="message"
+          id="field-message"
           name="message"
           rows={5}
           required
@@ -167,12 +248,8 @@ export function ContactForm() {
           onChange={(e) => update("message", e.target.value)}
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
-          placeholder="What would you like to build or automate?"
-          className={cn(
-            inputBase,
-            "resize-y",
-            errors.message ? "border-danger" : "border-line",
-          )}
+          placeholder="What are you building, who is it for, and what does done look like?"
+          className={cn(inputBase, "resize-y", errors.message ? "border-danger" : "border-line")}
         />
         {errors.message && <FieldError id="message-error">{errors.message}</FieldError>}
       </div>
@@ -185,21 +262,91 @@ export function ContactForm() {
           name="website"
           tabIndex={-1}
           autoComplete="off"
-          value={values.website ?? ""}
+          value={values.website}
           onChange={(e) => update("website", e.target.value)}
         />
       </div>
 
-      <div className="mt-7 flex items-center gap-4">
+      <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
         <Button type="submit" size="lg" disabled={submitting}>
-          {submitting ? "Sending…" : "Send message"}
-          {!submitting && (
-            <ArrowRight size={18} strokeWidth={1.75} aria-hidden />
-          )}
+          {submitting ? "Sending…" : "Book a call"}
+          {!submitting && <ArrowRight size={18} strokeWidth={1.75} aria-hidden />}
         </Button>
-        <p className="text-body-sm text-muted">Usually a reply within a day.</p>
+        <p className="text-body-sm text-muted">Reply within one business day.</p>
       </div>
     </form>
+  );
+}
+
+function Chip({
+  name,
+  value,
+  checked,
+  onChange,
+}: {
+  name: string;
+  value: string;
+  checked: boolean;
+  onChange: () => void;
+}) {
+  return (
+    <label className="cursor-pointer">
+      <input
+        type="radio"
+        name={name}
+        value={value}
+        checked={checked}
+        onChange={onChange}
+        onClick={checked ? onChange : undefined}
+        className="peer sr-only"
+      />
+      <span className="inline-flex items-center rounded-md border border-line bg-paper px-3.5 py-2 text-body-sm text-ink transition-colors duration-150 hover:border-ink/25 peer-checked:border-accent peer-checked:bg-accent/5 peer-checked:text-accent peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent">
+        {value}
+      </span>
+    </label>
+  );
+}
+
+function ChipGroup({
+  name,
+  legend,
+  options,
+  value,
+  error,
+  required,
+  onChange,
+}: {
+  name: keyof Values;
+  legend: string;
+  options: readonly string[];
+  value: string;
+  error?: string;
+  required?: boolean;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <fieldset
+      className="mt-7"
+      aria-invalid={!!error}
+      aria-describedby={error ? `${name}-error` : undefined}
+    >
+      <legend className="mb-2.5 block font-mono text-label uppercase tracking-[0.1em] text-muted">
+        {legend}
+        {required && <span className="ml-1 text-accent">*</span>}
+      </legend>
+      <div className="flex flex-wrap gap-2" id={`field-${name}`} tabIndex={-1}>
+        {options.map((opt) => (
+          <Chip
+            key={opt}
+            name={name}
+            value={opt}
+            checked={value === opt}
+            onChange={() => onChange(opt)}
+          />
+        ))}
+      </div>
+      {error && <FieldError id={`${name}-error`}>{error}</FieldError>}
+    </fieldset>
   );
 }
 
@@ -259,9 +406,9 @@ function Field({
 }) {
   return (
     <div>
-      <FieldLabel htmlFor={id} label={label} required={required} optional={optional} />
+      <FieldLabel htmlFor={`field-${id}`} label={label} required={required} optional={optional} />
       <input
-        id={id}
+        id={`field-${id}`}
         name={id}
         type={type}
         required={required}
