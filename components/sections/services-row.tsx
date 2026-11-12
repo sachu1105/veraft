@@ -46,7 +46,7 @@ export function ServicesRow({
                   </span>
                 </div>
                 <h3 className="mt-6 text-heading text-ink">{p.title}</h3>
-                <p className="mt-2.5 text-body-sm text-muted">{p.summary}</p>
+                <p className="mt-2.5 text-body-sm text-muted">{p.tagline}</p>
                 <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-body-sm font-medium text-accent-fg">
                   Explore
                   <ArrowRight

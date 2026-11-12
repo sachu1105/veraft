@@ -21,7 +21,7 @@ export function CtaBand({
       What will you ship?
     </>
   ),
-  body = "Tell us what you want to build. We'll come back with a clear plan, a token estimate and a cap — before anything starts.",
+  body = "Tell us what you want to build. You'll get a plan, a token estimate and a cap.",
 }: {
   title?: React.ReactNode;
   body?: string;

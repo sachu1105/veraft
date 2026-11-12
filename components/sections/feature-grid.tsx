@@ -21,7 +21,6 @@ import { cn } from "@/lib/cn";
 function FeatureCell({
   title,
   body,
-  points,
   href,
   cta,
   visual,
@@ -29,7 +28,6 @@ function FeatureCell({
 }: {
   title: string;
   body: string;
-  points?: string[];
   href: string;
   cta: string;
   visual: ReactNode;
@@ -39,17 +37,7 @@ function FeatureCell({
     <div className={cn("relative flex flex-col overflow-hidden", className)}>
       <div className="px-6 pt-14 sm:px-10 sm:pt-16 lg:px-12">
         <h3 className="text-[1.5rem] leading-tight tracking-[-0.02em] text-ink">{title}</h3>
-        <p className="mt-3 max-w-lg text-body-sm text-muted">{body}</p>
-        {points && (
-          <ul className="mt-5 flex flex-col gap-2">
-            {points.map((p) => (
-              <li key={p} className="flex items-start gap-2.5 text-body-sm text-ink">
-                <Check size={16} strokeWidth={2} className="mt-[3px] shrink-0 text-accent-fg" aria-hidden />
-                {p}
-              </li>
-            ))}
-          </ul>
-        )}
+        <p className="mt-3 max-w-lg text-body text-muted">{body}</p>
         <Link
           href={href}
           className="mt-7 inline-flex items-center gap-1.5 rounded-md border border-line bg-paper px-3.5 py-2 text-body-sm text-ink shadow-[0_1px_2px_rgb(var(--c-ink)/0.05)] transition-colors hover:border-ink/25 hover:bg-mist"
@@ -217,16 +205,14 @@ export function FeatureGrid() {
         <div className="grid divide-y divide-line lg:grid-cols-[1.25fr_1fr] lg:divide-x lg:divide-y-0">
           <FeatureCell
             title="Production-grade, not prototype-grade"
-            body="Anyone can get a demo out of a chatbot. We build the parts demos skip — auth, data models, error handling, edge cases — in code your next developer can actually read."
-            points={["Engineer review on every pull request", "Typed, tested and documented"]}
+            body="We build the parts demos skip."
             href="/services/web-development"
             cta="Explore web apps & SaaS"
             visual={<ReviewVisual />}
           />
           <FeatureCell
             title="Deployed, monitored, handed over"
-            body="Hosting, CI/CD, domains, monitoring and backups — set up in accounts you own. Keep the keys, or let us keep it running."
-            points={["Your cloud and repo — no lock-in", "Optional care plan after launch"]}
+            body="Live in accounts you own. No lock-in."
             href="/services/deployment"
             cta="Explore deploy & maintain"
             visual={<DeployVisual />}
@@ -238,15 +224,14 @@ export function FeatureGrid() {
         <div className="grid divide-y divide-line lg:grid-cols-[1fr_1.15fr] lg:divide-x lg:divide-y-0">
           <FeatureCell
             title="Security and quality, brick by brick"
-            body="Every layer is checked before the next goes on: automated tests, dependency audits, an auth review and accessibility checks at each milestone."
-            points={["Quality gate at every milestone", "Secrets, rate limits and backups by default"]}
+            body="Every milestone passes a quality gate."
             href="/approach"
             cta="See our process"
             visual={<QualityVisual />}
           />
           <FeatureCell
             title="UI/UX shaped around your users"
-            body="From your brand kit or from scratch — interfaces designed for the people who'll use them, responsive on every screen, web or mobile."
+            body="Responsive on every screen, web or mobile."
             href="/contact"
             cta="Talk about your product"
             visual={<ScreensVisual />}

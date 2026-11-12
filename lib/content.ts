@@ -197,25 +197,25 @@ export const diyComparison: { label: string; diy: Mark; diyNote: string; veraft:
     veraft: "Day one",
   },
   {
-    label: "Architecture that holds up past the demo",
+    label: "Architecture that lasts",
     diy: "partial",
     diyNote: "Depends on your experience",
-    veraft: "Designed in, reviewed by engineers",
+    veraft: "Engineer-reviewed",
   },
   {
-    label: "Auth, payments, email & third-party APIs",
+    label: "Auth, payments & APIs",
     diy: "partial",
     diyNote: "Each one is a rabbit hole",
-    veraft: "Wired, tested, idempotent",
+    veraft: "Wired and tested",
   },
   {
-    label: "Security review & automated tests",
+    label: "Security & tests",
     diy: "no",
     diyNote: "Usually skipped",
     veraft: "On every milestone",
   },
   {
-    label: "Hosting, domains, CI/CD & monitoring",
+    label: "Hosting, CI/CD & monitoring",
     diy: "no",
     diyNote: "A second project",
     veraft: "Set up and handed over",
@@ -321,32 +321,24 @@ export type Faq = { q: string; a: string };
 
 export const homeFaqs: Faq[] = [
   {
-    q: "Why hire you if I can use ChatGPT or Claude myself?",
-    a: "For a prototype, you probably should. AI makes the first 80% easy; the last 20% — security, integrations, deployment, tests and everything that breaks at 2 a.m. — is where products succeed or stall. We run the same agents you can, plus the engineering judgment, review and infrastructure around them.",
-  },
-  {
     q: "How does token-based pricing work?",
-    a: "Before we start, we estimate the tokens each milestone will burn and you set a cap. You see usage as we work, we stop and ask before crossing the cap, and you're invoiced for what was actually used.",
+    a: "We estimate the tokens per milestone and you set a cap. We stop and ask before crossing it, and you pay only for what was used.",
   },
   {
     q: "Which AI models do you use?",
-    a: "Claude, ChatGPT, DeepSeek, Gemini and open models like Llama and Qwen — chosen per task for quality and cost. If your policy limits which providers can see your data, we work within it, including self-hosted models.",
+    a: "Claude, ChatGPT, DeepSeek, Gemini and open models — chosen per task. Self-hosted if your data has to stay in-house.",
   },
   {
-    q: "Is AI-written code safe to run in production?",
-    a: "Only with review — which is why an engineer reviews every pull request, and every milestone gets automated tests, a dependency audit and a security pass before it ships.",
+    q: "Is AI-written code safe in production?",
+    a: "With review, yes. An engineer reviews every pull request, and every milestone gets tests and a security pass.",
   },
   {
     q: "Who owns the code?",
-    a: "You do. The repository, cloud accounts, domains and data are yours from day one. No lock-in.",
-  },
-  {
-    q: "What can you build?",
-    a: "Web apps, SaaS products and MVPs, internal tools and dashboards, AI assistants and agents, integrations and automations — plus the hosting, CI/CD and monitoring to run them.",
+    a: "You do. Repo, cloud accounts and data are yours from day one.",
   },
   {
     q: "How fast can you ship?",
-    a: "It depends on scope, so the estimate comes with a timeline. Because agents work in parallel and you see a working preview at every milestone, most projects move noticeably faster than a traditional agency.",
+    a: "Every estimate comes with a timeline, and you get a working preview at each milestone.",
   },
 ];
 

@@ -10,7 +10,7 @@ import type { Faq as FaqItem } from "@/lib/content";
  */
 export function Faq({
   items,
-  heading = "Questions we get asked a lot.",
+  heading = "Common questions.",
   eyebrow = "FAQ",
 }: {
   items: FaqItem[];

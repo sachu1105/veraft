@@ -31,9 +31,7 @@ export function Hero() {
           </h1>
 
           <p className="mt-6 max-w-[34rem] text-body-lg text-muted">
-            From brief to production — design, code, integrations, security
-            and deployment. Claude, ChatGPT and DeepSeek do the heavy lifting;
-            engineers review every brick. You pay for the tokens we burn, not
+            From brief to production. You pay for the tokens we burn, not
             the hours we bill.
           </p>
 

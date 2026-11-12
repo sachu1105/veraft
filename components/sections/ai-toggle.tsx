@@ -54,8 +54,8 @@ export function AiToggle() {
           className="mx-auto mt-7 max-w-xl text-body-lg text-muted"
         >
           {on
-            ? "Agents do the heavy lifting in parallel. Engineers make the calls and review every change."
-            : "Without agents, the same team spends weeks on boilerplate — and you pay for every hour of it."}
+            ? "Agents do the heavy lifting. Engineers make the calls."
+            : "Same team, weeks of boilerplate — billed by the hour."}
         </p>
       </div>
     </Section>

@@ -35,6 +35,8 @@ export type Pillar = {
   slug: string;
   title: string;
   href: string;
+  /** One short line for compact cards (home services row). */
+  tagline: string;
   summary: string;
   lead: string;
   offerings: string[];
@@ -45,6 +47,7 @@ export const pillars: Pillar[] = [
     slug: "web-development",
     title: "Web apps & SaaS",
     href: "/services/web-development",
+    tagline: "Apps, dashboards and internal tools.",
     summary:
       "Production-grade web apps, SaaS products, dashboards and internal tools — built by AI agents, reviewed by engineers.",
     lead: "A SaaS MVP with sign-up, billing and an admin panel — live on your domain, not stuck in a chat window.",
@@ -61,6 +64,7 @@ export const pillars: Pillar[] = [
     slug: "ai-solutions",
     title: "AI features & agents",
     href: "/services/ai-solutions",
+    tagline: "Chatbots and copilots grounded in your data.",
     summary:
       "Chatbots, copilots and agents grounded in your own data — wired into the product and tools you already have.",
     lead: "A support agent that answers from your docs and hands off to a person with the full context attached.",
@@ -77,6 +81,7 @@ export const pillars: Pillar[] = [
     slug: "automation",
     title: "Integrations & automation",
     href: "/services/automation",
+    tagline: "Payments, email, CRMs and APIs, connected.",
     summary:
       "Connect payments, email, CRMs and APIs, then let the repetitive work run itself — reliably, in the background.",
     lead: "Orders flow from your store into accounting and email — no copy-paste, no missed steps.",
@@ -93,6 +98,7 @@ export const pillars: Pillar[] = [
     slug: "deployment",
     title: "Deploy & maintain",
     href: "/services/deployment",
+    tagline: "Hosting, CI/CD, monitoring and care.",
     summary:
       "Hosting, CI/CD, domains, monitoring and ongoing care — so launch day isn't the last day anyone looks after it.",
     lead: "A release pipeline that tests, deploys and alerts — and a team that fixes it when something breaks.",

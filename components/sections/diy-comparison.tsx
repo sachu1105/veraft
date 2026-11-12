@@ -25,11 +25,8 @@ export function DiyComparison() {
               “Why can&apos;t I just build it with AI myself?”
             </h2>
           </div>
-          <p className="max-w-lg text-body text-muted">
-            For a quick prototype, you should. AI makes the first 80% easy.
-            The last 20% — security, integrations, deployment and everything
-            that breaks at 2 a.m. — is where products succeed or stall.
-            That&apos;s the part we&apos;re for.
+          <p className="max-w-lg text-body-lg text-muted">
+            For a prototype, you should. The last 20% is what we&apos;re for.
           </p>
         </div>
 

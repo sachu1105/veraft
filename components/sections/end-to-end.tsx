@@ -4,10 +4,9 @@ import { ArrowLink } from "@/components/ui/arrow-link";
 import { AgentConsole } from "@/components/sections/agent-console";
 
 const points = [
-  "Agents for speed — Claude, ChatGPT, DeepSeek & more",
-  "Engineers for judgment — every pull request reviewed",
-  "One team from first brief to production and beyond",
-  "Your code, your repo, your cloud — no lock-in",
+  "Agents for speed",
+  "Engineers for judgment",
+  "Your code, your repo, your cloud",
 ];
 
 /** "One team, idea to production" — copy on the left, agent console on the right. */
@@ -23,11 +22,8 @@ export function EndToEnd() {
           <h2 id="e2e-heading" className="text-display-md text-ink">
             One team, from first brief to production.
           </h2>
-          <p className="mt-5 text-body text-muted">
-            Most AI tools stop at the demo. We run agents across every stage —
-            planning, design, code, integrations, security, testing,
-            deployment and maintenance — and an engineer signs off before each
-            brick is laid.
+          <p className="mt-5 text-body-lg text-muted">
+            Most AI tools stop at the demo. We don&apos;t.
           </p>
           <ul className="mt-7 flex flex-col gap-3">
             {points.map((p) => (
