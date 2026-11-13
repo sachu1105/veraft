@@ -29,8 +29,12 @@ export async function POST(request: Request) {
   // silently drop real enquiries, so fail loudly instead.
   if (!isEmailConfigured()) {
     if (process.env.NODE_ENV === "production") {
+      // Names only (never values) — helps spot a misnamed or unlinked variable.
+      const similarEnvNames = Object.keys(process.env).filter((k) => /resend/i.test(k));
       console.error("[contact] RESEND_API_KEY is not set — booking NOT delivered", {
         email: booking.email,
+        vercelEnv: process.env.VERCEL_ENV ?? "unknown",
+        similarEnvNames,
       });
       return NextResponse.json(
         {
