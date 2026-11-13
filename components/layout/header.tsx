@@ -61,7 +61,7 @@ export function Header() {
     >
       <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between px-6 sm:px-10 lg:px-12 min-[1264px]:border-x min-[1264px]:border-line">
         <div className="flex items-center gap-8">
-          <Logo priority />
+          <Logo />
 
           <nav aria-label="Primary" className="hidden md:block">
             <ul className="flex items-center gap-1">

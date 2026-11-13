@@ -15,10 +15,10 @@
      #E8E6E1  hairline
      #6B6963  warm grey  secondary text
      #141413  ink        text, dark blocks, bars, lines
-     #4E50F5  blue       the accent — buttons, pills, highlights
-                         (white text on top, 5.5:1), and links/icons
-                         on light surfaces (5.5:1 on white, 5.0:1 on
-                         stone). Lifted to #9698FF as text on dark.
+     #5965C7  blue       the accent — buttons, pills, highlights
+                         (white text on top, 5.1:1), and links/icons
+                         on light surfaces (5.1:1 on white, 4.6:1 on
+                         stone). Lifted to #96A0F0 as text on dark.
    ============================================================ */
 
 :root {
@@ -31,10 +31,10 @@
   --c-line-dark: 48 47 44;
   --c-muted: 107 105 99; /* secondary text — 5.3:1 on stone */
   --c-muted-dark: 163 160 152;
-  --c-accent: 78 80 245; /* blue #4E50F5 */
-  --c-accent-fg: 78 80 245; /* accent as TEXT — lifted on dark */
-  --c-accent-press: 58 60 214; /* hover / active */
-  --c-accent-2: 64 66 222; /* deeper blue — side shading on the accent brick */
+  --c-accent: 89 101 199; /* blue #5965C7 */
+  --c-accent-fg: 89 101 199; /* accent as TEXT — lifted on dark */
+  --c-accent-press: 72 82 172; /* hover / active */
+  --c-accent-2: 76 87 182; /* deeper blue — side shading on the accent brick */
   --c-danger: 178 52 40; /* form validation errors only */
   --c-on-accent: 255 255 255; /* text/icons on blue fills — every scope */
   --c-on-dark: 255 255 255; /* text on fixed-dark media (CTA photo) */
@@ -62,14 +62,20 @@
   --c-spot-amber: 180 83 9;
   --c-spot-orange: 194 65 12;
 
-  /* Fixed brand-blue ramp around the accent (#4E50F5 = 500) for the CTA
-     band and footer wordmark. Deliberately NOT overridden in dark mode. */
-  --c-brand-950: 12 12 48;
-  --c-brand-900: 24 25 104;
-  --c-brand-700: 52 54 204;
-  --c-brand-500: 78 80 245;
-  --c-brand-300: 150 152 255;
-  --c-brand-200: 208 209 255;
+  /* Fixed brand-blue ramp around the accent (#5965C7 = 500) for the CTA
+     band. Deliberately NOT overridden in dark mode. */
+  --c-brand-950: 14 16 44;
+  --c-brand-900: 28 32 92;
+  --c-brand-700: 66 76 166;
+  --c-brand-500: 89 101 199;
+  --c-brand-300: 150 160 240;
+  --c-brand-200: 206 211 250;
+
+  /* Fixed three-tone gradient for the footer wordmark — pink → violet →
+     blue, picked to match the CTA gradient photo. Same in both themes. */
+  --c-grad-1: 236 112 191;
+  --c-grad-2: 124 92 230;
+  --c-grad-3: 46 110 240;
 
   /* Fixed near-blacks for the hero's "Veraft card" brick — black in both
      themes, like a physical card. */
@@ -97,7 +103,7 @@
   --c-line-dark: 48 47 44;
   --c-muted: 163 160 152;
   --c-muted-dark: 163 160 152;
-  --c-accent-fg: 150 152 255; /* #9698FF — 7.5:1 on the dark page */
+  --c-accent-fg: 150 160 240; /* #96A0F0 — 7.9:1 on the dark page */
   --c-danger: 240 128 112;
   --c-shadow: 0 0 0;
   --c-stone: 26 26 24;
@@ -128,7 +134,7 @@
   --c-line-dark: 48 47 44;
   --c-muted: 163 160 152;
   --c-muted-dark: 163 160 152;
-  --c-accent-fg: 150 152 255;
+  --c-accent-fg: 150 160 240;
   --c-danger: 240 128 112;
   --c-shadow: 0 0 0;
   --c-stone: 30 30 28;
@@ -240,55 +246,6 @@
   .mask-radial {
     -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
     mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
-  }
-
-  /* The brand wordmark rendered as a solid fill (any token color) via mask. */
-  .wordmark-mask {
-    -webkit-mask: url("/images/veraft-wordmark.png") center / contain no-repeat;
-    mask: url("/images/veraft-wordmark.png") center / contain no-repeat;
-  }
-
-  /* Footer wordmark fill: a soft brand-blue ramp — periwinkle top-left,
-     the accent blue across the body, a deeper blue settling low in the
-     middle, a gentle lift along the bottom edge — plus fine grain. One step
-     lighter on dark surfaces.
-     Pair with .wordmark-mask: the mask clips every layer (and the grain
-     pseudo-element) to the letterforms. */
-  .wordmark-aurora {
-    --wm-1: rgb(var(--c-brand-300));
-    --wm-2: rgb(var(--c-brand-500));
-    --wm-3: rgb(var(--c-brand-700));
-    position: relative;
-    isolation: isolate;
-    background-color: var(--wm-2);
-    background-image:
-      /* gentle lift along the bottom edge */
-      radial-gradient(60% 40% at 50% 112%, var(--wm-1) 0%, transparent 100%),
-      /* light top-left, easing across the top */
-      radial-gradient(60% 130% at 0% 0%, var(--wm-1) 0%, transparent 70%),
-      radial-gradient(45% 100% at 100% 0%, color-mix(in oklab, var(--wm-1) 70%, transparent) 0%, transparent 70%),
-      /* deeper tone settling low in the middle */
-      radial-gradient(70% 95% at 55% 70%, var(--wm-3) 0%, transparent 100%),
-      linear-gradient(180deg, var(--wm-2) 0%, var(--wm-2) 100%);
-  }
-  :root[data-theme="dark"] .wordmark-aurora,
-  .surface-deep .wordmark-aurora {
-    --wm-1: rgb(var(--c-brand-200));
-    --wm-2: rgb(var(--c-brand-300));
-    --wm-3: rgb(var(--c-brand-500));
-  }
-
-  /* Grain over the fill (clipped by the parent mask). */
-  .wordmark-aurora::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 180px 180px;
-    mix-blend-mode: overlay;
-    opacity: 0.35;
   }
 
   /* Hero bricks: each layer drops into place, one after another. */

@@ -72,7 +72,7 @@ function internalHtml(msg: BookingMessage): string {
 <h2 style="margin:0 0 16px;font-weight:600;color:#141413">New call booking</h2>
 <table style="border-collapse:collapse">${tr}</table>
 <p style="margin:20px 0 6px;color:#6b6963">Message</p>
-<div style="white-space:pre-wrap;color:#141413;border-left:3px solid #4e50f5;padding-left:12px">${escapeHtml(msg.message)}</div>
+<div style="white-space:pre-wrap;color:#141413;border-left:3px solid #5965c7;padding-left:12px">${escapeHtml(msg.message)}</div>
 </div>`;
 }
 

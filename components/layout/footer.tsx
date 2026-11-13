@@ -75,9 +75,15 @@ export function Footer() {
           <p className="font-mono">Built brick by brick.</p>
         </div>
 
-        {/* Oversized wordmark, with a little breathing room below it. */}
-        <div aria-hidden className="px-6 pb-8 sm:px-10 sm:pb-10 lg:px-12 lg:pb-12">
-          <div className="wordmark-mask wordmark-aurora aspect-[1223/303] mx-auto w-full lg:w-[70%]" />
+        {/* Oversized wordmark (Laravel-style): a pink → violet → blue gradient
+            clipped to the letters, sized off the
+            column width (container units) so it spans edge to edge at every
+            breakpoint, and sitting flush on the bottom edge — the footer's
+            overflow-hidden trims the empty space under the baseline. */}
+        <div aria-hidden className="mt-6 px-6 [container-type:inline-size] sm:px-10 lg:px-12">
+          <p className="-mb-[0.135em] select-none whitespace-nowrap text-[38.5cqw] font-semibold leading-none tracking-[-0.06em] text-transparent bg-gradient-to-r from-grad-1 via-grad-2 to-grad-3 bg-clip-text">
+            veraft
+          </p>
         </div>
       </div>
     </footer>

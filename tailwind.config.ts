@@ -47,6 +47,12 @@ const config: Config = {
           muted: color("stone-muted"),
         },
         sheet: color("sheet"),
+        // Fixed three-tone gradient — footer wordmark.
+        grad: {
+          1: color("grad-1"),
+          2: color("grad-2"),
+          3: color("grad-3"),
+        },
         // Fixed near-blacks — the hero's "Veraft card" brick.
         onyx: {
           700: color("onyx-700"),

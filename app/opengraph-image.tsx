@@ -9,8 +9,8 @@ export const alt = `${site.name} — ${site.tagline}`;
 const INK = "#141413";
 const MUTED = "#6B6963";
 const LINE = "#E8E6E1";
-const ACCENT = "#4E50F5";
-const ACCENT_2 = "#3A3CD6";
+const ACCENT = "#5965C7";
+const ACCENT_2 = "#4852AC";
 const PAPER = "#FFFFFF";
 const MIST = "#F5F4F1";
 

@@ -228,9 +228,6 @@ export function HeroStack({ className }: { className?: string }) {
           <stop offset="0%" style={{ stopColor: "var(--color-ink)", stopOpacity: 0.12 }} />
           <stop offset="100%" style={{ stopColor: "var(--color-ink)", stopOpacity: 0.02 }} />
         </linearGradient>
-        <filter id="vs-white">
-          <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0" />
-        </filter>
       </defs>
 
       {/* Floor plate */}
@@ -340,15 +337,16 @@ export function HeroStack({ className }: { className?: string }) {
             </g>
           }
           rightContent={
-            <image
-              href="/images/veraft-wordmark.png"
+            <text
               x={30}
-              y={29}
-              width={170}
-              height={42.1}
-              filter="url(#vs-white)"
-              preserveAspectRatio="xMidYMid meet"
-            />
+              y={67}
+              fontSize={54}
+              fontWeight={600}
+              letterSpacing="-0.045em"
+              className="fill-on-dark font-sans"
+            >
+              veraft
+            </text>
           }
         />
         <Brick
