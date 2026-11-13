@@ -7,10 +7,7 @@ import { pricingSteps } from "@/lib/content";
 /** Home: the token-based pricing model in one block. */
 export function PricingTeaser() {
   return (
-    <Section
-      aria-labelledby="pricing-heading"
-      className="bg-[radial-gradient(55%_70%_at_15%_90%,rgb(var(--c-accent)/0.06),transparent_70%)]"
-    >
+    <Section aria-labelledby="pricing-heading">
       <div className="grid gap-14 px-6 sm:px-10 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16 lg:px-12">
         <div>
           <Eyebrow>Pricing</Eyebrow>

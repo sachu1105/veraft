@@ -166,6 +166,50 @@
     mask: url("/images/veraft-wordmark.png") center / contain no-repeat;
   }
 
+  /* Footer wordmark fill: a soft three-tone brand gradient — a light
+     periwinkle top-left, the mid blue across the body, a deeper blue
+     settling low in the middle, and a gentle lift along the bottom edge —
+     plus fine grain. Each tone is muted slightly toward the neutral token
+     so the stops melt into one another instead of banding.
+     Pair with .wordmark-mask: the mask clips every layer (and the grain
+     pseudo-element) to the letterforms. */
+  .wordmark-aurora {
+    --wm-mute: rgb(var(--c-muted));
+    --wm-1: color-mix(in oklab, rgb(var(--c-brand-500)) 82%, var(--wm-mute));
+    --wm-2: color-mix(in oklab, rgb(var(--c-brand-700)) 80%, var(--wm-mute));
+    --wm-3: color-mix(in oklab, rgb(var(--c-brand-900)) 55%, rgb(var(--c-brand-700)));
+    position: relative;
+    isolation: isolate;
+    background-color: var(--wm-2);
+    background-image:
+      /* gentle lift along the bottom edge */
+      radial-gradient(60% 40% at 50% 112%, var(--wm-1) 0%, transparent 100%),
+      /* light top-left, easing across the top */
+      radial-gradient(60% 130% at 0% 0%, var(--wm-1) 0%, transparent 70%),
+      radial-gradient(45% 100% at 100% 0%, color-mix(in oklab, var(--wm-1) 70%, transparent) 0%, transparent 70%),
+      /* deeper tone settling low in the middle */
+      radial-gradient(70% 95% at 55% 70%, var(--wm-3) 0%, transparent 100%),
+      linear-gradient(180deg, var(--wm-2) 0%, var(--wm-2) 100%);
+  }
+  :root[data-theme="dark"] .wordmark-aurora {
+    --wm-1: color-mix(in oklab, color-mix(in oklab, rgb(var(--c-brand-200)) 60%, rgb(var(--c-brand-500))) 88%, var(--wm-mute));
+    --wm-2: color-mix(in oklab, color-mix(in oklab, rgb(var(--c-brand-500)) 70%, rgb(var(--c-brand-700))) 85%, var(--wm-mute));
+    --wm-3: color-mix(in oklab, rgb(var(--c-brand-700)) 80%, var(--wm-mute));
+  }
+
+  /* Grain over the fill (clipped by the parent mask). */
+  .wordmark-aurora::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    mix-blend-mode: overlay;
+    opacity: 0.35;
+  }
+
   /* CTA "aurora" band: deep brand blue with bright edges, a dark pocket
      behind the copy, light rays fanning up from a bloom at the bottom, and
      film grain on top. Pure CSS — no images. */

@@ -27,7 +27,7 @@ export function CtaBand({
 }) {
   return (
     <Section padding="none" aria-labelledby="cta-heading">
-      <div className="cta-aurora px-6 py-24 text-center sm:py-28 lg:py-36">
+      <div className="cta-aurora px-6 py-16 text-center sm:py-20 lg:py-24">
         <div className="relative mx-auto flex max-w-3xl flex-col items-center">
           <h2
             id="cta-heading"
@@ -38,7 +38,7 @@ export function CtaBand({
           <p className="mt-6 max-w-xl text-body-lg text-on-accent/85 [text-shadow:0_1px_12px_rgb(var(--c-brand-950)/0.6)]">
             {body}
           </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               href="/contact"
               className={`${btn} bg-on-accent text-brand-900 shadow-[0_10px_40px_-10px_rgb(var(--c-brand-950)/0.8)] hover:bg-brand-200`}
