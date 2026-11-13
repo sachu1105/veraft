@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ArrowUpRight, Check, Mail } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -7,6 +8,7 @@ import { CopyButton } from "@/components/ui/copy-button";
 import { ContactForm } from "@/components/sections/contact-form";
 import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
+import gradient from "@/public/images/cta-gradient.png";
 
 export const metadata: Metadata = pageMetadata({
   title: "Start a project",
@@ -103,9 +105,22 @@ export default function ContactPage() {
                   </ol>
                 </div>
 
-                {/* Brand gradient card (same fixed grad-* tones as the footer
-                    wordmark) — white copy holds ~5:1 across the whole ramp. */}
-                <div className="rounded-xl bg-gradient-to-tr from-grad-1 via-grad-2 to-grad-3 p-5 text-on-dark">
+                {/* Same gradient photo as the closing CTA band (served as
+                    AVIF/WebP via next/image), with a soft dark-violet scrim
+                    so the white copy stays legible over its light patches. */}
+                <div className="relative isolate overflow-hidden rounded-xl bg-brand-500 p-5 text-on-dark">
+                  <Image
+                    src={gradient}
+                    alt=""
+                    fill
+                    placeholder="blur"
+                    sizes="(min-width: 1024px) 480px, 100vw"
+                    className="-z-10 object-cover"
+                  />
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(var(--c-brand-950)/0.38),rgb(var(--c-brand-950)/0.12))]"
+                  />
                   <h2 className="text-body-sm font-medium text-on-dark">
                     Rather write an email?
                   </h2>

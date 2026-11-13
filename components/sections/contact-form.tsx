@@ -41,35 +41,14 @@ const empty: Values = {
   website: "",
 };
 
-/**
- * An icon per option, each in its own tinted chip (the fixed spot colours,
- * lifted in dark mode), so the choices scan at a glance.
- */
-const projectIcons: Record<ProjectType, { icon: LucideIcon; chip: string }> = {
-  "New product / MVP": {
-    icon: Rocket,
-    chip: "bg-spot-orange/10 text-spot-orange",
-  },
-  "Custom software or web app": {
-    icon: Globe,
-    chip: "bg-spot-sky/10 text-spot-sky",
-  },
-  "AI-powered product": {
-    icon: Bot,
-    chip: "bg-spot-violet/10 text-spot-violet",
-  },
-  "UI/UX or product design": {
-    icon: PenTool,
-    chip: "bg-spot-rose/10 text-spot-rose",
-  },
-  "Improve or maintain an existing app": {
-    icon: Wrench,
-    chip: "bg-spot-amber/10 text-spot-amber",
-  },
-  "Not sure yet": {
-    icon: CircleHelp,
-    chip: "bg-spot-green/10 text-spot-green",
-  },
+/** An icon per option, so the choices scan at a glance. Neutral grey; blue when picked. */
+const projectIcons: Record<ProjectType, LucideIcon> = {
+  "New product / MVP": Rocket,
+  "Custom software or web app": Globe,
+  "AI-powered product": Bot,
+  "UI/UX or product design": PenTool,
+  "Improve or maintain an existing app": Wrench,
+  "Not sure yet": CircleHelp,
 };
 
 const noopSubscribe = () => () => {};
@@ -350,7 +329,7 @@ function OptionGroup({
         tabIndex={-1}
       >
         {projectTypes.map((opt) => {
-          const { icon: Icon, chip } = projectIcons[opt];
+          const Icon = projectIcons[opt];
           const checked = value === opt;
           return (
             <label key={opt} className="flex cursor-pointer">
@@ -364,21 +343,21 @@ function OptionGroup({
               />
               <span
                 className={cn(
-                  "flex w-full items-center gap-3 rounded-lg border bg-paper px-3 py-2.5 text-body-sm text-ink transition-colors duration-150",
+                  "flex w-full items-center gap-3 rounded-lg border bg-paper px-3.5 py-3 text-body-sm text-ink transition-colors duration-150",
                   "hover:border-ink/25 peer-checked:border-accent peer-checked:bg-accent/5",
                   "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent",
                   error ? "border-danger/50" : "border-line",
                 )}
               >
-                <span
+                <Icon
+                  size={19}
+                  strokeWidth={1.75}
                   aria-hidden
                   className={cn(
-                    "flex size-8 shrink-0 items-center justify-center rounded-lg",
-                    chip,
+                    "shrink-0 transition-colors",
+                    checked ? "text-accent-fg" : "text-muted",
                   )}
-                >
-                  <Icon size={16} strokeWidth={1.75} />
-                </span>
+                />
                 <span className="min-w-0 flex-1">{opt}</span>
                 <span
                   aria-hidden
