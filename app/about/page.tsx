@@ -20,11 +20,11 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About"
         title="Two builders and a bench of AI agents."
-        intro="Veraft is a founder-led studio. We use AI agents to do in days what used to take a team months — and stay personally accountable for everything that ships."
+        intro="AI agents do in days what took a team months. We stay accountable for everything that ships."
       />
 
       {/* Mission */}
-      <Section>
+      <Section tone="deep">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[200px_1fr] lg:gap-16">
             <Eyebrow>Mission</Eyebrow>
@@ -46,20 +46,13 @@ export default function AboutPage() {
             <Eyebrow>Why we started</Eyebrow>
             <Reveal className="max-w-2xl space-y-5 text-body-lg text-muted">
               <p>
-                AI made writing code dramatically cheaper. Yet most businesses
-                we spoke to still couldn&apos;t get a real product shipped. They
-                had a demo from a chatbot — but no auth, no payments, no tests,
-                no deployment, and no one to call when it broke.
+                AI made code cheap, yet most businesses still couldn&apos;t ship
+                a real product — just a chatbot demo with no auth, tests or
+                deployment.
               </p>
               <p>
-                Agencies hadn&apos;t caught up either: same headcount, same
-                hourly rates, AI quietly pocketed as margin.
-              </p>
-              <p>
-                So we built Veraft around a simple idea: let agents like Claude,
-                ChatGPT and DeepSeek do the heavy lifting, keep engineers
-                accountable for every decision, and charge for the tokens we
-                actually burn. One team, start to finish — brick by brick.
+                So we let agents do the heavy lifting, keep engineers
+                accountable, and charge for the tokens we actually burn.
               </p>
             </Reveal>
           </div>

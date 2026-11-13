@@ -6,7 +6,7 @@ type Variant = "primary" | "secondary" | "ghost";
 type Size = "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-md font-medium leading-none " +
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium leading-none " +
   "transition duration-150 ease-out-quint " +
   "active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50";
 
@@ -20,7 +20,8 @@ const variants: Record<Variant, string> = {
 
 const sizes: Record<Size, string> = {
   md: "h-11 px-5 text-body-sm",
-  lg: "h-[3.25rem] px-7 text-body",
+  // A touch more compact on phones so two lg buttons fit side by side.
+  lg: "h-12 px-4 text-body-sm sm:h-[3.25rem] sm:px-7 sm:text-body",
 };
 
 export function buttonStyles({

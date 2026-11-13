@@ -12,7 +12,7 @@ export function AiToggle() {
   const [on, setOn] = useState(true);
 
   return (
-    <Section aria-labelledby="ai-toggle-heading">
+    <Section tone="mist" aria-labelledby="ai-toggle-heading">
       <div className="px-6 text-center sm:px-10">
         <h2 id="ai-toggle-heading" className="text-display-lg text-ink">
           Ship real products with an
@@ -41,7 +41,7 @@ export function AiToggle() {
             <span
               aria-hidden
               className={cn(
-                "absolute top-1/2 size-[0.62em] -translate-y-1/2 rounded-full bg-on-accent shadow-sm transition-[left] duration-300 ease-out-quint",
+                "absolute top-1/2 size-[0.62em] -translate-y-1/2 rounded-full bg-sheet shadow-sm transition-[left] duration-300 ease-out-quint",
                 on ? "left-[calc(100%-0.72em)]" : "left-[0.1em]",
               )}
             />

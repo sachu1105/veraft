@@ -3,8 +3,9 @@ import { ArrowRight, Bot, CloudUpload, Globe, Workflow } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { pillars } from "@/lib/site";
 import { Section } from "@/components/ui/section";
-import { Eyebrow } from "@/components/ui/eyebrow";
+import { cn } from "@/lib/cn";
 
+/** Icon per pillar — used by the services overview list. */
 export const pillarIcons: Record<string, LucideIcon> = {
   "web-development": Globe,
   "ai-solutions": Bot,
@@ -12,55 +13,89 @@ export const pillarIcons: Record<string, LucideIcon> = {
   deployment: CloudUpload,
 };
 
-/** The four services as one row of linked bricks. */
+/**
+ * The four services as a timeline: a row of dots joined by a hairline, each
+ * with a title, one line of description and a mono label. Horizontal on
+ * desktop, a vertical timeline on small screens. Sits on the navy block.
+ */
 export function ServicesRow({
-  eyebrow = "What we build",
   heading = "Four bricks. Use one, or stack them all.",
 }: {
-  eyebrow?: string;
   heading?: string;
 }) {
   return (
-    <Section padding="none" aria-labelledby="services-heading">
-      <div className="px-6 pb-12 pt-20 sm:px-10 sm:pt-24 lg:px-12">
-        <Eyebrow>{eyebrow}</Eyebrow>
-        <h2 id="services-heading" className="mt-5 max-w-2xl text-display-md text-ink">
+    <Section tone="deep" aria-labelledby="services-heading">
+      <div className="px-6 sm:px-10 lg:px-12">
+        <h2 id="services-heading" className="max-w-2xl text-display-md text-ink">
           {heading}
         </h2>
-      </div>
-      <ul className="grid gap-px border-t border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-        {pillars.map((p, i) => {
-          const Icon = pillarIcons[p.slug] ?? Globe;
-          return (
-            <li key={p.slug} className="bg-paper">
-              <Link
-                href={p.href}
-                className="group flex h-full flex-col p-6 transition-colors duration-200 hover:bg-mist/70 sm:p-8"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="flex size-11 items-center justify-center rounded-md border border-line bg-paper text-ink transition-colors group-hover:border-accent/40 group-hover:text-accent-fg">
-                    <Icon size={20} strokeWidth={1.5} aria-hidden />
-                  </span>
-                  <span className="font-mono text-label text-muted">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                </div>
-                <h3 className="mt-6 text-heading text-ink">{p.title}</h3>
-                <p className="mt-2.5 text-body-sm text-muted">{p.tagline}</p>
-                <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-body-sm font-medium text-accent-fg">
-                  Explore
-                  <ArrowRight
-                    size={16}
-                    strokeWidth={1.75}
+
+        <ol className="mt-14 grid gap-x-10 lg:mt-16 lg:grid-cols-4">
+          {pillars.map((p, i) => {
+            const first = i === 0;
+            const last = i === pillars.length - 1;
+            return (
+              <li key={p.slug} className="relative">
+                {/* Connector: vertical on mobile, horizontal on desktop */}
+                {!last && (
+                  <>
+                    <span
+                      aria-hidden
+                      className="absolute bottom-0 left-[6px] top-6 w-px bg-line lg:hidden"
+                    />
+                    <span
+                      aria-hidden
+                      className="absolute -right-7 left-6 top-[6px] hidden h-px bg-line lg:block"
+                    />
+                  </>
+                )}
+
+                <Link
+                  href={p.href}
+                  className="group block pb-10 pl-9 lg:pb-0 lg:pl-0 lg:pr-4"
+                >
+                  {/* Dot */}
+                  <span
                     aria-hidden
-                    className="transition-transform duration-150 ease-out-quint group-hover:translate-x-0.5"
-                  />
-                </span>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+                    className={cn(
+                      "absolute left-0 top-0 flex size-[13px] items-center justify-center rounded-full transition-colors duration-200",
+                      first ? "bg-accent-fg/20" : "bg-line group-hover:bg-accent-fg/20",
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "size-[5px] rounded-full transition-colors duration-200",
+                        first ? "bg-accent-fg" : "bg-muted group-hover:bg-accent-fg",
+                      )}
+                    />
+                  </span>
+
+                  <h3 className="text-body font-medium text-ink transition-colors group-hover:text-accent-fg lg:mt-14">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-body-sm text-muted">{p.tagline}</p>
+                  <p className="mt-4 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-muted/80">
+                    {String(i + 1).padStart(2, "0")} · {p.offerings.length} services
+                  </p>
+                </Link>
+              </li>
+            );
+          })}
+        </ol>
+
+        <Link
+          href="/services"
+          className="group mt-4 inline-flex items-center gap-1.5 text-body-sm text-muted transition-colors hover:text-ink lg:mt-16"
+        >
+          View all services
+          <ArrowRight
+            size={16}
+            strokeWidth={1.75}
+            aria-hidden
+            className="transition-transform duration-150 ease-out-quint group-hover:translate-x-0.5"
+          />
+        </Link>
+      </div>
     </Section>
   );
 }

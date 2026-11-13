@@ -11,7 +11,7 @@ import { HeroStack } from "@/components/sections/hero-stack";
  */
 export function Hero() {
   return (
-    <Section padding="none" className="overflow-hidden" frameClassName="overflow-hidden">
+    <Section tone="mist" padding="none" className="overflow-hidden" frameClassName="overflow-hidden">
       {/* Blueprint floor behind the stack */}
       <div
         aria-hidden
@@ -35,19 +35,15 @@ export function Hero() {
             the hours we bill.
           </p>
 
-          <div className="mt-9 flex flex-wrap gap-3">
-            <ButtonLink href="/contact" size="lg">
+          <div className="mt-9 flex flex-wrap gap-2.5 sm:gap-3">
+            <ButtonLink href="/contact" size="lg" className="flex-auto sm:flex-none">
               Book a call
               <ArrowRight size={18} strokeWidth={1.75} aria-hidden />
             </ButtonLink>
-            <ButtonLink href="/pricing" size="lg" variant="secondary">
+            <ButtonLink href="/pricing" size="lg" variant="secondary" className="flex-auto sm:flex-none">
               How pricing works
             </ButtonLink>
           </div>
-
-          <p className="mt-8 font-mono text-label text-muted">
-            End-to-end&nbsp;· Engineer-reviewed&nbsp;· You own the code
-          </p>
         </div>
 
         <div className="mt-6 lg:absolute lg:bottom-0 lg:right-0 lg:mt-0 lg:w-[64%]">

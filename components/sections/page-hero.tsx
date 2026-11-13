@@ -29,7 +29,7 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <Section padding="none" className="overflow-hidden">
+    <Section tone="mist" padding="none" className="overflow-hidden">
       <div
         aria-hidden
         className="bg-iso-grid mask-radial pointer-events-none absolute inset-y-0 right-0 w-full opacity-60 lg:w-[60%]"

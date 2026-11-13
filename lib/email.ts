@@ -65,14 +65,14 @@ function internalHtml(msg: BookingMessage): string {
   const tr = rows(msg)
     .map(
       ([k, v]) =>
-        `<tr><td style="padding:6px 16px 6px 0;color:#6b7280;white-space:nowrap">${k}</td><td style="padding:6px 0;color:#0b0c10">${escapeHtml(v)}</td></tr>`,
+        `<tr><td style="padding:6px 16px 6px 0;color:#6b6963;white-space:nowrap">${k}</td><td style="padding:6px 0;color:#141413">${escapeHtml(v)}</td></tr>`,
     )
     .join("");
   return `<div style="font-family:-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.5">
-<h2 style="margin:0 0 16px;font-weight:600;color:#0b0c10">New call booking</h2>
+<h2 style="margin:0 0 16px;font-weight:600;color:#141413">New call booking</h2>
 <table style="border-collapse:collapse">${tr}</table>
-<p style="margin:20px 0 6px;color:#6b7280">Message</p>
-<div style="white-space:pre-wrap;color:#0b0c10;border-left:3px solid #001ffe;padding-left:12px">${escapeHtml(msg.message)}</div>
+<p style="margin:20px 0 6px;color:#6b6963">Message</p>
+<div style="white-space:pre-wrap;color:#141413;border-left:3px solid #4e50f5;padding-left:12px">${escapeHtml(msg.message)}</div>
 </div>`;
 }
 

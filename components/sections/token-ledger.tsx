@@ -57,7 +57,7 @@ export function TokenLedger({ className }: { className?: string }) {
               <td className="py-3 pr-4">
                 <div className="h-1.5 overflow-hidden rounded-full bg-mist">
                   <div
-                    className="h-full rounded-full bg-accent"
+                    className="h-full rounded-full bg-ink"
                     style={{ width: `${Math.max(6, (r.tokens / max) * 100)}%` }}
                   />
                 </div>

@@ -122,9 +122,9 @@ function Brick({
 /* ---------- agent feeds ---------- */
 
 const agents = [
-  { name: "claude", x: 18, pill: 300, line: "stroke-accent", dot: "fill-accent", dur: 3.1 },
+  { name: "claude", x: 18, pill: 300, line: "stroke-ink", dot: "fill-ink", dur: 3.1 },
   { name: "chatgpt", x: 56, pill: 200, line: "stroke-ink/70", dot: "fill-ink", dur: 3.7 },
-  { name: "deepseek", x: 94, pill: 330, line: "stroke-accent-2", dot: "fill-accent-2", dur: 2.8 },
+  { name: "deepseek", x: 94, pill: 330, line: "stroke-ink/45", dot: "fill-ink/60", dur: 2.8 },
   { name: "gemini", x: 132, pill: 230, line: "stroke-muted/70", dot: "fill-muted", dur: 3.4 },
 ] as const;
 
@@ -142,11 +142,14 @@ const outPath = `M ${r(sx(W + PLATE, OUT_Y))} ${r(sy(W + PLATE, OUT_Y))} L ${r(
 /* ---------- face styles ---------- */
 
 const ink = "stroke-ink";
+/* Ramp-style restraint: the stack is white/stone, the Veraft layer is a
+   fixed near-black "card" (same in both themes), and blue appears on one
+   small brick only. */
 const faces = {
   deploy: {
-    top: { className: cn("fill-ink-soft", ink) },
-    left: { className: cn("fill-ink", ink) },
-    right: { className: cn("fill-ink", ink) },
+    top: { className: cn("fill-paper", ink) },
+    left: { className: cn("fill-mist", ink) },
+    right: { className: cn("fill-mist", ink) },
   },
   secure: {
     top: { className: cn("fill-paper", ink) },
@@ -154,9 +157,9 @@ const faces = {
     right: { className: cn("fill-paper", ink) },
   },
   build: {
-    top: { className: cn("fill-accent-2", ink) },
-    left: { className: cn("fill-accent-press", ink) },
-    right: { className: cn("fill-accent", ink) },
+    top: { className: cn("fill-onyx-700", ink) },
+    left: { className: cn("fill-onyx-950", ink) },
+    right: { className: cn("fill-onyx-900", ink) },
   },
   agents: {
     top: { className: cn("fill-paper", ink) },
@@ -169,9 +172,9 @@ const faces = {
     right: { className: cn("fill-paper", ink) },
   },
   accent: {
-    top: { className: cn("fill-accent-2", ink) },
-    left: { className: cn("fill-accent-press", ink) },
-    right: { className: cn("fill-accent", ink) },
+    top: { className: cn("fill-accent", ink) },
+    left: { className: cn("fill-accent-2", ink) },
+    right: { className: cn("fill-accent-press", ink) },
   },
 } satisfies Record<string, { top: Face; left: Face; right: Face }>;
 
@@ -218,12 +221,12 @@ export function HeroStack({ className }: { className?: string }) {
 
       <defs>
         <linearGradient id="vs-glass" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" style={{ stopColor: "var(--color-accent)", stopOpacity: 0.14 }} />
+          <stop offset="0%" style={{ stopColor: "var(--color-ink)", stopOpacity: 0.07 }} />
           <stop offset="100%" style={{ stopColor: "var(--color-paper)", stopOpacity: 1 }} />
         </linearGradient>
         <linearGradient id="vs-glass-strong" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" style={{ stopColor: "var(--color-accent-2)", stopOpacity: 0.35 }} />
-          <stop offset="100%" style={{ stopColor: "var(--color-accent)", stopOpacity: 0.12 }} />
+          <stop offset="0%" style={{ stopColor: "var(--color-ink)", stopOpacity: 0.12 }} />
+          <stop offset="100%" style={{ stopColor: "var(--color-ink)", stopOpacity: 0.02 }} />
         </linearGradient>
         <filter id="vs-white">
           <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0" />
@@ -232,7 +235,7 @@ export function HeroStack({ className }: { className?: string }) {
 
       {/* Floor plate */}
       <polygon
-        className="fade-in fill-mist stroke-line"
+        className="fade-in fill-paper stroke-line"
         points={poly([
           [-PLATE, -PLATE, 0],
           [W + PLATE, -PLATE, 0],
@@ -275,20 +278,20 @@ export function HeroStack({ className }: { className?: string }) {
           </g>
         ))}
 
-        <path d={outPath} className="stroke-accent" strokeWidth={1.5} fill="none" />
+        <path d={outPath} className="stroke-ink" strokeWidth={1.5} fill="none" />
         <ellipse
           cx={r(sx(W + PLATE, OUT_Y))}
           cy={r(sy(W + PLATE, OUT_Y))}
           rx={7}
           ry={4}
           strokeWidth={1.5}
-          className="fill-paper stroke-accent"
+          className="fill-paper stroke-ink"
         />
-        <circle r={3.5} className="flow-dot fill-accent">
+        <circle r={3.5} className="flow-dot fill-ink">
           <animateMotion dur="2.6s" repeatCount="indefinite" path={outPath} />
         </circle>
         <g transform={floorAlongX(W + 34, OUT_Y)}>
-          <rect x={0} y={-11} width={164} height={22} rx={11} className="fill-accent" />
+          <rect x={0} y={-11} width={164} height={22} rx={11} className="fill-accent stroke-ink" />
           <circle cx={13} cy={0} r={3.5} className="fill-on-accent" />
           <text x={23} y={4} fontSize={12} className="fill-on-accent font-mono">
             live · yourapp.com
@@ -304,7 +307,7 @@ export function HeroStack({ className }: { className?: string }) {
           delay={0.1}
           {...faces.deploy}
           rightContent={
-            <FaceLabel x={22} y={19} className="fill-paper/80">
+            <FaceLabel x={22} y={19} className="fill-ink">
               Deploy · Monitor
             </FaceLabel>
           }
@@ -329,7 +332,7 @@ export function HeroStack({ className }: { className?: string }) {
           delay={0.4}
           {...faces.build}
           leftContent={
-            <g className="fill-on-accent/30">
+            <g className="fill-on-dark/15">
               <rect x={18} y={22} width={64} height={6} rx={3} />
               <rect x={30} y={36} width={90} height={6} rx={3} />
               <rect x={30} y={50} width={52} height={6} rx={3} />
@@ -354,7 +357,7 @@ export function HeroStack({ className }: { className?: string }) {
           delay={0.55}
           {...faces.agents}
           rightContent={
-            <FaceLabel x={22} y={17} className="fill-accent">
+            <FaceLabel x={22} y={17} className="fill-ink">
               claude · gpt · deepseek
             </FaceLabel>
           }

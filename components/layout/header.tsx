@@ -82,7 +82,7 @@ export function Header() {
                       {active && (
                         <span
                           aria-hidden
-                          className="absolute inset-x-3 -bottom-[13px] h-px bg-accent"
+                          className="absolute inset-x-3 -bottom-[13px] h-0.5 bg-ink"
                         />
                       )}
                     </Link>
@@ -94,7 +94,10 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-2">
-          <ThemeToggle />
+          {/* Below md the toggle lives in the mobile menu instead. */}
+          <div className="hidden md:flex">
+            <ThemeToggle />
+          </div>
           <ButtonLink href="/contact" className="hidden h-10 px-4 md:inline-flex">
             Book a call
             <ArrowRight size={16} strokeWidth={1.75} aria-hidden />

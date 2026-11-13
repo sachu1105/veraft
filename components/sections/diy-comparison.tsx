@@ -16,7 +16,7 @@ const markIcon: Record<Mark, { icon: typeof Check; label: string; className: str
  */
 export function DiyComparison() {
   return (
-    <Section aria-labelledby="diy-heading">
+    <Section tone="mist" aria-labelledby="diy-heading">
       <div className="px-6 sm:px-10 lg:px-12">
         <div className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end lg:gap-16">
           <div>
@@ -30,7 +30,7 @@ export function DiyComparison() {
           </p>
         </div>
 
-        <div className="relative mt-12 overflow-x-auto rounded-xl border border-line">
+        <div className="relative mt-12 overflow-x-auto rounded-xl border border-line bg-paper">
           <table className="w-full min-w-[640px] border-collapse text-left text-body-sm">
             <caption className="sr-only">
               Building with AI tools yourself compared with building with Veraft
@@ -43,7 +43,7 @@ export function DiyComparison() {
                 <th scope="col" className="px-5 py-4 font-medium text-ink sm:px-6">
                   DIY with AI tools
                 </th>
-                <th scope="col" className="border-l border-accent/20 bg-accent/5 px-5 py-4 font-medium text-accent-fg sm:px-6">
+                <th scope="col" className="border-l border-accent/30 bg-accent/10 px-5 py-4 font-medium text-accent-fg sm:px-6">
                   With Veraft
                 </th>
               </tr>
@@ -64,7 +64,7 @@ export function DiyComparison() {
                         {row.diyNote}
                       </span>
                     </td>
-                    <td className="border-l border-accent/20 bg-accent/5 px-5 py-4 sm:px-6">
+                    <td className="border-l border-accent/30 bg-accent/5 px-5 py-4 sm:px-6">
                       <span className="flex items-center gap-2.5 text-ink">
                         <Check size={16} strokeWidth={2.25} aria-hidden className="shrink-0 text-accent-fg" />
                         <span className="sr-only">Yes: </span>

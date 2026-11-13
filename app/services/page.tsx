@@ -17,12 +17,12 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Services"
         title="Four bricks. One team to stack them."
-        intro="Start with one, or let us take you from first brief to a product that's live and looked after. Every brick is built with AI agents and reviewed by engineers."
+        intro="Use one, or let us take you from first brief to live and looked after."
       />
       <ServiceList />
       <CtaBand
         title="Not sure which brick you need?"
-        body="Most projects use more than one. Describe the outcome you're after and we'll propose the simplest path — with a token estimate."
+        body="Describe the outcome. We'll propose the simplest path, with a token estimate."
       />
     </main>
   );

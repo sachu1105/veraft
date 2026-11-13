@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
 import { ModelStrip } from "@/components/sections/model-strip";
 import { AiToggle } from "@/components/sections/ai-toggle";
-import { EndToEnd } from "@/components/sections/end-to-end";
 import { FeatureGrid } from "@/components/sections/feature-grid";
 import { ServicesRow } from "@/components/sections/services-row";
 import { PricingTeaser } from "@/components/sections/pricing-teaser";
@@ -26,7 +25,6 @@ export default function HomePage() {
       <Hero />
       <ModelStrip />
       <AiToggle />
-      <EndToEnd />
       <FeatureGrid />
       <ServicesRow />
       <PricingTeaser />

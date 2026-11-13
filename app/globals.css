@@ -3,49 +3,144 @@
 @tailwind utilities;
 
 /* ============================================================
-   Veraft design tokens — "engineered calm"
+   Veraft design tokens — "ink & blue"
    Single source of truth. Colors are stored as RGB channel
    triples (--c-*) so Tailwind can apply opacity modifiers, and
    re-exposed as solid --color-* vars for direct CSS / SVG use.
    No hardcoded hex in components.
+
+   Palette:
+     #FFFFFF  white      page
+     #F5F4F1  stone      blocks, cards
+     #E8E6E1  hairline
+     #6B6963  warm grey  secondary text
+     #141413  ink        text, dark blocks, bars, lines
+     #4E50F5  blue       the accent — buttons, pills, highlights
+                         (white text on top, 5.5:1), and links/icons
+                         on light surfaces (5.5:1 on white, 5.0:1 on
+                         stone). Lifted to #9698FF as text on dark.
    ============================================================ */
 
 :root {
   /* Channels (consumed by tailwind.config.ts) */
-  --c-ink: 11 12 16; /* near-black text/base, slightly cool */
-  --c-ink-soft: 22 24 31; /* elevated dark surfaces */
-  --c-paper: 255 255 255; /* primary background — dominant */
-  --c-mist: 245 246 248; /* light section background */
-  --c-line: 230 232 236; /* hairline borders on light */
-  --c-line-dark: 35 38 47; /* hairline borders on dark */
-  --c-muted: 107 114 128; /* secondary text on light */
-  --c-muted-dark: 154 161 173; /* secondary text on dark */
-  --c-accent: 0 31 254; /* company blue #001FFE — fills; identical in both themes */
-  --c-accent-fg: 0 31 254; /* blue used as TEXT (links, labels) — lifted in dark */
-  --c-accent-press: 0 23 194; /* hover / active darken */
-  --c-accent-2: 61 107 255; /* signature element glow ONLY */
-  --c-danger: 192 52 29; /* form validation errors only */
-  --c-on-accent: 255 255 255; /* text/icons on accent fills — same in both themes */
-  --c-shadow: 11 12 16; /* neutral shadow colour — never accent-tinted */
+  --c-ink: 20 20 19; /* text/base */
+  --c-ink-soft: 60 59 55;
+  --c-paper: 255 255 255; /* page background */
+  --c-mist: 245 244 241; /* stone block background */
+  --c-line: 232 230 225; /* hairline borders */
+  --c-line-dark: 48 47 44;
+  --c-muted: 107 105 99; /* secondary text — 5.3:1 on stone */
+  --c-muted-dark: 163 160 152;
+  --c-accent: 78 80 245; /* blue #4E50F5 */
+  --c-accent-fg: 78 80 245; /* accent as TEXT — lifted on dark */
+  --c-accent-press: 58 60 214; /* hover / active */
+  --c-accent-2: 64 66 222; /* deeper blue — side shading on the accent brick */
+  --c-danger: 178 52 40; /* form validation errors only */
+  --c-on-accent: 255 255 255; /* text/icons on blue fills — every scope */
+  --c-on-dark: 255 255 255; /* text on fixed-dark media (CTA photo) */
+  --c-shadow: 20 20 19; /* neutral shadow colour — never accent-tinted */
 
   /* Neutral elevation for raised cards (forms, panels): a tight contact
      shadow plus a soft ambient one. Redefined for dark below. */
   --shadow-raised:
-    0 1px 2px rgb(var(--c-shadow) / 0.04),
-    0 4px 12px -2px rgb(var(--c-shadow) / 0.05),
+    0 1px 2px rgb(var(--c-shadow) / 0.05),
+    0 4px 12px -2px rgb(var(--c-shadow) / 0.06),
     0 24px 48px -16px rgb(var(--c-shadow) / 0.12);
 
-  /* Fixed brand blues for the CTA "aurora" band. Deliberately NOT overridden
-     in dark mode, so the band looks identical in both themes. */
-  --c-brand-950: 3 6 48;
-  --c-brand-900: 6 14 112;
-  --c-brand-700: 0 31 254;
-  --c-brand-500: 61 107 255;
-  --c-brand-200: 196 208 255;
+  /* Feature cards: stone surface, white "sheets" for the app-window
+     mockups, and a few real-world spot colours for status pills and icon
+     chips in those mockups. */
+  --c-stone: 245 244 241;
+  --c-stone-line: 232 230 225;
+  --c-stone-muted: 128 124 117; /* 3.8:1 on stone — large heading text only */
+  --c-stone-dot: 205 202 195;
+  --c-sheet: 255 255 255;
+  --c-spot-green: 21 115 56;
+  --c-spot-violet: 109 40 217;
+  --c-spot-rose: 190 18 60;
+  --c-spot-sky: 3 105 161;
+  --c-spot-amber: 180 83 9;
+  --c-spot-orange: 194 65 12;
+
+  /* Fixed brand-blue ramp around the accent (#4E50F5 = 500) for the CTA
+     band and footer wordmark. Deliberately NOT overridden in dark mode. */
+  --c-brand-950: 12 12 48;
+  --c-brand-900: 24 25 104;
+  --c-brand-700: 52 54 204;
+  --c-brand-500: 78 80 245;
+  --c-brand-300: 150 152 255;
+  --c-brand-200: 208 209 255;
+
+  /* Fixed near-blacks for the hero's "Veraft card" brick — black in both
+     themes, like a physical card. */
+  --c-onyx-700: 60 59 55;
+  --c-onyx-900: 20 20 19;
+  --c-onyx-950: 10 10 9;
 
   color-scheme: light;
 
-  /* Solid colors for direct use in CSS, SVG, and inline styles */
+  /* Motion easings (also mirrored in tailwind.config.ts) */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dark theme — chosen manually via the header toggle (data-theme on <html>),
+   never from the OS preference. Only the channels change; the solid
+   --color-* vars derive from them. Blue fills stay the same; blue TEXT is
+   lifted so it stays legible on the dark surface. */
+:root[data-theme="dark"] {
+  --c-ink: 240 239 235;
+  --c-ink-soft: 200 198 192;
+  --c-paper: 14 14 13;
+  --c-mist: 26 26 24;
+  --c-line: 44 43 40;
+  --c-line-dark: 48 47 44;
+  --c-muted: 163 160 152;
+  --c-muted-dark: 163 160 152;
+  --c-accent-fg: 150 152 255; /* #9698FF — 7.5:1 on the dark page */
+  --c-danger: 240 128 112;
+  --c-shadow: 0 0 0;
+  --c-stone: 26 26 24;
+  --c-stone-line: 44 43 40;
+  --c-stone-muted: 140 138 132;
+  --c-stone-dot: 58 57 53;
+  --c-sheet: 34 34 32;
+  --c-spot-green: 74 222 128;
+  --c-spot-violet: 167 139 250;
+  --c-spot-rose: 251 113 133;
+  --c-spot-sky: 56 189 248;
+  --c-spot-amber: 251 191 36;
+  --c-spot-orange: 251 146 60;
+  color-scheme: dark;
+}
+
+/* Deep surface — a near-black block that looks the same in both themes.
+   Put `.surface-deep` on any element (Section tone="deep" does) and
+   everything inside re-reads the tokens as a dark surface, so `bg-paper`,
+   `text-ink`, `border-line`… all just work. Tailwind's `dark:` variant also
+   matches inside it (see tailwind.config.ts). */
+.surface-deep {
+  --c-ink: 240 239 235;
+  --c-ink-soft: 200 198 192;
+  --c-paper: 20 20 19;
+  --c-mist: 30 30 28;
+  --c-line: 48 47 44;
+  --c-line-dark: 48 47 44;
+  --c-muted: 163 160 152;
+  --c-muted-dark: 163 160 152;
+  --c-accent-fg: 150 152 255;
+  --c-danger: 240 128 112;
+  --c-shadow: 0 0 0;
+  --c-stone: 30 30 28;
+  --c-stone-line: 48 47 44;
+  --c-sheet: 38 38 36;
+  color-scheme: dark;
+}
+
+/* Solid colors for direct use in CSS, SVG, and inline styles. Declared on
+   every element that redefines channels, so each scope resolves its own. */
+:root,
+.surface-deep {
   --color-ink: rgb(var(--c-ink));
   --color-ink-soft: rgb(var(--c-ink-soft));
   --color-paper: rgb(var(--c-paper));
@@ -56,38 +151,16 @@
   --color-accent: rgb(var(--c-accent));
   --color-accent-fg: rgb(var(--c-accent-fg));
   --color-accent-2: rgb(var(--c-accent-2));
-
-  /* Motion easings (also mirrored in tailwind.config.ts) */
-  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Dark theme — chosen manually via the header toggle (data-theme on <html>),
-   never from the OS preference. Only the channels change; the solid
-   --color-* vars above derive from them automatically. Accent FILLS keep the
-   exact brand blue (#001FFE); only accent TEXT is lifted so it stays legible
-   on the dark surface. */
-:root[data-theme="dark"] {
-  --c-ink: 236 237 241;
-  --c-ink-soft: 200 203 211;
-  --c-paper: 10 11 15;
-  --c-mist: 19 21 27;
-  --c-line: 36 39 48;
-  --c-line-dark: 36 39 48;
-  --c-muted: 150 157 171;
-  --c-muted-dark: 150 157 171;
-  --c-accent-fg: 92 122 255; /* #5C7AFF — 5.3:1 on the dark surface */
-  --c-danger: 248 113 94;
-  --c-shadow: 0 0 0;
-
-  /* Shadows barely read on dark, so pair a deeper drop with a faint top
-     highlight to lift the card's edge. */
+/* Shadows barely read on dark, so pair a deeper drop with a faint top
+   highlight to lift the card's edge. */
+:root[data-theme="dark"],
+.surface-deep {
   --shadow-raised:
     inset 0 1px 0 rgb(var(--c-ink) / 0.04),
     0 1px 2px rgb(var(--c-shadow) / 0.4),
     0 24px 48px -16px rgb(var(--c-shadow) / 0.6);
-
-  color-scheme: dark;
 }
 
 @layer base {
@@ -154,6 +227,15 @@
       repeating-linear-gradient(150deg, rgb(var(--c-line) / 0.7) 0 1px, transparent 1px 44px);
   }
 
+  /* Fine dot texture for the feature cards, faded out toward one area.
+     Shape it with --dots-at, e.g. [--dots-at:50%_60%_at_85%_10%]. */
+  .bg-dots {
+    background-image: radial-gradient(rgb(var(--c-stone-dot)) 1px, transparent 1.4px);
+    background-size: 11px 11px;
+    -webkit-mask-image: radial-gradient(var(--dots-at, 55% 60% at 85% 15%), #000 0%, transparent 100%);
+    mask-image: radial-gradient(var(--dots-at, 55% 60% at 85% 15%), #000 0%, transparent 100%);
+  }
+
   /* Fade an element out toward its edges (pair with .bg-iso-grid). */
   .mask-radial {
     -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
@@ -166,18 +248,16 @@
     mask: url("/images/veraft-wordmark.png") center / contain no-repeat;
   }
 
-  /* Footer wordmark fill: a soft three-tone brand gradient — a light
-     periwinkle top-left, the mid blue across the body, a deeper blue
-     settling low in the middle, and a gentle lift along the bottom edge —
-     plus fine grain. Each tone is muted slightly toward the neutral token
-     so the stops melt into one another instead of banding.
+  /* Footer wordmark fill: a soft brand-blue ramp — periwinkle top-left,
+     the accent blue across the body, a deeper blue settling low in the
+     middle, a gentle lift along the bottom edge — plus fine grain. One step
+     lighter on dark surfaces.
      Pair with .wordmark-mask: the mask clips every layer (and the grain
      pseudo-element) to the letterforms. */
   .wordmark-aurora {
-    --wm-mute: rgb(var(--c-muted));
-    --wm-1: color-mix(in oklab, rgb(var(--c-brand-500)) 82%, var(--wm-mute));
-    --wm-2: color-mix(in oklab, rgb(var(--c-brand-700)) 80%, var(--wm-mute));
-    --wm-3: color-mix(in oklab, rgb(var(--c-brand-900)) 55%, rgb(var(--c-brand-700)));
+    --wm-1: rgb(var(--c-brand-300));
+    --wm-2: rgb(var(--c-brand-500));
+    --wm-3: rgb(var(--c-brand-700));
     position: relative;
     isolation: isolate;
     background-color: var(--wm-2);
@@ -191,10 +271,11 @@
       radial-gradient(70% 95% at 55% 70%, var(--wm-3) 0%, transparent 100%),
       linear-gradient(180deg, var(--wm-2) 0%, var(--wm-2) 100%);
   }
-  :root[data-theme="dark"] .wordmark-aurora {
-    --wm-1: color-mix(in oklab, color-mix(in oklab, rgb(var(--c-brand-200)) 60%, rgb(var(--c-brand-500))) 88%, var(--wm-mute));
-    --wm-2: color-mix(in oklab, color-mix(in oklab, rgb(var(--c-brand-500)) 70%, rgb(var(--c-brand-700))) 85%, var(--wm-mute));
-    --wm-3: color-mix(in oklab, rgb(var(--c-brand-700)) 80%, var(--wm-mute));
+  :root[data-theme="dark"] .wordmark-aurora,
+  .surface-deep .wordmark-aurora {
+    --wm-1: rgb(var(--c-brand-200));
+    --wm-2: rgb(var(--c-brand-300));
+    --wm-3: rgb(var(--c-brand-500));
   }
 
   /* Grain over the fill (clipped by the parent mask). */
@@ -208,58 +289,6 @@
     background-size: 180px 180px;
     mix-blend-mode: overlay;
     opacity: 0.35;
-  }
-
-  /* CTA "aurora" band: deep brand blue with bright edges, a dark pocket
-     behind the copy, light rays fanning up from a bloom at the bottom, and
-     film grain on top. Pure CSS — no images. */
-  .cta-aurora {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    background-color: rgb(var(--c-brand-900));
-    background-image:
-      /* bloom rising from the bottom edge */
-      radial-gradient(34% 46% at 50% 108%, rgb(255 255 255 / 0.9) 0%, rgb(var(--c-brand-200) / 0.75) 30%, transparent 72%),
-      radial-gradient(60% 80% at 50% 115%, rgb(var(--c-brand-500) / 0.95) 0%, rgb(var(--c-brand-700) / 0.55) 40%, transparent 72%),
-      /* dark pocket behind the copy */
-      radial-gradient(58% 58% at 50% 36%, rgb(var(--c-brand-950) / 0.9) 0%, rgb(var(--c-brand-950) / 0.35) 45%, transparent 75%),
-      /* bright side walls */
-      linear-gradient(90deg, rgb(var(--c-brand-500)) 0%, rgb(var(--c-brand-700)) 14%, rgb(var(--c-brand-900)) 38%, rgb(var(--c-brand-900)) 62%, rgb(var(--c-brand-700)) 86%, rgb(var(--c-brand-500)) 100%);
-  }
-
-  /* Light rays + a few diagonal streaks. */
-  .cta-aurora::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image:
-      /* irregular rays: three periods that rarely line up */
-      repeating-conic-gradient(from -90deg at 50% 112%, rgb(255 255 255 / 0.1) 0deg 0.35deg, transparent 0.35deg 7.3deg),
-      repeating-conic-gradient(from -86deg at 50% 112%, rgb(var(--c-brand-200) / 0.09) 0deg 1.4deg, transparent 1.4deg 12.7deg),
-      repeating-conic-gradient(from -83deg at 50% 112%, rgb(255 255 255 / 0.05) 0deg 2.6deg, transparent 2.6deg 19.1deg),
-      /* one bright streak in each upper corner */
-      linear-gradient(122deg, transparent 0 7%, rgb(255 255 255 / 0.28) 7.25%, transparent 7.9%),
-      linear-gradient(238deg, transparent 0 7%, rgb(255 255 255 / 0.28) 7.25%, transparent 7.9%);
-    /* rays strongest near the bloom, fading upward and toward the walls */
-    -webkit-mask-image: radial-gradient(75% 120% at 50% 100%, #000 0%, rgb(0 0 0 / 0.6) 45%, rgb(0 0 0 / 0.15) 100%);
-    mask-image: radial-gradient(75% 120% at 50% 100%, #000 0%, rgb(0 0 0 / 0.6) 45%, rgb(0 0 0 / 0.15) 100%);
-    filter: blur(0.6px);
-  }
-
-  /* Film grain — strongest where the light is brightest (overlay blend). */
-  .cta-aurora::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 180px 180px;
-    mix-blend-mode: overlay;
-    opacity: 0.85;
   }
 
   /* Hero bricks: each layer drops into place, one after another. */

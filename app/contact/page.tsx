@@ -26,7 +26,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Book a call"
         title="Let's lay the first brick."
-        intro="Tell us what you want to build, integrate or deploy. The more context you share, the better the first conversation."
+        intro="Tell us what you want to build. The more context, the better the first call."
       />
 
       <Section>

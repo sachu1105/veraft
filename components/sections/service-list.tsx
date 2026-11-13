@@ -4,6 +4,7 @@ import { Section } from "@/components/ui/section";
 import { ArrowLink } from "@/components/ui/arrow-link";
 import { Reveal } from "@/components/motion/reveal";
 import { pillarIcons } from "@/components/sections/services-row";
+import { cn } from "@/lib/cn";
 
 /** Offering checklist — reused on the services overview and detail pages. */
 export function OfferingList({
@@ -32,7 +33,7 @@ export function ServiceList() {
       {pillars.map((pillar, i) => {
         const Icon = pillarIcons[pillar.slug];
         return (
-          <Section key={pillar.slug} aria-labelledby={pillar.slug}>
+          <Section key={pillar.slug} tone={i % 2 ? "mist" : "paper"} aria-labelledby={pillar.slug}>
             <Reveal className="grid gap-8 px-6 sm:px-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16 lg:px-12">
               <div className="lg:max-w-sm">
                 <div className="flex items-center gap-3">
@@ -54,15 +55,11 @@ export function ServiceList() {
                 </ArrowLink>
               </div>
 
-              <div className="rounded-xl border border-line bg-mist/40 p-6 sm:p-8">
+              <div className={cn("rounded-xl border border-line p-6 sm:p-8", i % 2 ? "bg-paper" : "bg-mist")}>
                 <p className="font-mono text-label uppercase tracking-[0.12em] text-muted">
                   What we build
                 </p>
                 <OfferingList items={pillar.offerings} className="mt-3 grid gap-x-8 sm:grid-cols-2" />
-                <p className="mt-5 border-t border-line pt-5 text-body-sm text-ink">
-                  <span className="text-muted">For example: </span>
-                  {pillar.lead}
-                </p>
               </div>
             </Reveal>
           </Section>

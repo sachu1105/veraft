@@ -9,7 +9,15 @@ const color = (name: string) => `rgb(var(--c-${name}) / <alpha-value>)`;
 
 const config: Config = {
   // Dark mode is a manual choice (header toggle), never the OS setting.
-  darkMode: ["selector", '[data-theme="dark"]'],
+  // `dark:` also matches inside a .surface-deep block (Section tone="deep"),
+  // which re-reads every token as a dark surface in both themes.
+  darkMode: [
+    "variant",
+    [
+      '&:where([data-theme="dark"], [data-theme="dark"] *)',
+      "&:where(.surface-deep, .surface-deep *)",
+    ],
+  ],
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -32,12 +40,34 @@ const config: Config = {
         "accent-2": color("accent-2"),
         danger: color("danger"),
         "on-accent": color("on-accent"),
-        // Fixed (theme-independent) brand blues — used by the CTA aurora band.
+        "on-dark": color("on-dark"),
+        stone: {
+          DEFAULT: color("stone"),
+          line: color("stone-line"),
+          muted: color("stone-muted"),
+        },
+        sheet: color("sheet"),
+        // Fixed near-blacks — the hero's "Veraft card" brick.
+        onyx: {
+          700: color("onyx-700"),
+          900: color("onyx-900"),
+          950: color("onyx-950"),
+        },
+        spot: {
+          green: color("spot-green"),
+          violet: color("spot-violet"),
+          rose: color("spot-rose"),
+          sky: color("spot-sky"),
+          amber: color("spot-amber"),
+          orange: color("spot-orange"),
+        },
+        // Fixed (theme-independent) brand blues — CTA band, footer wordmark.
         brand: {
           950: color("brand-950"),
           900: color("brand-900"),
           700: color("brand-700"),
           500: color("brand-500"),
+          300: color("brand-300"),
           200: color("brand-200"),
         },
       },

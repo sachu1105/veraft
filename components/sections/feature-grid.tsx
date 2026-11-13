@@ -3,241 +3,409 @@ import type { ReactNode } from "react";
 import {
   ArrowUpRight,
   Check,
-  CreditCard,
-  GitPullRequest,
-  LayoutDashboard,
-  LayoutTemplate,
-  MessageSquare,
+  Gauge,
+  ListChecks,
+  ShieldCheck,
   Smartphone,
+  Sparkles,
+  UserCheck,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { cn } from "@/lib/cn";
 
+/*
+ * Only claim what we actually do: we build software, using AI in our
+ * workflow to deliver faster and at higher quality, with an engineer
+ * checking the work. No hosting/ops or integration promises here.
+ */
+
 /* ------------------------------------------------------------------ */
-/* Cell shell                                                          */
+/* Card shell                                                          */
 /* ------------------------------------------------------------------ */
 
-function FeatureCell({
-  title,
-  body,
+/**
+ * Ramp-style feature card: stone surface, a fine dot texture, a two-tone
+ * heading (dark lead + grey continuation), a square arrow button, and an
+ * illustrative app-window mockup anchored to the bottom edge. The whole card
+ * is the link.
+ */
+function FeatureCard({
+  lead,
+  rest,
   href,
-  cta,
-  visual,
+  dotsAt,
   className,
+  children,
 }: {
-  title: string;
-  body: string;
+  lead: string;
+  rest: string;
   href: string;
-  cta: string;
-  visual: ReactNode;
+  /** Tailwind arbitrary property placing the dot texture, e.g. "[--dots-at:…]". */
+  dotsAt: string;
   className?: string;
+  children: ReactNode;
 }) {
   return (
-    <div className={cn("relative flex flex-col overflow-hidden", className)}>
-      <div className="px-6 pt-14 sm:px-10 sm:pt-16 lg:px-12">
-        <h3 className="text-[1.5rem] leading-tight tracking-[-0.02em] text-ink">{title}</h3>
-        <p className="mt-3 max-w-lg text-body text-muted">{body}</p>
-        <Link
-          href={href}
-          className="mt-7 inline-flex items-center gap-1.5 rounded-md border border-line bg-paper px-3.5 py-2 text-body-sm text-ink shadow-[0_1px_2px_rgb(var(--c-ink)/0.05)] transition-colors hover:border-ink/25 hover:bg-mist"
-        >
-          {cta}
-          <ArrowUpRight size={15} strokeWidth={1.75} className="text-accent-fg" aria-hidden />
-        </Link>
+    <Link
+      href={href}
+      className={cn(
+        "group relative isolate flex h-[27rem] flex-col overflow-hidden rounded-2xl border border-stone-line bg-stone transition-[border-color,box-shadow] duration-300 ease-out-quint hover:border-ink/15 hover:shadow-raised",
+        className,
+      )}
+    >
+      <span aria-hidden className={cn("bg-dots pointer-events-none absolute inset-0 -z-10", dotsAt)} />
+      <div className="flex items-start justify-between gap-6 px-6 pt-6 sm:px-8 sm:pt-8">
+        <h3 className="max-w-[20rem] text-[1.375rem] leading-[1.22] tracking-[-0.02em] text-ink sm:text-[1.5rem]">
+          {lead} <span className="text-stone-muted">{rest}</span>
+        </h3>
+        <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-stone-line bg-sheet text-ink shadow-[0_1px_2px_rgb(var(--c-shadow)/0.06)] transition-colors duration-200 group-hover:border-ink group-hover:bg-ink group-hover:text-paper">
+          <ArrowUpRight size={16} strokeWidth={1.75} aria-hidden />
+        </span>
       </div>
-      <div aria-hidden className="relative mt-12 flex flex-1 flex-col justify-end">
-        {visual}
+      <div aria-hidden className="relative mt-6 flex-1">
+        {children}
       </div>
-    </div>
+    </Link>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/* Visuals (decorative, illustrative)                                  */
+/* Mockup primitives                                                   */
 /* ------------------------------------------------------------------ */
 
-function ReviewVisual() {
+/** A white app window with grey "traffic light" dots and an optional title. */
+function Window({
+  title,
+  className,
+  children,
+}: {
+  title?: string;
+  className?: string;
+  children: ReactNode;
+}) {
   return (
-    <div className="ml-6 rounded-tl-xl border-l border-t border-line bg-paper sm:ml-10 lg:ml-12">
-      <div className="flex items-center justify-between gap-4 border-b border-line px-5 py-3.5">
-        <span className="flex min-w-0 items-center gap-2.5 text-body-sm text-ink">
-          <GitPullRequest size={16} strokeWidth={1.75} className="shrink-0 text-accent-fg" />
-          <span className="truncate">#42 Booking availability engine</span>
-        </span>
-        <span className="shrink-0 rounded-full bg-accent px-2.5 py-1 font-mono text-[0.6875rem] text-on-accent">
-          approved
-        </span>
+    <div
+      className={cn(
+        "absolute overflow-hidden rounded-t-xl border border-b-0 border-stone-line bg-sheet shadow-raised",
+        className,
+      )}
+    >
+      <div className="relative flex h-8 items-center gap-1.5 border-b border-stone-line px-3">
+        <span className="size-2 rounded-full bg-stone-line" />
+        <span className="size-2 rounded-full bg-stone-line" />
+        <span className="size-2 rounded-full bg-stone-line" />
+        {title && (
+          <span className="absolute inset-x-0 text-center text-[0.6875rem] text-muted">{title}</span>
+        )}
       </div>
-      <div className="px-5 py-4 font-mono text-[0.75rem] leading-[1.9]">
-        <p className="text-muted">deepseek opened · claude reviewed · +412 −38</p>
-        <p className="mt-2 text-accent-fg">+ export async function getSlots(day, staffId) {"{"}</p>
-        <p className="text-accent-fg">+   const tz = clinic.timezone;</p>
-        <p className="text-muted line-through decoration-muted/40">-   const tz = &quot;UTC&quot;; // TODO</p>
-        <p className="text-accent-fg">+   return freeSlots(day, staffId, tz);</p>
-        <div className="mt-3 flex items-start gap-2 rounded-lg border border-line bg-mist px-3 py-2.5 font-sans text-[0.8125rem] leading-snug text-ink">
-          <MessageSquare size={14} strokeWidth={1.75} className="mt-0.5 shrink-0 text-accent-fg" />
-          <span>
-            <span className="font-semibold">engineer:</span>{" "}use the clinic&apos;s timezone, not
-            UTC — DST will bite. <span className="text-accent-fg">✓ resolved</span>
-          </span>
-        </div>
-      </div>
+      {children}
     </div>
   );
 }
 
-const pipeline = [
-  { step: "build", time: "1m 12s" },
-  { step: "test · 264 passing", time: "48s" },
-  { step: "security scan", time: "22s" },
-  { step: "migrate database", time: "6s" },
-];
-
-function DeployVisual() {
+/** Small green status pill — the "it's done" signal clients look for. */
+function Done({ children = "Done" }: { children?: ReactNode }) {
   return (
-    <div className="flex justify-center px-6 pb-0">
-      <div className="relative w-full max-w-sm">
-        <span className="absolute -top-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full bg-ink px-3.5 py-1.5 font-mono text-[0.75rem] text-paper shadow-lg">
-          <span className="relative flex size-2">
-            <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent-2 opacity-75" />
-            <span className="relative inline-flex size-2 rounded-full bg-accent-2" />
-          </span>
-          live
-        </span>
-        <div className="rounded-t-2xl border-x border-t border-line bg-mist p-2 pb-0">
-          <div className="rounded-t-xl border-x border-t border-line bg-paper px-5 pb-6 pt-7">
-            <ul className="flex flex-col gap-2.5 font-mono text-[0.75rem]">
-              {pipeline.map((p) => (
-                <li key={p.step} className="flex items-center justify-between gap-3">
-                  <span className="flex items-center gap-2 text-ink">
-                    <Check size={14} strokeWidth={2.25} className="text-accent-fg" />
-                    {p.step}
-                  </span>
-                  <span className="text-muted">{p.time}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-4 flex items-center justify-between rounded-lg border border-accent/25 bg-accent/5 px-3 py-2 font-mono text-[0.75rem]">
-              <span className="text-ink">app.yourclinic.com</span>
-              <span className="text-accent-fg">deployed</span>
-            </div>
+    <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-spot-green/10 px-2 py-0.5 text-[0.6875rem] font-medium text-spot-green">
+      <Check size={11} strokeWidth={3} />
+      {children}
+    </span>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 1 · Built with AI, checked by engineers — a preview + updates       */
+/* ------------------------------------------------------------------ */
+
+const slots = ["9:00", "9:30", "10:00", "11:30", "2:00", "3:30"];
+
+function PreviewVisual() {
+  return (
+    <>
+      <Window title="preview.yourclinic.com" className="bottom-0 left-6 right-16 top-14 sm:left-8 sm:right-24">
+        <div className="p-5">
+          <p className="text-label font-medium text-ink">Book an appointment</p>
+          <div className="mt-3 grid grid-cols-7 gap-1.5 text-center text-[0.6875rem]">
+            {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
+              <span
+                key={i}
+                className={cn(
+                  "rounded-md py-1.5",
+                  i === 2 ? "bg-accent text-on-accent" : "bg-stone text-muted",
+                )}
+              >
+                {d}
+              </span>
+            ))}
+          </div>
+          <div className="mt-3 grid grid-cols-3 gap-1.5 text-center text-[0.6875rem]">
+            {slots.map((s, i) => (
+              <span
+                key={s}
+                className={cn(
+                  "rounded-md border py-1.5",
+                  i === 1 ? "border-ink font-medium text-ink" : "border-stone-line text-ink",
+                )}
+              >
+                {s}
+              </span>
+            ))}
+          </div>
+          <div className="mt-4 flex items-center justify-between gap-3 rounded-lg border border-stone-line px-3 py-2.5">
+            <span className="text-[0.75rem] text-ink">Dr. Mehta · Wed, 9:30</span>
+            <span className="rounded-md bg-accent px-2.5 py-1 text-[0.6875rem] font-medium text-on-accent">
+              Confirm
+            </span>
           </div>
         </div>
+      </Window>
+
+      <div className="absolute left-12 top-0 max-w-[15rem] rounded-2xl rounded-bl-md bg-sheet px-4 py-3 text-body-sm leading-snug text-ink shadow-raised sm:left-16">
+        ✨ AI built the first version of online booking.
       </div>
-    </div>
+      <div className="absolute right-4 top-[7.5rem] max-w-[15rem] rounded-2xl rounded-br-md bg-sheet px-4 py-3 text-body-sm leading-snug text-ink shadow-raised sm:right-6">
+        ✅ Reviewed by your engineer — 3 fixes made.
+        <span className="mt-1.5 block text-[0.75rem] text-muted">Try it on your preview link.</span>
+      </div>
+    </>
   );
 }
 
-const checks = [
-  { label: "Tests passing", value: "264 / 264", pct: 100 },
-  { label: "Dependency audit", value: "0 critical", pct: 100 },
-  { label: "OWASP Top 10 review", value: "10 / 10", pct: 100 },
-  { label: "Lighthouse performance", value: "96", pct: 96 },
+/* ------------------------------------------------------------------ */
+/* 2 · Delivered fast — a project plan moving week by week             */
+/* ------------------------------------------------------------------ */
+
+const plan: { step: string; when: string; done: boolean }[] = [
+  { step: "Design", when: "Week 1", done: true },
+  { step: "First working version", when: "Week 2", done: true },
+  { step: "Testing & fixes", when: "Week 3", done: true },
+  { step: "Launch", when: "Week 4", done: false },
+];
+
+function TimelineVisual() {
+  return (
+    <Window title="Project plan" className="bottom-0 left-10 right-0 top-2 rounded-tr-none border-r-0 sm:left-16">
+      <div className="p-5">
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-[1.0625rem] font-medium text-ink">Clinic booking app</p>
+          <Done>On schedule</Done>
+        </div>
+        <div className="mt-3 h-2 overflow-hidden rounded-full bg-stone">
+          <div className="h-full w-[80%] rounded-full bg-accent" />
+        </div>
+        <ol className="mt-5 flex flex-col">
+          {plan.map((p, i) => (
+            <li key={p.step} className="relative flex items-center gap-3 pb-4 last:pb-0">
+              {i < plan.length - 1 && (
+                <span className="absolute left-[9px] top-5 h-full w-px bg-stone-line" />
+              )}
+              <span
+                className={cn(
+                  "relative flex size-[19px] shrink-0 items-center justify-center rounded-full border",
+                  p.done ? "border-ink bg-ink text-paper" : "border-accent bg-accent",
+                )}
+              >
+                {p.done && <Check size={11} strokeWidth={3} />}
+              </span>
+              <span className="min-w-0 flex-1 text-body-sm text-ink">{p.step}</span>
+              {p.done ? (
+                <span className="text-[0.75rem] text-muted">{p.when}</span>
+              ) : (
+                <span className="rounded-full bg-accent px-2 py-0.5 text-[0.6875rem] font-medium text-on-accent">
+                  This week
+                </span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </Window>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 3 · Quality — a plain-English quality report                        */
+/* ------------------------------------------------------------------ */
+
+const report: { icon: LucideIcon; label: string; chip: string; status: ReactNode }[] = [
+  { icon: UserCheck, label: "Code review", chip: "bg-spot-violet/10 text-spot-violet", status: <Done>Approved</Done> },
+  { icon: ListChecks, label: "Automated tests", chip: "bg-spot-sky/10 text-spot-sky", status: <Done>Passing</Done> },
+  { icon: Smartphone, label: "Works on phones", chip: "bg-spot-orange/10 text-spot-orange", status: <Done>Checked</Done> },
+  { icon: ShieldCheck, label: "Security checks", chip: "bg-spot-rose/10 text-spot-rose", status: <Done>Passed</Done> },
+  {
+    icon: Gauge,
+    label: "Speed score",
+    chip: "bg-spot-amber/10 text-spot-amber",
+    status: <span className="rounded-full bg-spot-sky/10 px-2 py-0.5 text-[0.6875rem] font-medium text-spot-sky">96 / 100</span>,
+  },
 ];
 
 function QualityVisual() {
   return (
-    <div className="ml-6 rounded-tl-xl border-l border-t border-line bg-paper px-5 pb-8 pt-5 sm:ml-10 lg:ml-12">
-      <p className="font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-muted">
-        Milestone 3 · quality gate
-      </p>
-      <ul className="mt-4 flex flex-col gap-4">
-        {checks.map((c) => (
-          <li key={c.label}>
-            <div className="flex items-center justify-between text-body-sm">
-              <span className="text-ink">{c.label}</span>
-              <span className="font-mono text-label text-accent-fg">{c.value}</span>
-            </div>
-            <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-mist">
-              <div className="h-full rounded-full bg-accent" style={{ width: `${c.pct}%` }} />
-            </div>
+    <Window className="bottom-0 left-6 right-6 top-2 sm:left-8 sm:right-8">
+      <div className="flex items-center justify-between border-b border-stone-line px-4 py-3">
+        <span className="text-label font-medium text-ink">Quality report</span>
+        <span className="text-[0.6875rem] text-muted">Milestone 3</span>
+      </div>
+      <ul>
+        {report.map(({ icon: Icon, label, chip, status }) => (
+          <li key={label} className="flex items-center gap-3 border-b border-stone-line/70 px-4 py-2.5 last:border-0">
+            <span className={cn("flex size-7 shrink-0 items-center justify-center rounded-lg", chip)}>
+              <Icon size={14} strokeWidth={2} />
+            </span>
+            <span className="min-w-0 flex-1 truncate text-body-sm text-ink">{label}</span>
+            {status}
           </li>
         ))}
       </ul>
-    </div>
-  );
-}
-
-const screens: { file: string; icon: LucideIcon }[] = [
-  { file: "landing.tsx", icon: LayoutTemplate },
-  { file: "dashboard.tsx", icon: LayoutDashboard },
-  { file: "checkout.tsx", icon: CreditCard },
-  { file: "app.native.tsx", icon: Smartphone },
-];
-
-function ScreensVisual() {
-  return (
-    <div className="relative h-[300px]">
-      {screens.map(({ file, icon: Icon }, i) => (
-        <div
-          key={file}
-          className="absolute right-0 rounded-tl-xl border-l border-t border-line bg-paper shadow-[0_-12px_30px_-18px_rgb(var(--c-ink)/0.25)]"
-          style={{ top: `${i * 66}px`, left: `${(3 - i) * 32 + 24}px`, bottom: 0 }}
-        >
-          <div className="flex items-center border-b border-line">
-            <span className="flex items-center gap-2.5 border-r border-line px-5 py-3.5 text-body text-ink">
-              <Icon size={18} strokeWidth={1.75} className="text-accent-fg" />
-              {file}
-            </span>
-          </div>
-          {i === screens.length - 1 && (
-            <div className="flex gap-2 px-5 py-5">
-              <span className="h-2.5 w-24 rounded-full bg-mist" />
-              <span className="h-2.5 w-24 rounded-full bg-mist" />
-              <span className="h-2.5 w-14 rounded-full bg-mist" />
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
+    </Window>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/* The 2×2 grid                                                        */
+/* 4 · Designed around your users — desktop + phone                    */
+/* ------------------------------------------------------------------ */
+
+function DesignVisual() {
+  return (
+    <>
+      <Window className="bottom-0 left-6 right-14 top-4 sm:left-8">
+        <div className="p-4">
+          <div className="flex items-center justify-between">
+            <span className="h-2.5 w-12 rounded-full bg-ink/80" />
+            <span className="flex gap-2">
+              <span className="h-1.5 w-6 rounded-full bg-stone-line" />
+              <span className="h-1.5 w-6 rounded-full bg-stone-line" />
+              <span className="h-1.5 w-6 rounded-full bg-stone-line" />
+            </span>
+          </div>
+          <div className="mt-5 h-3 w-4/5 rounded-full bg-ink/80" />
+          <div className="mt-2 h-3 w-3/5 rounded-full bg-ink/80" />
+          <div className="mt-3 h-1.5 w-2/3 rounded-full bg-stone-line" />
+          <div className="mt-3 h-5 w-16 rounded-md bg-ink" />
+          <div className="mt-4 h-24 rounded-lg bg-gradient-to-br from-accent via-accent/50 to-stone" />
+        </div>
+      </Window>
+
+      {/* Phone */}
+      <div className="absolute -bottom-6 right-5 h-[15.5rem] w-[8.25rem] rounded-[1.6rem] border-[5px] border-ink bg-sheet p-2 shadow-raised">
+        <span className="mx-auto block h-1.5 w-10 rounded-full bg-ink/80" />
+        <div className="mt-3 h-14 rounded-lg bg-gradient-to-br from-accent to-accent/30" />
+        {["bg-spot-violet/15", "bg-spot-green/15", "bg-spot-orange/15"].map((tone) => (
+          <div key={tone} className="mt-2 flex items-center gap-1.5">
+            <span className={cn("size-5 shrink-0 rounded-md", tone)} />
+            <span className="flex-1 space-y-1">
+              <span className="block h-1.5 w-full rounded-full bg-stone-line" />
+              <span className="block h-1.5 w-2/3 rounded-full bg-stone-line" />
+            </span>
+          </div>
+        ))}
+        <div className="mt-3 h-5 rounded-md bg-accent" />
+      </div>
+    </>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 5 · AI in the workflow — where it helps, and what that saves        */
+/* ------------------------------------------------------------------ */
+
+const aiTasks = ["First drafts of code", "Tests", "Documentation", "Bug hunting"];
+
+function WorkflowVisual() {
+  return (
+    <Window title="How we work" className="bottom-0 left-6 right-6 top-2 sm:left-8 sm:right-8">
+      <ul className="px-4 pt-2">
+        {aiTasks.map((t) => (
+          <li key={t} className="flex items-center gap-2.5 border-b border-stone-line/70 py-2.5">
+            <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-accent text-on-accent">
+              <Sparkles size={12} strokeWidth={2} />
+            </span>
+            <span className="min-w-0 flex-1 truncate text-body-sm text-ink">{t}</span>
+            <span className="inline-flex shrink-0 items-center gap-1 text-[0.6875rem] text-muted">
+              <UserCheck size={12} strokeWidth={2} />
+              Checked
+            </span>
+          </li>
+        ))}
+      </ul>
+      <div className="px-4 pb-5 pt-4">
+        <p className="text-[0.6875rem] uppercase tracking-[0.12em] text-muted">Time to first version</p>
+        <div className="mt-2.5 flex items-center gap-2.5">
+          <span className="w-14 shrink-0 text-[0.6875rem] text-muted">Usual</span>
+          <span className="h-2 flex-1 rounded-full bg-ink/15" />
+        </div>
+        <div className="mt-2 flex items-center gap-2.5">
+          <span className="w-14 shrink-0 text-[0.6875rem] font-medium text-ink">With AI</span>
+          <span className="flex-1">
+            <span className="block h-2 w-[42%] rounded-full bg-accent" />
+          </span>
+        </div>
+      </div>
+    </Window>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* The grid: two cards, then three                                     */
 /* ------------------------------------------------------------------ */
 
 export function FeatureGrid() {
   return (
-    <>
-      <Section padding="none" aria-label="Build and deploy">
-        <div className="grid divide-y divide-line lg:grid-cols-[1.25fr_1fr] lg:divide-x lg:divide-y-0">
-          <FeatureCell
-            title="Production-grade, not prototype-grade"
-            body="We build the parts demos skip."
-            href="/services/web-development"
-            cta="Explore web apps & SaaS"
-            visual={<ReviewVisual />}
-          />
-          <FeatureCell
-            title="Deployed, monitored, handed over"
-            body="Live in accounts you own. No lock-in."
-            href="/services/deployment"
-            cta="Explore deploy & maintain"
-            visual={<DeployVisual />}
-          />
-        </div>
-      </Section>
-
-      <Section padding="none" aria-label="Quality and design">
-        <div className="grid divide-y divide-line lg:grid-cols-[1fr_1.15fr] lg:divide-x lg:divide-y-0">
-          <FeatureCell
-            title="Security and quality, brick by brick"
-            body="Every milestone passes a quality gate."
+    <Section aria-label="How we build">
+      <div className="flex flex-col gap-4 px-6 sm:px-10 lg:gap-5 lg:px-12">
+        <div className="grid gap-4 lg:grid-cols-2 lg:gap-5">
+          <FeatureCard
+            lead="Built with AI,"
+            rest="checked by engineers"
             href="/approach"
-            cta="See our process"
-            visual={<QualityVisual />}
-          />
-          <FeatureCell
-            title="UI/UX shaped around your users"
-            body="Responsive on every screen, web or mobile."
-            href="/contact"
-            cta="Talk about your product"
-            visual={<ScreensVisual />}
-          />
+            dotsAt="[--dots-at:55%_70%_at_85%_0%]"
+            className="lg:h-[31rem]"
+          >
+            <PreviewVisual />
+          </FeatureCard>
+          <FeatureCard
+            lead="Delivered fast,"
+            rest="without cutting corners"
+            href="/approach"
+            dotsAt="[--dots-at:50%_60%_at_0%_100%]"
+            className="lg:h-[31rem]"
+          >
+            <TimelineVisual />
+          </FeatureCard>
         </div>
-      </Section>
-    </>
+
+        <div className="grid gap-4 lg:grid-cols-3 lg:gap-5">
+          <FeatureCard
+            lead="Quality checked"
+            rest="at every step"
+            href="/approach"
+            dotsAt="[--dots-at:60%_50%_at_100%_0%]"
+            className="lg:h-[33rem]"
+          >
+            <QualityVisual />
+          </FeatureCard>
+          <FeatureCard
+            lead="Designed around your users,"
+            rest="on every screen"
+            href="/services/web-development"
+            dotsAt="[--dots-at:55%_60%_at_0%_0%]"
+            className="lg:h-[33rem]"
+          >
+            <DesignVisual />
+          </FeatureCard>
+          <FeatureCard
+            lead="More done, faster,"
+            rest="with AI in our workflow"
+            href="/pricing"
+            dotsAt="[--dots-at:70%_70%_at_50%_60%]"
+            className="lg:h-[33rem]"
+          >
+            <WorkflowVisual />
+          </FeatureCard>
+        </div>
+      </div>
+    </Section>
   );
 }

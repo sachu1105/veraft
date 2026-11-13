@@ -33,7 +33,7 @@ const noopSubscribe = () => () => {};
 
 const inputBase =
   "w-full rounded-md border bg-paper px-4 py-3 text-body text-ink " +
-  "placeholder:text-muted/60 transition-colors duration-150 focus:border-accent";
+  "placeholder:text-muted/60 transition-colors duration-150 focus:border-ink";
 
 /** "Book a call" form — posts to /api/contact, which emails us via Resend. */
 export function ContactForm() {
@@ -109,7 +109,7 @@ export function ContactForm() {
   if (status === "success") {
     return (
       <div className="rounded-xl border border-line bg-paper p-8 shadow-raised dark:bg-mist sm:p-10" role="status">
-        <span className="flex size-11 items-center justify-center rounded-md bg-accent/10 text-accent-fg">
+        <span className="flex size-11 items-center justify-center rounded-md bg-accent text-on-accent">
           <Check size={22} strokeWidth={1.75} aria-hidden />
         </span>
         <h2 className="mt-5 text-heading text-ink">Request received — thank you.</h2>

@@ -22,7 +22,7 @@ export default function ApproachPage() {
       <PageHero
         eyebrow="How we work"
         title="Agents do the heavy lifting. Engineers own the result."
-        intro="No black boxes and no padded timesheets. A clear process, the right model for each task, and an engineer accountable for every brick that ships."
+        intro="The right model for each task, and an engineer accountable for every brick."
       />
 
       {/* Agents vs engineers */}
@@ -50,7 +50,7 @@ export default function ApproachPage() {
       </Section>
 
       {/* Process */}
-      <Section tone="mist" aria-labelledby="process-heading">
+      <Section tone="deep" aria-labelledby="process-heading">
         <Container>
           <div className="max-w-2xl">
             <Eyebrow>Process</Eyebrow>
@@ -66,8 +66,7 @@ export default function ApproachPage() {
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-4 text-heading text-ink">{step.title}</h3>
-                  <p className="mt-1 text-body-sm font-medium text-ink/80">{step.teaser}</p>
-                  <p className="mt-3 text-body-sm text-muted">{step.detail}</p>
+                  <p className="mt-2 text-body-sm text-muted">{step.teaser}</p>
                 </Reveal>
               </li>
             ))}
@@ -76,20 +75,13 @@ export default function ApproachPage() {
       </Section>
 
       {/* Models */}
-      <Section aria-labelledby="models-page-heading">
+      <Section tone="mist" aria-labelledby="models-page-heading">
         <Container>
-          <div className="grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-16">
-            <div>
-              <Eyebrow>Agents on our bench</Eyebrow>
-              <h2 id="models-page-heading" className="mt-5 text-display-md text-ink">
-                The right model for each brick.
-              </h2>
-            </div>
-            <p className="max-w-lg text-body text-muted">
-              No single model is best at everything. We route each task to the
-              model that does it best for the cost — and respect your rules on
-              which providers can see your data.
-            </p>
+          <div className="max-w-2xl">
+            <Eyebrow>Agents on our bench</Eyebrow>
+            <h2 id="models-page-heading" className="mt-5 text-display-md text-ink">
+              The right model for each brick.
+            </h2>
           </div>
           <ul className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-5">
             {models.map((m) => (
@@ -98,7 +90,7 @@ export default function ApproachPage() {
                 <span className="mt-1 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-muted">
                   {m.maker}
                 </span>
-                <p className="mt-4 text-body-sm text-muted">{m.useFor}</p>
+                <p className="mt-3 text-body-sm text-muted">{m.useFor}</p>
               </li>
             ))}
           </ul>
@@ -106,7 +98,7 @@ export default function ApproachPage() {
       </Section>
 
       {/* Principles */}
-      <Section tone="mist" aria-labelledby="principles-heading">
+      <Section aria-labelledby="principles-heading">
         <Container>
           <div className="max-w-2xl">
             <Eyebrow>Principles</Eyebrow>
@@ -126,17 +118,13 @@ export default function ApproachPage() {
       </Section>
 
       {/* Tech stack */}
-      <Section aria-labelledby="stack-heading">
+      <Section tone="mist" aria-labelledby="stack-heading">
         <Container>
           <div className="max-w-2xl">
             <Eyebrow>Technology</Eyebrow>
             <h2 id="stack-heading" className="mt-5 text-display-md text-ink">
               Proven tools you can run yourself.
             </h2>
-            <p className="mt-5 text-body-lg text-muted">
-              A small, modern, well-supported stack you can hire for — not
-              whatever is trending this quarter.
-            </p>
           </div>
           <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
             {techStack.map((group) => (

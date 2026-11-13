@@ -25,7 +25,7 @@ export default function PricingPage() {
       <PageHero
         eyebrow="Pricing"
         title="Pay for the tokens we burn — not the hours we bill."
-        intro="Agencies charge for time. AI made time cheap, so we charge for what actually builds your product: the compute our agents use — estimated up front, capped by you, and visible as we go."
+        intro="Estimated up front, capped by you, visible as we go."
       >
         <ButtonLink href="/contact" size="lg">
           Get an estimate
@@ -62,7 +62,7 @@ export default function PricingPage() {
       </Section>
 
       {/* Included */}
-      <Section tone="mist" aria-labelledby="included-heading">
+      <Section tone="deep" aria-labelledby="included-heading">
         <Container>
           <div className="max-w-2xl">
             <Eyebrow>Always included</Eyebrow>
@@ -84,7 +84,7 @@ export default function PricingPage() {
       </Section>
 
       {/* vs hourly agency */}
-      <Section aria-labelledby="vs-heading">
+      <Section tone="mist" aria-labelledby="vs-heading">
         <Container>
           <div className="max-w-2xl">
             <Eyebrow>Compared</Eyebrow>
@@ -92,7 +92,7 @@ export default function PricingPage() {
               Hourly agency vs. token-based.
             </h2>
           </div>
-          <div className="relative mt-12 overflow-x-auto rounded-xl border border-line">
+          <div className="relative mt-12 overflow-x-auto rounded-xl border border-line bg-paper">
             <table className="w-full min-w-[560px] border-collapse text-left text-body-sm">
               <caption className="sr-only">Hourly agency billing compared with Veraft token-based billing</caption>
               <thead>
@@ -101,7 +101,7 @@ export default function PricingPage() {
                     &nbsp;
                   </th>
                   <th scope="col" className="px-6 py-4 font-medium text-ink">Typical hourly agency</th>
-                  <th scope="col" className="border-l border-accent/20 bg-accent/5 px-6 py-4 font-medium text-accent-fg">
+                  <th scope="col" className="border-l border-accent/30 bg-accent/10 px-6 py-4 font-medium text-accent-fg">
                     Veraft
                   </th>
                 </tr>
@@ -111,7 +111,7 @@ export default function PricingPage() {
                   <tr key={row.label} className="border-b border-line last:border-0">
                     <th scope="row" className="px-6 py-4 font-normal text-ink">{row.label}</th>
                     <td className="px-6 py-4 text-muted">{row.agency}</td>
-                    <td className="border-l border-accent/20 bg-accent/5 px-6 py-4 text-ink">{row.veraft}</td>
+                    <td className="border-l border-accent/30 bg-accent/5 px-6 py-4 text-ink">{row.veraft}</td>
                   </tr>
                 ))}
               </tbody>
@@ -124,7 +124,7 @@ export default function PricingPage() {
 
       <CtaBand
         title="Get a token estimate for your idea."
-        body="Book a short call. We'll scope it into milestones and send an estimate with a cap — free, and with no obligation."
+        body="A short call. Milestones, an estimate and a cap — free."
       />
     </main>
   );

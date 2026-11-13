@@ -81,7 +81,7 @@ export function ServiceDetail({ slug }: { slug: string }) {
       </Section>
 
       {/* How we approach it */}
-      <Section tone="mist">
+      <Section tone="deep">
         <Container>
           <div className="max-w-2xl">
             <Eyebrow>How we approach it</Eyebrow>
@@ -104,7 +104,7 @@ export function ServiceDetail({ slug }: { slug: string }) {
       </Section>
 
       {/* Cross-links to other services */}
-      <Section padding="compact">
+      <Section tone="mist" padding="compact">
         <Container>
           <h2 className="text-heading text-ink">Stack another brick</h2>
           <ul className="mt-8 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
@@ -112,7 +112,7 @@ export function ServiceDetail({ slug }: { slug: string }) {
               <li key={p.slug} className="bg-paper">
                 <div className="flex h-full flex-col p-6">
                   <h3 className="text-heading text-ink">{p.title}</h3>
-                  <p className="mt-2 text-body-sm text-muted">{p.summary}</p>
+                  <p className="mt-2 text-body-sm text-muted">{p.tagline}</p>
                   <ArrowLink href={p.href} className="mt-auto pt-5">
                     Explore
                   </ArrowLink>

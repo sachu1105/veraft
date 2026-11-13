@@ -1,14 +1,19 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-type Tone = "paper" | "mist" | "ink";
+type Tone = "paper" | "mist" | "deep";
 type Padding = "default" | "compact" | "none";
 type SectionTag = "section" | "div" | "article" | "aside" | "header";
 
+/**
+ * Section backgrounds. Alternate them so the page has rhythm instead of one
+ * long white sheet. `deep` is a navy block in both themes: `.surface-deep`
+ * re-maps every token inside it, so children use the usual utilities.
+ */
 const toneClass: Record<Tone, string> = {
   paper: "bg-paper text-ink",
   mist: "bg-mist text-ink",
-  ink: "bg-ink-soft text-paper",
+  deep: "surface-deep bg-paper text-ink",
 };
 
 const paddingClass: Record<Padding, string> = {
@@ -26,7 +31,7 @@ export function Corner({ className }: { className?: string }) {
     <span
       aria-hidden
       className={cn(
-        "pointer-events-none absolute z-10 hidden size-1.5 bg-accent min-[1264px]:block",
+        "pointer-events-none absolute z-10 hidden size-1.5 bg-ink min-[1264px]:block",
         className,
       )}
     />
@@ -61,13 +66,11 @@ export function Section({
   corners?: boolean;
   "aria-labelledby"?: string;
 }) {
-  const dark = tone === "ink";
   return (
     <Tag
       id={id}
       className={cn(
-        "relative border-b",
-        dark ? "border-line-dark" : "border-line",
+        "relative border-b border-line",
         toneClass[tone],
         className,
       )}
@@ -75,8 +78,7 @@ export function Section({
     >
       <div
         className={cn(
-          "relative mx-auto h-full w-full max-w-[1200px] min-[1264px]:border-x",
-          dark ? "min-[1264px]:border-line-dark" : "min-[1264px]:border-line",
+          "relative mx-auto h-full w-full max-w-[1200px] min-[1264px]:border-x min-[1264px]:border-line",
           paddingClass[padding],
           frameClassName,
         )}

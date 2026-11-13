@@ -91,8 +91,8 @@ export function CountryPicker({
         }
         className={cn(
           "flex shrink-0 items-center gap-2 rounded-md border bg-paper px-3 text-body text-ink",
-          "transition-colors duration-150 hover:border-ink/25 focus-visible:border-accent focus-visible:outline-none",
-          "data-[state=open]:border-accent",
+          "transition-colors duration-150 hover:border-ink/25 focus-visible:border-ink focus-visible:outline-none",
+          "data-[state=open]:border-ink",
           invalid ? "border-danger" : "border-line",
         )}
       >

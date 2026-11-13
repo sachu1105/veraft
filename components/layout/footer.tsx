@@ -15,14 +15,13 @@ export function Footer() {
   const year = 2026;
 
   return (
-    <footer className="relative overflow-hidden bg-paper">
+    <footer className="relative overflow-hidden bg-mist text-ink">
       <div className="mx-auto w-full max-w-[1200px] min-[1264px]:border-x min-[1264px]:border-line">
         <div className="grid gap-12 px-6 pb-12 pt-20 sm:px-10 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:px-12">
           <div className="max-w-sm">
             <Logo />
             <p className="mt-6 text-heading font-medium text-accent-fg">
-              Software built brick by brick with AI agents — from first brief
-              to production.
+              Software built brick by brick with AI agents.
             </p>
             <ButtonLink href="/contact" className="mt-7">
               Book a call

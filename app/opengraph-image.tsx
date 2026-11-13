@@ -6,18 +6,20 @@ export const contentType = "image/png";
 export const alt = `${site.name} — ${site.tagline}`;
 
 // Satori can't read CSS variables, so the brand tokens are restated here.
-const INK = "#0B0C10";
-const MUTED = "#6B7280";
-const LINE = "#E6E8EC";
-const ACCENT = "#001FFE";
-const ACCENT_2 = "#3D6BFF";
+const INK = "#141413";
+const MUTED = "#6B6963";
+const LINE = "#E8E6E1";
+const ACCENT = "#4E50F5";
+const ACCENT_2 = "#3A3CD6";
+const PAPER = "#FFFFFF";
+const MIST = "#F5F4F1";
 
 /** Stacked bricks, echoing the hero illustration. */
 const bricks = [
-  { w: 300, h: 44, bg: "#ffffff", border: INK },
-  { w: 300, h: 34, bg: "#F5F6F8", border: INK },
+  { w: 300, h: 44, bg: PAPER, border: INK },
+  { w: 300, h: 34, bg: MIST, border: INK },
   { w: 300, h: 110, bg: ACCENT, border: INK },
-  { w: 300, h: 40, bg: "#ffffff", border: INK },
+  { w: 300, h: 40, bg: PAPER, border: INK },
   { w: 300, h: 34, bg: INK, border: INK },
 ];
 
@@ -29,7 +31,7 @@ export default function OpengraphImage() {
           width: "100%",
           height: "100%",
           display: "flex",
-          background: "#ffffff",
+          background: PAPER,
           fontFamily: "sans-serif",
           borderBottom: `12px solid ${ACCENT}`,
         }}
@@ -77,9 +79,9 @@ export default function OpengraphImage() {
         >
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <div style={{ display: "flex", gap: 8 }}>
-              <div style={{ width: 96, height: 56, background: "#ffffff", border: `2px solid ${INK}` }} />
+              <div style={{ width: 96, height: 56, background: PAPER, border: `2px solid ${INK}` }} />
               <div style={{ width: 96, height: 56, background: ACCENT_2, border: `2px solid ${INK}` }} />
-              <div style={{ width: 92, height: 56, background: "#ffffff", border: `2px solid ${INK}` }} />
+              <div style={{ width: 92, height: 56, background: PAPER, border: `2px solid ${INK}` }} />
             </div>
             {bricks.map((b, i) => (
               <div

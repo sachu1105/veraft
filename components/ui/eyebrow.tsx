@@ -1,7 +1,7 @@
 import { cn } from "@/lib/cn";
 
 /**
- * Small mono label above headings. The accent dot is the only color spent
+ * Small mono label above headings. The blue square is the only color spent
  * here — keeps the "software / data" texture without shouting.
  */
 export function Eyebrow({
@@ -21,7 +21,7 @@ export function Eyebrow({
         className,
       )}
     >
-      <span aria-hidden className="size-1.5 rounded-full bg-accent" />
+      <span aria-hidden className="size-2 rounded-[2px] bg-accent" />
       {children}
     </span>
   );
