@@ -71,11 +71,11 @@
   --c-brand-300: 150 160 240;
   --c-brand-200: 206 211 250;
 
-  /* Fixed three-tone gradient for the footer wordmark — pink → violet →
-     blue, picked to match the CTA gradient photo. Same in both themes. */
-  --c-grad-1: 236 112 191;
-  --c-grad-2: 124 92 230;
-  --c-grad-3: 46 110 240;
+  /* Fixed three-tone gradient for the footer wordmark — violet → periwinkle
+     → vivid blue, running bottom-left to top-right. Same in both themes. */
+  --c-grad-1: 124 84 228; /* #7C54E4 violet */
+  --c-grad-2: 92 104 216; /* #5C68D8 periwinkle */
+  --c-grad-3: 32 100 240; /* #2064F0 vivid blue */
 
   /* Fixed near-blacks for the hero's "Veraft card" brick — black in both
      themes, like a physical card. */

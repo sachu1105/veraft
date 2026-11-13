@@ -2,7 +2,7 @@ import { Section } from "@/components/ui/section";
 import { models } from "@/lib/content";
 
 /**
- * "Agents on our bench" — a bordered strip of model wordmarks (text only,
+ * "Models we orchestrate" — a bordered strip of model wordmarks (text only,
  * no third-party logos), in the spirit of a "trusted by" logo row. Hairline
  * dividers come from a 1px grid gap over the line color.
  */
@@ -14,13 +14,13 @@ export function ModelStrip() {
           id="models-heading"
           className="col-span-2 flex items-center bg-paper px-6 py-6 font-mono text-label uppercase leading-relaxed tracking-[0.14em] text-muted sm:col-span-3 sm:px-10 lg:col-span-1 lg:px-12"
         >
-          Agents on
-          <br className="hidden lg:block" /> our bench
+          Models we
+          <br className="hidden lg:block" /> orchestrate
         </h2>
         {models.map((m) => (
           <div
             key={m.name}
-            className="flex min-h-[104px] flex-col items-center justify-center gap-1 bg-paper px-4 py-6 text-center last:col-span-2 lg:last:col-span-1"
+            className="flex min-h-[84px] flex-col items-center justify-center gap-1 bg-paper px-4 py-4 sm:min-h-[104px] sm:py-6 text-center last:col-span-2 lg:last:col-span-1"
           >
             <span className="text-[1.375rem] font-semibold tracking-tight text-ink/80">
               {m.name}

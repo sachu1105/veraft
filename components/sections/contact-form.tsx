@@ -35,7 +35,7 @@ const inputBase =
   "w-full rounded-md border bg-paper px-4 py-3 text-body text-ink " +
   "placeholder:text-muted/60 transition-colors duration-150 focus:border-ink";
 
-/** "Book a call" form — posts to /api/contact, which emails us via Resend. */
+/** "Start a project" form — posts to /api/contact, which emails us via Resend. */
 export function ContactForm() {
   const [values, setValues] = useState<Values>(empty);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -221,7 +221,7 @@ export function ContactForm() {
 
       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
         <Button type="submit" size="lg" disabled={submitting}>
-          {submitting ? "Sending…" : "Book a call"}
+          {submitting ? "Sending…" : "Send project details"}
           {!submitting && <ArrowRight size={18} strokeWidth={1.75} aria-hidden />}
         </Button>
         <p className="text-body-sm text-muted">Reply within one business day.</p>

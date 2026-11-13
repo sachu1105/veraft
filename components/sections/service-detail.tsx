@@ -14,13 +14,15 @@ import { Reveal } from "@/components/motion/reveal";
 import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
-/** Shared layout for the four /services/[pillar] pages. */
+/** Shared layout for the /services/[pillar] pages. */
 export function ServiceDetail({ slug }: { slug: string }) {
   const pillar = getPillar(slug);
   const detail = serviceDetails[slug];
   if (!pillar || !detail) notFound();
 
-  const others = pillars.filter((p) => p.slug !== slug);
+  // The next three pillars after this one, wrapping — a full row of cards.
+  const index = pillars.findIndex((p) => p.slug === slug);
+  const others = [1, 2, 3].map((n) => pillars[(index + n) % pillars.length]);
 
   return (
     <main id="main">
@@ -54,7 +56,7 @@ export function ServiceDetail({ slug }: { slug: string }) {
 
       <PageHero eyebrow={pillar.title} title={pillar.summary} intro={detail.whoFor}>
         <ButtonLink href="/contact" size="lg">
-          Book a call
+          Start a project
           <ArrowRight size={18} strokeWidth={1.75} aria-hidden />
         </ButtonLink>
       </PageHero>
@@ -86,7 +88,7 @@ export function ServiceDetail({ slug }: { slug: string }) {
           <div className="max-w-2xl">
             <Eyebrow>How we approach it</Eyebrow>
             <h2 className="mt-5 text-display-md text-ink">
-              Agent speed. Engineer standards.
+              AI speed. Engineering standards.
             </h2>
           </div>
           <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-3">
@@ -106,8 +108,8 @@ export function ServiceDetail({ slug }: { slug: string }) {
       {/* Cross-links to other services */}
       <Section tone="mist" padding="compact">
         <Container>
-          <h2 className="text-heading text-ink">Stack another brick</h2>
-          <ul className="mt-8 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
+          <h2 className="text-heading text-ink">Related capabilities</h2>
+          <ul className="mt-8 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
             {others.map((p) => (
               <li key={p.slug} className="bg-paper">
                 <div className="flex h-full flex-col p-6">

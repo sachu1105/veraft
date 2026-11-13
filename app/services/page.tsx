@@ -5,9 +5,9 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Services — web apps, AI agents, integrations & deployment",
+  title: "Services — MVPs, custom software, AI products, design, security & deployment",
   description:
-    "Web apps and SaaS, AI features and agents, integrations and automation, and deployment and maintenance — built end-to-end with AI agents and reviewed by engineers.",
+    "Complete product engineering: MVP and startup development, custom software and web apps, AI-powered products, UI/UX design, security and performance, deployment and infrastructure.",
   path: "/services",
 });
 
@@ -16,13 +16,13 @@ export default function ServicesPage() {
     <main id="main">
       <PageHero
         eyebrow="Services"
-        title="Four bricks. One team to stack them."
-        intro="Use one, or let us take you from first brief to live and looked after."
+        title="Complete product engineering, not just code."
+        intro="Six capabilities, one accountable team. Use one, or let us deliver the whole product."
       />
       <ServiceList />
       <CtaBand
-        title="Not sure which brick you need?"
-        body="Describe the outcome. We'll propose the simplest path, with a token estimate."
+        title="Not sure where to start?"
+        body="Describe the outcome. We'll propose the simplest path, with scope, timeline and budget."
       />
     </main>
   );

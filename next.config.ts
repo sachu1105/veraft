@@ -6,6 +6,12 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  async redirects() {
+    return [
+      // Automation was folded into custom software and AI products.
+      { source: "/services/automation", destination: "/services/web-development", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

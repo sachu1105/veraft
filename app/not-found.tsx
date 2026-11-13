@@ -9,7 +9,7 @@ export default function NotFound() {
       <Container className="py-32">
         <Eyebrow>Error 404</Eyebrow>
         <h1 className="mt-6 max-w-2xl text-display-lg text-ink">
-          This brick isn&apos;t in the stack.
+          We couldn&apos;t find that page.
         </h1>
         <p className="mt-6 max-w-md text-body-lg text-muted">
           The link may be old or the page may have moved. Let&apos;s get you

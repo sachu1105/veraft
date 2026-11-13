@@ -1,6 +1,14 @@
 # Veraft Website
 
-AI-first software company marketing site. Next.js (App Router) + TypeScript + Tailwind v3.4 + Motion + Lenis. Positioning: end-to-end software delivery (build → integrate → secure → deploy → maintain) by AI agents (Claude, ChatGPT, DeepSeek…) reviewed by engineers, priced by tokens burned.
+AI-native product engineering company marketing site. Next.js (App Router) + TypeScript + Tailwind v3.4 + Motion + Lenis.
+
+## Positioning (brand strategy brief)
+
+- Brand line: "Build better products. Move faster." Tagline: "AI-native product engineering". Primary CTA: "Start a project".
+- Veraft is not an AI coding tool, a freelance marketplace or a traditional agency — AI accelerates the work, structured workflows keep it on track, engineers own the quality.
+- Clients pay for outcomes (fixed scope, milestone-based, dedicated engineering, maintenance retainer). Tokens are NEVER the billing unit; AI usage is an internal cost, optionally reported to the client.
+- Seven-stage methodology (Discover → Architect → Design → Engineer → Validate → Deploy → Evolve), model tiers, quality checklist, audiences and comparison all live in `lib/content.ts`; the six service pillars in `lib/site.ts`.
+- Voice: direct, precise, technically credible. Avoid hype ("build anything instantly", "zero bugs", "cheapest"). No fabricated case studies, clients or metrics.
 
 ## Design system
 
@@ -12,7 +20,7 @@ AI-first software company marketing site. Next.js (App Router) + TypeScript + Ta
 - Avoid a wall of white. Sections alternate `tone="paper" | "mist" | "deep"`. `deep` is a near-black block in both themes: the `.surface-deep` class re-maps every token inside it, so children keep using `bg-paper`/`text-ink`/`border-line`, and Tailwind's `dark:` variant also matches inside it. Page heroes and the footer sit on `mist`. Keep copy short: one line per card, no paragraph where a heading will do.
 - Feature cards (Ramp-style, `components/sections/feature-grid.tsx`): rounded `bg-stone` cards with a `.bg-dots` texture, two-tone headings (ink lead + `text-stone-muted` continuation), a square ↗ button, and app-window mockups on `bg-sheet`. Status pills/icon chips may use the fixed `spot-*` colours (green, violet, rose, sky, amber, orange) — mockups only.
 - The audience is non-technical clients — no terminals, code or jargon in client-facing visuals.
-- The closing CTA (`components/sections/cta-band.tsx`) sits on the soft pink → blue → violet gradient photo `public/images/cta-gradient.png`, via `next/image` (`fill`, `object-cover`) so it ships as AVIF/WebP. White `text-on-dark` copy and a white button (`bg-on-dark text-brand-900`); a soft dark-violet radial scrim behind the copy keeps white text legible over the light middle — fixed tokens, same in both themes. Hairline 1px borders over heavy shadows; `.bg-iso-grid` isometric grid behind hero; giant wordmark in the footer: the word "veraft" with a three-tone pink → violet → blue gradient clipped to the text (`bg-gradient-to-r from-grad-1 via-grad-2 to-grad-3 bg-clip-text`, fixed `grad-*` tokens matching the CTA photo), sized in container units (`text-[38.5cqw]` on a `[container-type:inline-size]` wrapper) so it spans the column edge to edge, sitting flush on the footer's bottom edge (Laravel-style).
+- The closing CTA (`components/sections/cta-band.tsx`) sits on the soft pink → blue → violet gradient photo `public/images/cta-gradient.png`, via `next/image` (`fill`, `object-cover`) so it ships as AVIF/WebP. White `text-on-dark` copy and a white button (`bg-on-dark text-brand-900`); a soft dark-violet radial scrim behind the copy keeps white text legible over the light middle — fixed tokens, same in both themes. Hairline 1px borders over heavy shadows; `.bg-iso-grid` isometric grid behind hero; giant wordmark in the footer: the word "veraft" with a three-tone gradient — violet `#7C54E4` → periwinkle `#5C68D8` → vivid blue `#2064F0`, bottom-left to top-right, no pink — clipped to the text (`bg-gradient-to-tr from-grad-1 via-grad-2 to-grad-3 bg-clip-text`, fixed `grad-*` tokens), sized in container units (`text-[38.5cqw]` on a `[container-type:inline-size]` wrapper) so it spans the column edge to edge, sitting flush on the footer's bottom edge (Laravel-style).
 - Motion is restrained: fast, ease-out, scroll-reveal once, reduced-motion respected (incl. SMIL dots via `.flow-dot`). When unsure, don't animate.
 - Signature element: the isometric brick stack in the home hero (`components/sections/hero-stack.tsx`, pure SVG computed from an iso projection). Ambient motion lives mainly there.
 - Third-party AI models appear as text wordmarks only — never their logos.

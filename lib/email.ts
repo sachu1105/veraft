@@ -69,7 +69,7 @@ function internalHtml(msg: BookingMessage): string {
     )
     .join("");
   return `<div style="font-family:-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.5">
-<h2 style="margin:0 0 16px;font-weight:600;color:#141413">New call booking</h2>
+<h2 style="margin:0 0 16px;font-weight:600;color:#141413">New project enquiry</h2>
 <table style="border-collapse:collapse">${tr}</table>
 <p style="margin:20px 0 6px;color:#6b6963">Message</p>
 <div style="white-space:pre-wrap;color:#141413;border-left:3px solid #5965c7;padding-left:12px">${escapeHtml(msg.message)}</div>
@@ -82,8 +82,8 @@ function confirmationText(msg: BookingMessage): string {
     "",
     `Thanks for reaching out to ${site.name} — we've got your request (${msg.projectType}).`,
     msg.phone
-      ? "We'll call or email you within one business day to set up a short call."
-      : "We'll reply within one business day to set up a short call.",
+      ? "We'll call or email you within one business day to set up a discovery call."
+      : "We'll reply within one business day to set up a discovery call.",
     "",
     "If anything is time-sensitive, just reply to this email.",
     "",
@@ -103,7 +103,7 @@ export async function sendBookingEmail(msg: BookingMessage): Promise<void> {
     from: FROM,
     to: TO,
     replyTo: msg.email,
-    subject: `New call booking: ${msg.name} — ${msg.projectType}`,
+    subject: `New project enquiry: ${msg.name} — ${msg.projectType}`,
     text: internalText(msg),
     html: internalHtml(msg),
   });

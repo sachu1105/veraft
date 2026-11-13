@@ -61,10 +61,10 @@ export default function OpengraphImage() {
               letterSpacing: "-0.03em",
             }}
           >
-            Your software, built brick by brick with AI agents.
+            {site.headline}
           </div>
           <div style={{ display: "flex", color: MUTED, fontSize: 26 }}>
-            Build · Integrate · Deploy — priced by the tokens we burn
+            AI-native product engineering · idea to production
           </div>
         </div>
 

@@ -113,7 +113,7 @@ export function MobileMenu({
                 <ThemeToggle />
               </div>
               <ButtonLink href="/contact" size="lg" onClick={onClose}>
-                Book a call
+                Start a project
               </ButtonLink>
               <a
                 href={`mailto:${contactEmail}`}

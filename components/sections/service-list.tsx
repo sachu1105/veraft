@@ -26,7 +26,7 @@ export function OfferingList({
   );
 }
 
-/** The four pillars expanded with full offerings — one framed block each. */
+/** The pillars expanded with full offerings — one framed block each. */
 export function ServiceList() {
   return (
     <>

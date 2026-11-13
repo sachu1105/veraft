@@ -3,9 +3,11 @@ import { countryCodes } from "@/lib/countries";
 
 export const projectTypes = [
   "New product / MVP",
-  "AI feature or agent",
-  "Integration / automation",
-  "Deploy or maintain an app",
+  "Custom software or web app",
+  "AI-powered product",
+  "UI/UX or product design",
+  "Improve or modernise an existing app",
+  "Ongoing engineering or maintenance",
   "Not sure yet",
 ] as const;
 

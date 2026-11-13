@@ -5,17 +5,17 @@ import { Section } from "@/components/ui/section";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { ButtonLink } from "@/components/ui/button";
 import { PageHero } from "@/components/sections/page-hero";
-import { TokenLedger } from "@/components/sections/token-ledger";
+import { BudgetLedger } from "@/components/sections/budget-ledger";
 import { Faq } from "@/components/sections/faq";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Reveal } from "@/components/motion/reveal";
-import { agencyComparison, pricingFaqs, pricingIncludes, pricingSteps } from "@/lib/content";
+import { engagementModels, engagementSteps, pricingFaqs, pricingIncludes } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Pricing — pay for the tokens we burn",
+  title: "Pricing & engagement models",
   description:
-    "Token-based software development pricing: an up-front estimate, a cap you control, live usage, and invoices for what was actually used. No padded hourly billing.",
+    "Fixed-scope, milestone-based, dedicated engineering or maintenance retainer. You approve scope and budget up front and pay for outcomes — with engineering review, testing and full ownership included.",
   path: "/pricing",
 });
 
@@ -24,11 +24,11 @@ export default function PricingPage() {
     <main id="main">
       <PageHero
         eyebrow="Pricing"
-        title="Pay for the tokens we burn — not the hours we bill."
-        intro="Estimated up front, capped by you, visible as we go."
+        title="Pay for outcomes. Not hours, not tokens."
+        intro="Clear scope, an approved budget and engineering accountability — on every engagement."
       >
         <ButtonLink href="/contact" size="lg">
-          Get an estimate
+          Start a project
           <ArrowRight size={18} strokeWidth={1.75} aria-hidden />
         </ButtonLink>
       </PageHero>
@@ -40,10 +40,10 @@ export default function PricingPage() {
             <div>
               <Eyebrow>How it works</Eyebrow>
               <h2 id="how-heading" className="mt-5 text-display-md text-ink">
-                Three steps. No surprises.
+                Four steps. No surprises.
               </h2>
               <ol className="mt-10 flex flex-col">
-                {pricingSteps.map((s, i) => (
+                {engagementSteps.map((s, i) => (
                   <li key={s.title} className="flex gap-5 border-t border-line py-6 last:border-b">
                     <span className="font-mono text-display-md leading-none text-accent-fg">
                       {String(i + 1).padStart(2, "0")}
@@ -56,18 +56,46 @@ export default function PricingPage() {
                 ))}
               </ol>
             </div>
-            <TokenLedger className="lg:sticky lg:top-28" />
+            <BudgetLedger className="lg:sticky lg:top-28" />
           </div>
         </Container>
       </Section>
 
+      {/* Engagement models */}
+      <Section tone="deep" aria-labelledby="models-heading">
+        <Container>
+          <div className="max-w-2xl">
+            <Eyebrow>Engagement models</Eyebrow>
+            <h2 id="models-heading" className="mt-5 text-display-md text-ink">
+              Pick the shape that fits the work.
+            </h2>
+          </div>
+          <ul className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+            {engagementModels.map((m, i) => (
+              <li key={m.title} className="bg-paper">
+                <Reveal delay={i * 0.05} className="flex h-full flex-col p-6 sm:p-7">
+                  <span className="font-mono text-label text-accent-fg">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-4 text-heading text-ink">{m.title}</h3>
+                  <p className="mt-2 text-body-sm text-muted">{m.body}</p>
+                  <p className="mt-auto pt-6 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-muted">
+                    Best for · {m.fit}
+                  </p>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+
       {/* Included */}
-      <Section tone="deep" aria-labelledby="included-heading">
+      <Section tone="mist" aria-labelledby="included-heading">
         <Container>
           <div className="max-w-2xl">
             <Eyebrow>Always included</Eyebrow>
             <h2 id="included-heading" className="mt-5 text-display-md text-ink">
-              Tokens build it. These make it production-grade.
+              Never add-ons. Part of every engagement.
             </h2>
           </div>
           <ul className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
@@ -83,48 +111,12 @@ export default function PricingPage() {
         </Container>
       </Section>
 
-      {/* vs hourly agency */}
-      <Section tone="mist" aria-labelledby="vs-heading">
-        <Container>
-          <div className="max-w-2xl">
-            <Eyebrow>Compared</Eyebrow>
-            <h2 id="vs-heading" className="mt-5 text-display-md text-ink">
-              Hourly agency vs. token-based.
-            </h2>
-          </div>
-          <div className="relative mt-12 overflow-x-auto rounded-xl border border-line bg-paper">
-            <table className="w-full min-w-[560px] border-collapse text-left text-body-sm">
-              <caption className="sr-only">Hourly agency billing compared with Veraft token-based billing</caption>
-              <thead>
-                <tr className="border-b border-line bg-mist/60">
-                  <th scope="col" className="w-[34%] px-6 py-4 font-mono text-label font-normal uppercase tracking-[0.12em] text-muted">
-                    &nbsp;
-                  </th>
-                  <th scope="col" className="px-6 py-4 font-medium text-ink">Typical hourly agency</th>
-                  <th scope="col" className="border-l border-accent/30 bg-accent/10 px-6 py-4 font-medium text-accent-fg">
-                    Veraft
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {agencyComparison.map((row) => (
-                  <tr key={row.label} className="border-b border-line last:border-0">
-                    <th scope="row" className="px-6 py-4 font-normal text-ink">{row.label}</th>
-                    <td className="px-6 py-4 text-muted">{row.agency}</td>
-                    <td className="border-l border-accent/30 bg-accent/5 px-6 py-4 text-ink">{row.veraft}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Container>
-      </Section>
-
       <Faq items={pricingFaqs} heading="Pricing questions." />
 
       <CtaBand
-        title="Get a token estimate for your idea."
-        body="A short call. Milestones, an estimate and a cap — free."
+        title="Get a scoped proposal for your idea."
+        body="A discovery call, then deliverables, a timeline and a budget — free, no obligation."
+        cta="Start a project"
       />
     </main>
   );

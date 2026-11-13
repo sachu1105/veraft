@@ -15,9 +15,10 @@ import { Section } from "@/components/ui/section";
 import { cn } from "@/lib/cn";
 
 /*
- * Only claim what we actually do: we build software, using AI in our
- * workflow to deliver faster and at higher quality, with an engineer
- * checking the work. No hosting/ops or integration promises here.
+ * The value proposition as four cards: intelligent AI, specialised
+ * expertise, production-ready quality and design. (Speed is told by the
+ * process section.) Mockups
+ * stay in plain English for non-technical clients.
  */
 
 /* ------------------------------------------------------------------ */
@@ -115,7 +116,7 @@ function Done({ children = "Done" }: { children?: ReactNode }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* 1 · Built with AI, checked by engineers — a preview + updates       */
+/* 1 · Specialised expertise — a preview + updates                     */
 /* ------------------------------------------------------------------ */
 
 const slots = ["9:00", "9:30", "10:00", "11:30", "2:00", "3:30"];
@@ -162,65 +163,13 @@ function PreviewVisual() {
       </Window>
 
       <div className="absolute left-12 top-0 max-w-[15rem] rounded-2xl rounded-bl-md bg-sheet px-4 py-3 text-body-sm leading-snug text-ink shadow-raised sm:left-16">
-        ✨ AI built the first version of online booking.
+        ✨ Frontend, backend and database built in parallel.
       </div>
       <div className="absolute right-4 top-[7.5rem] max-w-[15rem] rounded-2xl rounded-br-md bg-sheet px-4 py-3 text-body-sm leading-snug text-ink shadow-raised sm:right-6">
         ✅ Reviewed by your engineer — 3 fixes made.
         <span className="mt-1.5 block text-[0.75rem] text-muted">Try it on your preview link.</span>
       </div>
     </>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* 2 · Delivered fast — a project plan moving week by week             */
-/* ------------------------------------------------------------------ */
-
-const plan: { step: string; when: string; done: boolean }[] = [
-  { step: "Design", when: "Week 1", done: true },
-  { step: "First working version", when: "Week 2", done: true },
-  { step: "Testing & fixes", when: "Week 3", done: true },
-  { step: "Launch", when: "Week 4", done: false },
-];
-
-function TimelineVisual() {
-  return (
-    <Window title="Project plan" className="bottom-0 left-10 right-0 top-2 rounded-tr-none border-r-0 sm:left-16">
-      <div className="p-5">
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-[1.0625rem] font-medium text-ink">Clinic booking app</p>
-          <Done>On schedule</Done>
-        </div>
-        <div className="mt-3 h-2 overflow-hidden rounded-full bg-stone">
-          <div className="h-full w-[80%] rounded-full bg-accent" />
-        </div>
-        <ol className="mt-5 flex flex-col">
-          {plan.map((p, i) => (
-            <li key={p.step} className="relative flex items-center gap-3 pb-4 last:pb-0">
-              {i < plan.length - 1 && (
-                <span className="absolute left-[9px] top-5 h-full w-px bg-stone-line" />
-              )}
-              <span
-                className={cn(
-                  "relative flex size-[19px] shrink-0 items-center justify-center rounded-full border",
-                  p.done ? "border-ink bg-ink text-paper" : "border-accent bg-accent",
-                )}
-              >
-                {p.done && <Check size={11} strokeWidth={3} />}
-              </span>
-              <span className="min-w-0 flex-1 text-body-sm text-ink">{p.step}</span>
-              {p.done ? (
-                <span className="text-[0.75rem] text-muted">{p.when}</span>
-              ) : (
-                <span className="rounded-full bg-accent px-2 py-0.5 text-[0.6875rem] font-medium text-on-accent">
-                  This week
-                </span>
-              )}
-            </li>
-          ))}
-        </ol>
-      </div>
-    </Window>
   );
 }
 
@@ -308,38 +257,48 @@ function DesignVisual() {
 }
 
 /* ------------------------------------------------------------------ */
-/* 5 · AI in the workflow — where it helps, and what that saves        */
+/* 5 · Intelligent AI — each task routed to the right model             */
 /* ------------------------------------------------------------------ */
 
-const aiTasks = ["First drafts of code", "Tests", "Documentation", "Bug hunting"];
+const routes: { task: string; to: string; tone: string; human?: boolean }[] = [
+  { task: "Fix a typo on the pricing page", to: "Lightweight model", tone: "bg-spot-green/10 text-spot-green" },
+  { task: "Build the checkout flow", to: "Coding model", tone: "bg-spot-sky/10 text-spot-sky" },
+  { task: "Plan how the data is stored", to: "Reasoning model", tone: "bg-spot-violet/10 text-spot-violet" },
+  { task: "Approve the release", to: "Senior engineer", tone: "bg-ink/[0.07] text-ink", human: true },
+];
 
-function WorkflowVisual() {
+function RoutingVisual() {
   return (
-    <Window title="How we work" className="bottom-0 left-6 right-6 top-2 sm:left-8 sm:right-8">
+    <Window title="Task routing" className="bottom-0 left-6 right-6 top-2 sm:left-8 sm:right-8">
       <ul className="px-4 pt-2">
-        {aiTasks.map((t) => (
-          <li key={t} className="flex items-center gap-2.5 border-b border-stone-line/70 py-2.5">
-            <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-accent text-on-accent">
-              <Sparkles size={12} strokeWidth={2} />
-            </span>
-            <span className="min-w-0 flex-1 truncate text-body-sm text-ink">{t}</span>
-            <span className="inline-flex shrink-0 items-center gap-1 text-[0.6875rem] text-muted">
-              <UserCheck size={12} strokeWidth={2} />
-              Checked
-            </span>
-          </li>
-        ))}
+        {routes.map((r) => {
+          const Icon = r.human ? UserCheck : Sparkles;
+          return (
+            <li key={r.task} className="flex items-center gap-3 border-b border-stone-line/70 py-2.5">
+              <span className="min-w-0 flex-1 truncate text-body-sm text-ink">{r.task}</span>
+              <span
+                className={cn(
+                  "inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[0.6875rem] font-medium",
+                  r.tone,
+                )}
+              >
+                <Icon size={11} strokeWidth={2.25} />
+                {r.to}
+              </span>
+            </li>
+          );
+        })}
       </ul>
       <div className="px-4 pb-5 pt-4">
-        <p className="text-[0.6875rem] uppercase tracking-[0.12em] text-muted">Time to first version</p>
+        <p className="text-[0.6875rem] uppercase tracking-[0.12em] text-muted">AI cost for the same work</p>
         <div className="mt-2.5 flex items-center gap-2.5">
-          <span className="w-14 shrink-0 text-[0.6875rem] text-muted">Usual</span>
+          <span className="w-24 shrink-0 text-[0.6875rem] text-muted">One big model</span>
           <span className="h-2 flex-1 rounded-full bg-ink/15" />
         </div>
         <div className="mt-2 flex items-center gap-2.5">
-          <span className="w-14 shrink-0 text-[0.6875rem] font-medium text-ink">With AI</span>
+          <span className="w-24 shrink-0 text-[0.6875rem] font-medium text-ink">Right model</span>
           <span className="flex-1">
-            <span className="block h-2 w-[42%] rounded-full bg-accent" />
+            <span className="block h-2 w-[45%] rounded-full bg-accent" />
           </span>
         </div>
       </div>
@@ -353,58 +312,44 @@ function WorkflowVisual() {
 
 export function FeatureGrid() {
   return (
-    <Section aria-label="How we build">
-      <div className="flex flex-col gap-4 px-6 sm:px-10 lg:gap-5 lg:px-12">
-        <div className="grid gap-4 lg:grid-cols-2 lg:gap-5">
-          <FeatureCard
-            lead="Built with AI,"
-            rest="checked by engineers"
-            href="/approach"
-            dotsAt="[--dots-at:55%_70%_at_85%_0%]"
-            className="lg:h-[31rem]"
-          >
-            <PreviewVisual />
-          </FeatureCard>
-          <FeatureCard
-            lead="Delivered fast,"
-            rest="without cutting corners"
-            href="/approach"
-            dotsAt="[--dots-at:50%_60%_at_0%_100%]"
-            className="lg:h-[31rem]"
-          >
-            <TimelineVisual />
-          </FeatureCard>
-        </div>
-
-        <div className="grid gap-4 lg:grid-cols-3 lg:gap-5">
-          <FeatureCard
-            lead="Quality checked"
-            rest="at every step"
-            href="/approach"
-            dotsAt="[--dots-at:60%_50%_at_100%_0%]"
-            className="lg:h-[33rem]"
-          >
-            <QualityVisual />
-          </FeatureCard>
-          <FeatureCard
-            lead="Designed around your users,"
-            rest="on every screen"
-            href="/services/web-development"
-            dotsAt="[--dots-at:55%_60%_at_0%_0%]"
-            className="lg:h-[33rem]"
-          >
-            <DesignVisual />
-          </FeatureCard>
-          <FeatureCard
-            lead="More done, faster,"
-            rest="with AI in our workflow"
-            href="/pricing"
-            dotsAt="[--dots-at:70%_70%_at_50%_60%]"
-            className="lg:h-[33rem]"
-          >
-            <WorkflowVisual />
-          </FeatureCard>
-        </div>
+    <Section aria-label="Why teams build with Veraft">
+      <div className="grid gap-4 px-6 sm:px-10 lg:grid-cols-2 lg:gap-5 lg:px-12">
+        <FeatureCard
+          lead="Intelligent AI,"
+          rest="the right model for every task"
+          href="/approach#models"
+          dotsAt="[--dots-at:70%_70%_at_50%_60%]"
+          className="lg:h-[30rem]"
+        >
+          <RoutingVisual />
+        </FeatureCard>
+        <FeatureCard
+          lead="Specialised expertise,"
+          rest="on every layer"
+          href="/services"
+          dotsAt="[--dots-at:55%_70%_at_85%_0%]"
+          className="lg:h-[30rem]"
+        >
+          <PreviewVisual />
+        </FeatureCard>
+        <FeatureCard
+          lead="Production-ready quality,"
+          rest="checked at every stage"
+          href="/approach#quality"
+          dotsAt="[--dots-at:60%_50%_at_100%_0%]"
+          className="lg:h-[30rem]"
+        >
+          <QualityVisual />
+        </FeatureCard>
+        <FeatureCard
+          lead="Designed around your users,"
+          rest="on every screen"
+          href="/services/product-design"
+          dotsAt="[--dots-at:55%_60%_at_0%_0%]"
+          className="lg:h-[30rem]"
+        >
+          <DesignVisual />
+        </FeatureCard>
       </div>
     </Section>
   );

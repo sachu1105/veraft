@@ -1,6 +1,6 @@
 /**
  * Single source of truth for site-wide constants: identity, contact,
- * navigation and the four service pillars. Imported by Header, Footer,
+ * navigation and the service pillars. Imported by Header, Footer,
  * metadata, sitemap and JSON-LD.
  */
 
@@ -9,9 +9,11 @@ export const site = {
   domain: "veraft.com",
   // Set NEXT_PUBLIC_SITE_URL in production if the domain differs.
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://veraft.com").replace(/\/$/, ""),
-  tagline: "Software built brick by brick with AI agents",
+  tagline: "AI-native product engineering",
+  /** The brand line, used in the hero, footer and social image. */
+  headline: "Build better products. Move faster.",
   description:
-    "Veraft plans, builds, integrates, secures and deploys your software end-to-end with AI agents like Claude, ChatGPT and DeepSeek — reviewed by engineers and priced by the tokens we actually burn.",
+    "Veraft is an AI-native product engineering company helping businesses design, build and launch production-ready software through intelligent AI workflows and specialised engineering expertise.",
   email: "veraftio@gmail.com",
   // TODO: replace with the real registered location.
   location: "Remote-first · India",
@@ -25,17 +27,17 @@ export type NavItem = {
 /** Primary header navigation. */
 export const primaryNav: NavItem[] = [
   { label: "Services", href: "/services" },
-  { label: "How we work", href: "/approach" },
+  { label: "How we build", href: "/approach" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
 ];
 
-/** The four service pillars — reused on /, /services, detail pages, and nav. */
+/** The service pillars — reused on /, /services, detail pages, and nav. */
 export type Pillar = {
   slug: string;
   title: string;
   href: string;
-  /** One short line for compact cards (home services row). */
+  /** One short line for compact cards (home services grid). */
   tagline: string;
   summary: string;
   lead: string;
@@ -44,71 +46,105 @@ export type Pillar = {
 
 export const pillars: Pillar[] = [
   {
-    slug: "web-development",
-    title: "Web apps & SaaS",
-    href: "/services/web-development",
-    tagline: "Apps, dashboards and internal tools.",
+    slug: "mvp",
+    title: "MVP & startup development",
+    href: "/services/mvp",
+    tagline: "From idea to a market-ready MVP.",
     summary:
-      "Production-grade web apps, SaaS products, dashboards and internal tools — built by AI agents, reviewed by engineers.",
-    lead: "A SaaS MVP with sign-up, billing and an admin panel — live on your domain, not stuck in a chat window.",
+      "Turn an idea into a market-ready MVP — discovery, feasibility, design, build, testing and launch.",
+    lead: "A founder's idea, scoped and designed, then live as an MVP real users can sign up to.",
     offerings: [
-      "SaaS products & MVPs",
-      "Web applications",
-      "Admin dashboards & internal tools",
-      "Customer & partner portals",
-      "Marketing sites & landing pages",
-      "E-commerce",
+      "Product discovery",
+      "Technical feasibility",
+      "MVP architecture",
+      "UI/UX design",
+      "Rapid development",
+      "Testing & launch",
+    ],
+  },
+  {
+    slug: "web-development",
+    title: "Custom software & web apps",
+    href: "/services/web-development",
+    tagline: "SaaS, portals, dashboards and internal tools.",
+    summary:
+      "Purpose-built software around your business — SaaS products, business systems, portals and internal tools.",
+    lead: "A SaaS product with sign-up, billing and an admin panel — built around how your business actually works.",
+    offerings: [
+      "SaaS applications",
+      "Business management systems",
+      "Dashboards & internal tools",
+      "Customer portals",
+      "APIs & third-party integrations",
+      "Modernising existing apps",
     ],
   },
   {
     slug: "ai-solutions",
-    title: "AI features & agents",
+    title: "AI-powered products",
     href: "/services/ai-solutions",
-    tagline: "Chatbots and copilots grounded in your data.",
+    tagline: "Assistants, agents and AI features.",
     summary:
-      "Chatbots, copilots and agents grounded in your own data — wired into the product and tools you already have.",
-    lead: "A support agent that answers from your docs and hands off to a person with the full context attached.",
+      "Products with AI built in — assistants, agents, document intelligence and search, grounded in your own data.",
+    lead: "A support assistant that answers from your docs and hands off to a person with the full context attached.",
     offerings: [
-      "Customer support agents",
-      "Knowledge-base search (RAG)",
-      "Internal copilots",
-      "Document extraction",
-      "AI features in existing apps",
-      "Model selection & evals",
+      "AI assistants & agents",
+      "Document intelligence",
+      "AI-powered search",
+      "Recommendation systems",
+      "LLM integrations",
+      "Workflow automation",
     ],
   },
   {
-    slug: "automation",
-    title: "Integrations & automation",
-    href: "/services/automation",
-    tagline: "Payments, email, CRMs and APIs, connected.",
+    slug: "product-design",
+    title: "UI/UX & product design",
+    href: "/services/product-design",
+    tagline: "Research, journeys and design systems.",
     summary:
-      "Connect payments, email, CRMs and APIs, then let the repetitive work run itself — reliably, in the background.",
-    lead: "Orders flow from your store into accounting and email — no copy-paste, no missed steps.",
+      "Intuitive, accessible product experiences — from research and user journeys to a complete design system.",
+    lead: "A booking flow mapped, wireframed and designed — clear on every screen, usable by everyone.",
     offerings: [
-      "Payments (Stripe, Razorpay)",
-      "Email & notifications",
-      "CRM & ERP integrations",
-      "Third-party & internal APIs",
-      "Workflow automation",
-      "Scheduled & event-driven jobs",
+      "Product research",
+      "User journeys",
+      "Wireframes",
+      "Design systems",
+      "Responsive interfaces",
+      "Accessibility",
+    ],
+  },
+  {
+    slug: "security",
+    title: "Security & performance",
+    href: "/services/security",
+    tagline: "Secure, fast and tested before launch.",
+    summary:
+      "Products ready for real-world use — secure access, protected data, fast responses and automated tests.",
+    lead: "An app reviewed for security and speed, the fixes made, and tests in place to keep it that way.",
+    offerings: [
+      "Authentication & access control",
+      "Secure API design",
+      "Input validation",
+      "Database optimisation",
+      "Application performance",
+      "Automated tests & security reviews",
     ],
   },
   {
     slug: "deployment",
-    title: "Deploy & maintain",
+    title: "Deployment & infrastructure",
     href: "/services/deployment",
-    tagline: "Hosting, CI/CD, monitoring and care.",
+    tagline: "Cloud, release pipelines, monitoring, support.",
     summary:
-      "Hosting, CI/CD, domains, monitoring and ongoing care — so launch day isn't the last day anyone looks after it.",
+      "From development to production — cloud setup, release pipelines, monitoring, backups and ongoing support.",
     lead: "A release pipeline that tests, deploys and alerts — and a team that fixes it when something breaks.",
     offerings: [
-      "Cloud setup (AWS, Vercel, GCP)",
+      "Cloud deployment",
       "CI/CD pipelines",
-      "Domains, SSL & email setup",
-      "Monitoring & error tracking",
-      "Backups & security patches",
-      "Monthly care plans",
+      "Infrastructure configuration",
+      "SSL & HTTPS",
+      "Monitoring & backups",
+      "Maintenance & support",
     ],
   },
 ];

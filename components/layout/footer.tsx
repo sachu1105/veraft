@@ -5,10 +5,10 @@ import { ButtonLink } from "@/components/ui/button";
 import { Logo } from "./logo";
 
 const companyLinks = [
-  { label: "How we work", href: "/approach" },
+  { label: "How we build", href: "/approach" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
-  { label: "Book a call", href: "/contact" },
+  { label: "Start a project", href: "/contact" },
 ];
 
 export function Footer() {
@@ -21,10 +21,10 @@ export function Footer() {
           <div className="max-w-sm">
             <Logo />
             <p className="mt-6 text-heading font-medium text-accent-fg">
-              Software built brick by brick with AI agents.
+              {site.headline}
             </p>
             <ButtonLink href="/contact" className="mt-7">
-              Book a call
+              Start a project
               <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
             </ButtonLink>
           </div>
@@ -72,16 +72,17 @@ export function Footer() {
           <p>
             © {year} {site.name}. All rights reserved.
           </p>
-          <p className="font-mono">Built brick by brick.</p>
+          <p className="font-mono">{site.tagline}.</p>
         </div>
 
-        {/* Oversized wordmark (Laravel-style): a pink → violet → blue gradient
+        {/* Oversized wordmark (Laravel-style): violet → periwinkle → vivid blue,
+            bottom-left to top-right — a gradient
             clipped to the letters, sized off the
             column width (container units) so it spans edge to edge at every
             breakpoint, and sitting flush on the bottom edge — the footer's
             overflow-hidden trims the empty space under the baseline. */}
         <div aria-hidden className="mt-6 px-6 [container-type:inline-size] sm:px-10 lg:px-12">
-          <p className="-mb-[0.135em] select-none whitespace-nowrap text-[38.5cqw] font-semibold leading-none tracking-[-0.06em] text-transparent bg-gradient-to-r from-grad-1 via-grad-2 to-grad-3 bg-clip-text">
+          <p className="-mb-[0.135em] select-none whitespace-nowrap text-[38.5cqw] font-semibold leading-none tracking-[-0.06em] bg-gradient-to-tr from-grad-1 via-grad-2 to-grad-3 bg-clip-text text-transparent">
             veraft
           </p>
         </div>

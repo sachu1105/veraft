@@ -20,15 +20,17 @@ const btn =
 export function CtaBand({
   title = (
     <>
-      Lay the first brick.
+      Have an idea worth building?
       <br />
-      What will you ship?
+      Let&apos;s engineer it.
     </>
   ),
-  body = "Tell us what you want to build. You'll get a plan, a token estimate and a cap.",
+  body = "Tell us what you need. You'll get a scoped plan, a timeline and a budget to approve.",
+  cta = "Start your project",
 }: {
   title?: React.ReactNode;
   body?: string;
+  cta?: string;
 }) {
   return (
     <Section padding="none" aria-labelledby="cta-heading">
@@ -60,7 +62,7 @@ export function CtaBand({
               href="/contact"
               className={`${btn} bg-on-dark text-brand-900 shadow-[0_10px_30px_-12px_rgb(var(--c-brand-950)/0.5)] hover:bg-brand-200`}
             >
-              Book a call
+              {cta}
               <ArrowRight size={18} strokeWidth={1.75} aria-hidden />
             </Link>
           </div>

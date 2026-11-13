@@ -3,9 +3,9 @@ import { ServiceDetail } from "@/components/sections/service-detail";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Web app & SaaS development with AI agents",
+  title: "Custom software & web application development",
   description:
-    "Production-grade web apps, SaaS products, MVPs, dashboards and internal tools — built fast by AI agents, reviewed by engineers, deployed to your own cloud.",
+    "Purpose-built SaaS applications, business systems, dashboards, internal tools and customer portals — engineered around your requirements with AI-accelerated workflows and specialised engineers.",
   path: "/services/web-development",
 });
 

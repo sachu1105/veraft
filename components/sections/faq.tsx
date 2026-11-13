@@ -12,13 +12,15 @@ export function Faq({
   items,
   heading = "Common questions.",
   eyebrow = "FAQ",
+  tone = "paper",
 }: {
   items: FaqItem[];
   heading?: string;
   eyebrow?: string;
+  tone?: "paper" | "mist";
 }) {
   return (
-    <Section aria-labelledby="faq-heading">
+    <Section tone={tone} aria-labelledby="faq-heading">
       <JsonLd
         data={{
           "@context": "https://schema.org",

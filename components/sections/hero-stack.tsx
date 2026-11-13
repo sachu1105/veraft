@@ -212,11 +212,12 @@ export function HeroStack({ className }: { className?: string }) {
       aria-labelledby="vs-title vs-desc"
       className={cn("h-auto w-full select-none overflow-visible", className)}
     >
-      <title id="vs-title">Your product, built brick by brick</title>
+      <title id="vs-title">Your product, engineered layer by layer</title>
       <desc id="vs-desc">
         An isometric stack of building blocks — deploy, security and tests, the
-        Veraft build layer, AI agents, and UI, AI and auth bricks on top — fed by
-        Claude, ChatGPT, DeepSeek and Gemini, shipping a live product.
+        Veraft engineering layer, AI models, and design, AI and security bricks
+        on top — fed by Claude, ChatGPT, DeepSeek and Gemini, shipping a live
+        product.
       </desc>
 
       <defs>

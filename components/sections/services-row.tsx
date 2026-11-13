@@ -1,91 +1,84 @@
 import Link from "next/link";
-import { ArrowRight, Bot, CloudUpload, Globe, Workflow } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bot, CloudUpload, Globe, PenTool, Rocket, ShieldCheck } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { pillars } from "@/lib/site";
 import { Section } from "@/components/ui/section";
-import { cn } from "@/lib/cn";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
-/** Icon per pillar — used by the services overview list. */
+/** Icon per pillar — used by the home grid and the services overview. */
 export const pillarIcons: Record<string, LucideIcon> = {
+  mvp: Rocket,
   "web-development": Globe,
   "ai-solutions": Bot,
-  automation: Workflow,
+  "product-design": PenTool,
+  security: ShieldCheck,
   deployment: CloudUpload,
 };
 
 /**
- * The four services as a timeline: a row of dots joined by a hairline, each
- * with a title, one line of description and a mono label. Horizontal on
- * desktop, a vertical timeline on small screens. Sits on the navy block.
+ * The service pillars as a hairline grid on the deep block: icon, number,
+ * title and one line each. The whole cell links to the pillar page.
  */
 export function ServicesRow({
-  heading = "Four bricks. Use one, or stack them all.",
+  heading = "Complete engineering capabilities.",
 }: {
   heading?: string;
 }) {
   return (
     <Section tone="deep" aria-labelledby="services-heading">
       <div className="px-6 sm:px-10 lg:px-12">
-        <h2 id="services-heading" className="max-w-2xl text-display-md text-ink">
-          {heading}
-        </h2>
+        <div className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end lg:gap-16">
+          <div>
+            <Eyebrow>Services</Eyebrow>
+            <h2 id="services-heading" className="mt-5 max-w-xl text-display-md text-ink">
+              {heading}
+            </h2>
+          </div>
+          <p className="max-w-lg text-body-lg text-muted">
+            From the first requirement to production. Use one, or let us deliver
+            the whole product.
+          </p>
+        </div>
 
-        <ol className="mt-14 grid gap-x-10 lg:mt-16 lg:grid-cols-4">
+        <ul className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:mt-14 lg:grid-cols-3">
           {pillars.map((p, i) => {
-            const first = i === 0;
-            const last = i === pillars.length - 1;
+            const Icon = pillarIcons[p.slug];
             return (
-              <li key={p.slug} className="relative">
-                {/* Connector: vertical on mobile, horizontal on desktop */}
-                {!last && (
-                  <>
-                    <span
-                      aria-hidden
-                      className="absolute bottom-0 left-[6px] top-6 w-px bg-line lg:hidden"
-                    />
-                    <span
-                      aria-hidden
-                      className="absolute -right-7 left-6 top-[6px] hidden h-px bg-line lg:block"
-                    />
-                  </>
-                )}
-
+              <li key={p.slug} className="bg-paper">
                 <Link
                   href={p.href}
-                  className="group block pb-10 pl-9 lg:pb-0 lg:pl-0 lg:pr-4"
+                  className="group flex h-full items-start gap-4 p-5 sm:flex-col sm:items-stretch sm:gap-0 sm:p-7"
                 >
-                  {/* Dot */}
-                  <span
-                    aria-hidden
-                    className={cn(
-                      "absolute left-0 top-0 flex size-[13px] items-center justify-center rounded-full transition-colors duration-200",
-                      first ? "bg-accent-fg/20" : "bg-line group-hover:bg-accent-fg/20",
-                    )}
-                  >
-                    <span
-                      className={cn(
-                        "size-[5px] rounded-full transition-colors duration-200",
-                        first ? "bg-accent-fg" : "bg-muted group-hover:bg-accent-fg",
-                      )}
-                    />
-                  </span>
-
-                  <h3 className="text-body font-medium text-ink transition-colors group-hover:text-accent-fg lg:mt-14">
-                    {p.title}
-                  </h3>
-                  <p className="mt-2 text-body-sm text-muted">{p.tagline}</p>
-                  <p className="mt-4 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-muted/80">
-                    {String(i + 1).padStart(2, "0")} · {p.offerings.length} services
-                  </p>
+                  {/* Phones: icon beside the text, as a compact row. sm+: a card. */}
+                  <div className="flex shrink-0 items-center justify-between">
+                    <span className="flex size-10 items-center justify-center rounded-md border border-line text-accent-fg">
+                      {Icon && <Icon size={19} strokeWidth={1.5} aria-hidden />}
+                    </span>
+                    <span className="hidden font-mono text-label text-muted sm:inline">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="flex items-center gap-1.5 text-heading text-ink transition-colors group-hover:text-accent-fg sm:mt-8">
+                      {p.title}
+                      <ArrowUpRight
+                        size={16}
+                        strokeWidth={1.75}
+                        aria-hidden
+                        className="opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+                      />
+                    </h3>
+                    <p className="mt-1 text-body-sm text-muted sm:mt-2">{p.tagline}</p>
+                  </div>
                 </Link>
               </li>
             );
           })}
-        </ol>
+        </ul>
 
         <Link
           href="/services"
-          className="group mt-4 inline-flex items-center gap-1.5 text-body-sm text-muted transition-colors hover:text-ink lg:mt-16"
+          className="group mt-8 inline-flex items-center gap-1.5 text-body-sm text-muted transition-colors hover:text-ink"
         >
           View all services
           <ArrowRight

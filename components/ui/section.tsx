@@ -17,8 +17,8 @@ const toneClass: Record<Tone, string> = {
 };
 
 const paddingClass: Record<Padding, string> = {
-  default: "py-20 sm:py-24 lg:py-28",
-  compact: "py-14 sm:py-16",
+  default: "py-14 sm:py-20 lg:py-24",
+  compact: "py-12 sm:py-14",
   none: "",
 };
 

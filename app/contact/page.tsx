@@ -8,25 +8,25 @@ import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Book a call",
+  title: "Start a project",
   description:
-    "Book a short call with Veraft. Tell us what you want to build — we'll reply within one business day and follow up with a plan, a token estimate and a cap.",
+    "Tell Veraft what you want to build. We reply within one business day, run a discovery call, and follow up with a proposal: scope, timeline and budget.",
   path: "/contact",
 });
 
 const nextSteps = [
   "We reply within one business day, by email or a call if you left a number.",
-  "A short call to understand the problem and what done looks like.",
-  "A milestone plan with a token estimate and a cap — no obligation.",
+  "A discovery call on your goals, users and requirements.",
+  "A proposal with scope, timeline, budget and engagement model — no obligation.",
 ];
 
 export default function ContactPage() {
   return (
     <main id="main">
       <PageHero
-        eyebrow="Book a call"
-        title="Let's lay the first brick."
-        intro="Tell us what you want to build. The more context, the better the first call."
+        eyebrow="Start a project"
+        title="Have an idea worth building? Let's engineer it."
+        intro="Tell us what you want to build. The more context, the better the discovery call."
       />
 
       <Section>

@@ -99,7 +99,7 @@ export function Header() {
             <ThemeToggle />
           </div>
           <ButtonLink href="/contact" className="hidden h-10 px-4 md:inline-flex">
-            Book a call
+            Start a project
             <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
           </ButtonLink>
           <button

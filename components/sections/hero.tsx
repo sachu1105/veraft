@@ -5,7 +5,7 @@ import { Section } from "@/components/ui/section";
 import { HeroStack } from "@/components/sections/hero-stack";
 
 /**
- * Home hero: the promise on the left, the isometric brick stack on the right.
+ * Home hero: the brand line on the left, the isometric brick stack on the right.
  * On wide screens the illustration is anchored to the bottom-right and its
  * agent feed lines run underneath the copy, appearing from off-canvas.
  */
@@ -20,28 +20,26 @@ export function Hero() {
 
       <div className="relative lg:min-h-[740px]">
         <div className="relative z-10 max-w-[700px] px-6 pt-16 sm:px-10 sm:pt-20 lg:px-12 lg:pb-32 lg:pt-28">
-          <Eyebrow>AI-native software studio</Eyebrow>
+          <Eyebrow>AI-native product engineering</Eyebrow>
 
           <h1 className="mt-7 text-[clamp(2.6rem,1.6rem+3.4vw,3.75rem)] leading-[1.04] tracking-[-0.035em] text-ink">
-            Your software,{" "}
-            <br className="hidden sm:block" />
-            built brick by brick{" "}
-            <br className="hidden sm:block" />
-            with AI&nbsp;agents.
+            Build better products.
+            <br />
+            Move faster.
           </h1>
 
           <p className="mt-6 max-w-[34rem] text-body-lg text-muted">
-            From brief to production. You pay for the tokens we burn, not
-            the hours we bill.
+            Intelligent AI systems and specialised engineers design, build and
+            deliver your production-ready software.
           </p>
 
           <div className="mt-9 flex flex-wrap gap-2.5 sm:gap-3">
             <ButtonLink href="/contact" size="lg" className="flex-auto sm:flex-none">
-              Book a call
+              Start a project
               <ArrowRight size={18} strokeWidth={1.75} aria-hidden />
             </ButtonLink>
-            <ButtonLink href="/pricing" size="lg" variant="secondary" className="flex-auto sm:flex-none">
-              How pricing works
+            <ButtonLink href="/approach" size="lg" variant="secondary" className="flex-auto sm:flex-none">
+              Explore our approach
             </ButtonLink>
           </div>
         </div>
