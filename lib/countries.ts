@@ -220,18 +220,11 @@ export function findCountry(iso: string | undefined) {
   return iso ? byIso.get(iso.toUpperCase()) : undefined;
 }
 
-export const DEFAULT_COUNTRY: CountryCode = "US";
-
-/** Best guess at the visitor's country from the browser locale (e.g. "en-GB" → "GB"). */
-export function detectCountry(): CountryCode {
-  if (typeof navigator === "undefined") return DEFAULT_COUNTRY;
-  for (const tag of navigator.languages ?? [navigator.language]) {
-    const region = tag.split("-")[1]?.toUpperCase();
-    const match = region ? byIso.get(region) : undefined;
-    if (match) return match[0];
-  }
-  return DEFAULT_COUNTRY;
-}
+/**
+ * India by default — most enquiries come from there, and the browser locale
+ * is no help (Indian machines usually report "en-US").
+ */
+export const DEFAULT_COUNTRY: CountryCode = "IN";
 
 const KEEPS_LEADING_ZERO = new Set<string>(["IT", "SM", "VA"]);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 import {
   ArrowRight,
   Bot,
@@ -13,7 +13,7 @@ import {
   Wrench,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { DEFAULT_COUNTRY, detectCountry } from "@/lib/countries";
+import { DEFAULT_COUNTRY } from "@/lib/countries";
 import { CountryPicker } from "@/components/ui/country-picker";
 import {
   contactSchema,
@@ -51,8 +51,6 @@ const projectIcons: Record<ProjectType, LucideIcon> = {
   "Not sure yet": CircleHelp,
 };
 
-const noopSubscribe = () => () => {};
-
 const inputBase =
   "w-full rounded-md border bg-paper px-4 py-3 text-body text-ink " +
   "placeholder:text-muted/60 transition-colors duration-150 focus:border-ink";
@@ -69,14 +67,8 @@ export function ContactForm({ className }: { className?: string }) {
   const [formError, setFormError] = useState<string | null>(null);
   const [showPhone, setShowPhone] = useState(false);
 
-  // Pre-select the visitor's country from the browser locale (client only, so
-  // the server render uses the default and hydration stays consistent).
-  const detectedCountry = useSyncExternalStore(
-    noopSubscribe,
-    detectCountry,
-    () => DEFAULT_COUNTRY,
-  );
-  const phoneCountry = values.phoneCountry || detectedCountry;
+  // India by default (see DEFAULT_COUNTRY); the visitor can pick another.
+  const phoneCountry = values.phoneCountry || DEFAULT_COUNTRY;
 
   function update<K extends keyof Values>(key: K, value: string) {
     setValues((v) => ({ ...v, [key]: value }));
