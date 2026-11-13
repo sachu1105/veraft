@@ -6,8 +6,7 @@ export const projectTypes = [
   "Custom software or web app",
   "AI-powered product",
   "UI/UX or product design",
-  "Improve or modernise an existing app",
-  "Ongoing engineering or maintenance",
+  "Improve or maintain an existing app",
   "Not sure yet",
 ] as const;
 
