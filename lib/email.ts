@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { site } from "@/lib/site";
 import type { ContactInput } from "@/lib/contact-schema";
+import { findCountry, formatInternational } from "@/lib/countries";
 
 /**
  * Booking / contact delivery via Resend.
@@ -34,20 +35,20 @@ const escapeHtml = (s: string) =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
 
-function preferredCall(msg: BookingMessage): string {
-  const parts = [msg.preferredDate, msg.preferredSlot].filter(Boolean);
-  if (!parts.length) return "No preference";
-  return `${parts.join(" · ")}${msg.timezone ? ` (${msg.timezone})` : ""}`;
+function phoneLine(msg: BookingMessage): string {
+  const full = formatInternational(msg.phone ?? "", msg.phoneCountry);
+  if (!full) return "— (reply by email)";
+  const country = msg.phone?.trim().startsWith("+") ? undefined : findCountry(msg.phoneCountry);
+  return country ? `${full} (${country[1]})` : full;
 }
 
 function rows(msg: BookingMessage): [string, string][] {
   return [
     ["Name", msg.name],
     ["Email", msg.email],
-    ["Company", msg.company?.trim() || "—"],
-    ["Project", msg.projectType],
-    ["Timeline", msg.timeline],
-    ["Preferred call", preferredCall(msg)],
+    ["Phone", phoneLine(msg)],
+    ["Needs", msg.projectType],
+    ["Time zone", msg.timezone || "—"],
   ];
 }
 
@@ -80,7 +81,9 @@ function confirmationText(msg: BookingMessage): string {
     `Hi ${msg.name},`,
     "",
     `Thanks for reaching out to ${site.name} — we've got your request (${msg.projectType}).`,
-    "We'll reply within one business day to confirm a time for a short call.",
+    msg.phone
+      ? "We'll call or email you within one business day to set up a short call."
+      : "We'll reply within one business day to set up a short call.",
     "",
     "If anything is time-sensitive, just reply to this email.",
     "",

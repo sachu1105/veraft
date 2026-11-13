@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { ArrowRight, Check } from "lucide-react";
+import { DEFAULT_COUNTRY, detectCountry } from "@/lib/countries";
+import { CountryPicker } from "@/components/ui/country-picker";
 import {
-  callSlots,
   contactSchema,
   projectTypes,
-  timelines,
   toFieldErrors,
   type ContactInput,
   type FieldErrors,
@@ -21,15 +21,15 @@ type Values = { [K in keyof ContactInput]-?: string };
 const empty: Values = {
   name: "",
   email: "",
-  company: "",
+  phone: "",
+  phoneCountry: "",
   projectType: "",
-  timeline: "",
-  preferredDate: "",
-  preferredSlot: "",
   timezone: "",
   message: "",
   website: "",
 };
+
+const noopSubscribe = () => () => {};
 
 const inputBase =
   "w-full rounded-md border bg-paper px-4 py-3 text-body text-ink " +
@@ -42,6 +42,11 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [formError, setFormError] = useState<string | null>(null);
 
+  // Pre-select the visitor's country from the browser locale (client only, so
+  // the server render uses the default and hydration stays consistent).
+  const detectedCountry = useSyncExternalStore(noopSubscribe, detectCountry, () => DEFAULT_COUNTRY);
+  const phoneCountry = values.phoneCountry || detectedCountry;
+
   function update<K extends keyof Values>(key: K, value: string) {
     setValues((v) => ({ ...v, [key]: value }));
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
@@ -53,6 +58,7 @@ export function ContactForm() {
 
     const parsed = contactSchema.safeParse({
       ...values,
+      phoneCountry,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     });
     if (!parsed.success) {
@@ -102,14 +108,16 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-xl border border-line bg-paper p-8 sm:p-10" role="status">
+      <div className="rounded-xl border border-line bg-paper p-8 shadow-raised dark:bg-mist sm:p-10" role="status">
         <span className="flex size-11 items-center justify-center rounded-md bg-accent/10 text-accent-fg">
           <Check size={22} strokeWidth={1.75} aria-hidden />
         </span>
         <h2 className="mt-5 text-heading text-ink">Request received — thank you.</h2>
         <p className="mt-2.5 max-w-md text-body text-muted">
-          We&apos;ll reply within one business day to confirm a time. If it&apos;s
-          urgent, email{" "}
+          {values.phone
+            ? "We'll call or email you within one business day to set up a short call."
+            : "We'll email you within one business day to set up a short call."}{" "}
+          If it&apos;s urgent, email{" "}
           <a href={`mailto:${site.email}`} className="text-accent-fg underline-offset-2 hover:underline">
             {site.email}
           </a>
@@ -128,7 +136,7 @@ export function ContactForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="relative rounded-xl border border-line bg-paper p-6 shadow-[0_24px_60px_-34px_rgb(var(--c-accent)/0.4)] sm:p-8"
+      className="relative rounded-xl border border-line bg-paper p-6 shadow-raised dark:bg-mist sm:p-8"
     >
       {formError && (
         <p
@@ -163,22 +171,17 @@ export function ContactForm() {
         />
       </div>
 
-      <div className="mt-5">
-        <Field
-          id="company"
-          label="Company"
-          optional
-          error={errors.company}
-          value={values.company}
-          onChange={(v) => update("company", v)}
-          autoComplete="organization"
-          placeholder="Company or project name"
-        />
-      </div>
+      <PhoneField
+        country={phoneCountry}
+        onCountryChange={(v) => update("phoneCountry", v)}
+        value={values.phone}
+        onChange={(v) => update("phone", v)}
+        error={errors.phone}
+      />
 
       <ChipGroup
         name="projectType"
-        legend="What are we building?"
+        legend="What do you need?"
         required
         options={projectTypes}
         value={values.projectType}
@@ -186,69 +189,18 @@ export function ContactForm() {
         onChange={(v) => update("projectType", v)}
       />
 
-      <ChipGroup
-        name="timeline"
-        legend="Timeline"
-        required
-        options={timelines}
-        value={values.timeline}
-        error={errors.timeline}
-        onChange={(v) => update("timeline", v)}
-      />
-
-      <fieldset className="mt-7">
-        <legend className="mb-2.5 block font-mono text-label uppercase tracking-[0.1em] text-muted">
-          Preferred call time <span className="ml-1 normal-case">(optional)</span>
-        </legend>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <label htmlFor="field-preferredDate" className="sr-only">
-            Preferred date
-          </label>
-          <input
-            id="field-preferredDate"
-            type="date"
-            value={values.preferredDate}
-            onFocus={(e) => {
-              e.currentTarget.min = new Date().toISOString().slice(0, 10);
-            }}
-            onChange={(e) => update("preferredDate", e.target.value)}
-            aria-invalid={!!errors.preferredDate}
-            className={cn(
-              inputBase,
-              "sm:w-auto",
-              errors.preferredDate ? "border-danger" : "border-line",
-            )}
-          />
-          <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Preferred time of day">
-            {callSlots.map((slot) => (
-              <Chip
-                key={slot}
-                name="preferredSlot"
-                value={slot}
-                checked={values.preferredSlot === slot}
-                onChange={() => update("preferredSlot", values.preferredSlot === slot ? "" : slot)}
-              />
-            ))}
-          </div>
-        </div>
-        {errors.preferredDate && (
-          <FieldError id="preferredDate-error">{errors.preferredDate}</FieldError>
-        )}
-        <p className="mt-2 text-label text-muted">We&apos;ll match your time zone automatically.</p>
-      </fieldset>
-
       <div className="mt-7">
         <FieldLabel htmlFor="field-message" label="Tell us about it" required />
         <textarea
           id="field-message"
           name="message"
-          rows={5}
+          rows={4}
           required
           value={values.message}
           onChange={(e) => update("message", e.target.value)}
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
-          placeholder="What are you building, who is it for, and what does done look like?"
+          placeholder="A few lines is plenty: what you want to build and who it's for."
           className={cn(inputBase, "resize-y", errors.message ? "border-danger" : "border-line")}
         />
         {errors.message && <FieldError id="message-error">{errors.message}</FieldError>}
@@ -381,6 +333,56 @@ function FieldError({ id, children }: { id: string; children: string }) {
   );
 }
 
+/** Phone with a searchable country-code picker (flag + dial code). */
+function PhoneField({
+  country,
+  onCountryChange,
+  value,
+  onChange,
+  error,
+}: {
+  country: string;
+  onCountryChange: (iso: string) => void;
+  value: string;
+  onChange: (value: string) => void;
+  error?: string;
+}) {
+  const describedBy = error ? "phone-error" : "phone-hint";
+  return (
+    <div className="mt-5">
+      <FieldLabel htmlFor="field-phone" label="Phone / WhatsApp" optional />
+      <div className="flex gap-2">
+        <CountryPicker
+          id="field-phoneCountry"
+          value={country}
+          onChange={onCountryChange}
+          invalid={!!error}
+        />
+        <input
+          id="field-phone"
+          name="phone"
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel-national"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          aria-invalid={!!error}
+          aria-describedby={describedBy}
+          placeholder="Phone number"
+          className={cn(inputBase, "min-w-0 flex-1", error ? "border-danger" : "border-line")}
+        />
+      </div>
+      {error ? (
+        <FieldError id="phone-error">{error}</FieldError>
+      ) : (
+        <p id="phone-hint" className="mt-2 text-label text-muted">
+          Add it if you&apos;d rather we call you. Otherwise we&apos;ll reply by email.
+        </p>
+      )}
+    </div>
+  );
+}
+
 function Field({
   id,
   label,
@@ -388,10 +390,12 @@ function Field({
   onChange,
   error,
   type = "text",
+  inputMode,
   required,
   optional,
   autoComplete,
   placeholder,
+  hint,
 }: {
   id: string;
   label: string;
@@ -399,11 +403,15 @@ function Field({
   onChange: (value: string) => void;
   error?: string;
   type?: string;
+  inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
   required?: boolean;
   optional?: boolean;
   autoComplete?: string;
   placeholder?: string;
+  hint?: string;
 }) {
+  // The hint is replaced by the error when one shows, so reference whichever is rendered.
+  const describedBy = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
   return (
     <div>
       <FieldLabel htmlFor={`field-${id}`} label={label} required={required} optional={optional} />
@@ -411,16 +419,25 @@ function Field({
         id={`field-${id}`}
         name={id}
         type={type}
+        inputMode={inputMode}
         required={required}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         aria-invalid={!!error}
-        aria-describedby={error ? `${id}-error` : undefined}
+        aria-describedby={describedBy}
         autoComplete={autoComplete}
         placeholder={placeholder}
         className={cn(inputBase, error ? "border-danger" : "border-line")}
       />
-      {error && <FieldError id={`${id}-error`}>{error}</FieldError>}
+      {error ? (
+        <FieldError id={`${id}-error`}>{error}</FieldError>
+      ) : (
+        hint && (
+          <p id={`${id}-hint`} className="mt-2 text-label text-muted">
+            {hint}
+          </p>
+        )
+      )}
     </div>
   );
 }

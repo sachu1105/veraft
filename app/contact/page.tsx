@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const nextSteps = [
-  "We reply within one business day to confirm a time.",
+  "We reply within one business day, by email or a call if you left a number.",
   "A short call to understand the problem and what done looks like.",
   "A milestone plan with a token estimate and a cap — no obligation.",
 ];

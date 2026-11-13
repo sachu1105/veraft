@@ -26,6 +26,14 @@
   --c-accent-2: 61 107 255; /* signature element glow ONLY */
   --c-danger: 192 52 29; /* form validation errors only */
   --c-on-accent: 255 255 255; /* text/icons on accent fills — same in both themes */
+  --c-shadow: 11 12 16; /* neutral shadow colour — never accent-tinted */
+
+  /* Neutral elevation for raised cards (forms, panels): a tight contact
+     shadow plus a soft ambient one. Redefined for dark below. */
+  --shadow-raised:
+    0 1px 2px rgb(var(--c-shadow) / 0.04),
+    0 4px 12px -2px rgb(var(--c-shadow) / 0.05),
+    0 24px 48px -16px rgb(var(--c-shadow) / 0.12);
 
   /* Fixed brand blues for the CTA "aurora" band. Deliberately NOT overridden
      in dark mode, so the band looks identical in both themes. */
@@ -70,6 +78,14 @@
   --c-muted-dark: 150 157 171;
   --c-accent-fg: 92 122 255; /* #5C7AFF — 5.3:1 on the dark surface */
   --c-danger: 248 113 94;
+  --c-shadow: 0 0 0;
+
+  /* Shadows barely read on dark, so pair a deeper drop with a faint top
+     highlight to lift the card's edge. */
+  --shadow-raised:
+    inset 0 1px 0 rgb(var(--c-ink) / 0.04),
+    0 1px 2px rgb(var(--c-shadow) / 0.4),
+    0 24px 48px -16px rgb(var(--c-shadow) / 0.6);
 
   color-scheme: dark;
 }

@@ -66,6 +66,9 @@ const config: Config = {
         "body-sm": ["0.9375rem", { lineHeight: "1.55" }],
         label: ["0.8125rem", { lineHeight: "1.4" }],
       },
+      boxShadow: {
+        raised: "var(--shadow-raised)",
+      },
       borderRadius: {
         card: "14px",
         pill: "999px",

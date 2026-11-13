@@ -48,7 +48,7 @@ export async function POST(request: Request) {
       name: booking.name,
       email: booking.email,
       projectType: booking.projectType,
-      timeline: booking.timeline,
+      hasPhone: Boolean(booking.phone),
       length: booking.message.length,
     });
     return NextResponse.json({ ok: true });

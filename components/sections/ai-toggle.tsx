@@ -34,7 +34,7 @@ export function AiToggle() {
             className={cn(
               "relative mx-1 inline-flex h-[0.82em] w-[1.5em] translate-y-[0.08em] items-center rounded-full align-baseline transition-[background-color,box-shadow] duration-300 ease-out-quint",
               on
-                ? "bg-accent shadow-[0_12px_40px_-6px_rgb(var(--c-accent)/0.65)]"
+                ? "bg-accent shadow-raised"
                 : "bg-line shadow-none",
             )}
           >
