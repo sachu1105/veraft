@@ -3,11 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Mail, Menu } from "lucide-react";
+import { ArrowRight, Menu } from "lucide-react";
 import { primaryNav, site } from "@/lib/site";
 import { cn } from "@/lib/cn";
 import { ButtonLink } from "@/components/ui/button";
-import { CopyEmail } from "@/components/ui/copy-email";
 import { Logo } from "./logo";
 import { MobileMenu } from "./mobile-menu";
 import { ThemeToggle } from "./theme-toggle";
@@ -96,10 +95,6 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <CopyEmail className="hidden items-center gap-2 rounded-md border border-line px-3 py-2 text-body-sm text-ink/80 transition-colors hover:border-ink/25 hover:text-ink lg:inline-flex">
-            <Mail size={15} strokeWidth={1.75} aria-hidden />
-            Email us
-          </CopyEmail>
           <ButtonLink href="/contact" className="hidden h-10 px-4 md:inline-flex">
             Book a call
             <ArrowRight size={16} strokeWidth={1.75} aria-hidden />

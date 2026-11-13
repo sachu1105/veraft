@@ -25,8 +25,21 @@ export async function POST(request: Request) {
   }
 
   // If email delivery isn't configured, fall back to logging so local
-  // development still works without credentials.
+  // development still works without credentials. In production that would
+  // silently drop real enquiries, so fail loudly instead.
   if (!isEmailConfigured()) {
+    if (process.env.NODE_ENV === "production") {
+      console.error("[contact] RESEND_API_KEY is not set — booking NOT delivered", {
+        email: booking.email,
+      });
+      return NextResponse.json(
+        {
+          ok: false,
+          message: "Our booking form is temporarily unavailable. Please email us directly.",
+        },
+        { status: 503 },
+      );
+    }
     console.info("[contact] new booking (email not configured)", {
       name: booking.name,
       email: booking.email,
